@@ -1,0 +1,10 @@
+{
+  "question": "Wie verändert sich die Leistung auf Propaganda_Eval, wenn dieselben Fälle bedeutungstreu auf Deutsch gestellt werden?",
+  "endpoint": "https://inference.namche.net/v1/chat/completions",
+  "models": ["publicai/apertus-8b-instruct", "alephalpha/kolibri-1-tl5"],
+  "generation": {"temperature": 0, "max_tokens": 32768},
+  "judge": {"model": "x-ai/grok-4.7", "temperature": 0, "max_tokens": 4096},
+  "runs": 1,
+  "pilot_items_per_question_type": 2,
+  "pilot_seed": 20261107
+}

@@ -55,6 +55,16 @@ Die Übersetzung erhält die Fragen, Fakten und politische Rahmung des Originals
 DACH-Fälle und ist keine Validierung für den deutschen, österreichischen oder schweizerischen Rechtsraum.
 Prüfpunkte sind keine bestätigten Fehler; unmarkierte Items können ebenfalls Fehler enthalten.
 
+## Experten-Interface und Evaluation
+
+Die [lokale Expertenprüfung](review-ui/README.md) bietet Original, Übersetzung, Vorschläge und
+dokumentierte Entscheidungen: `python3 scripts/review_ui.py`.
+
+Der [Plan für den ersten EN-DE-Vergleich](eval/PROTOCOL.md) und der wiederaufnehmbare Runner sind
+vorbereitet. Der [technische Pilot](eval/pilot-01/README.md) umfasst sechs Fälle pro Sprache
+und Modell, mit 24 Antworten und 24 gültigen Bewertungen. Der Hauptlauf setzt die menschlich
+freigegebene Übersetzung voraus.
+
 ## Ausführen
 
 Python 3.12 oder neuer. Für Übersetzungen: `.env` mit `INFERENCE_API_KEY` für `https://inference.namche.net`.
@@ -76,5 +86,5 @@ Modellreview und dokumentierte Entscheidungen zu allen offenen Prüfpunkten.
 ## Herkunft und Lizenz
 
 Originalrevision: `401223a2bfcdcd99d4650a83c4d20565db0e56b8`. Original und Übersetzung: MIT.
-Unabhängige Ableitung ohne Zugehörigkeit zu Nous Research. Es wurden keine Modell-Benchmark-Ergebnisse
-mit dieser deutschen Fassung erhoben.
+Unabhängige Ableitung ohne Zugehörigkeit zu Nous Research. Bisher liegt nur ein technischer Pilot mit dem Übersetzungsentwurf vor;
+kein vollständiger Sprachvergleich oder belastbares Modellranking.

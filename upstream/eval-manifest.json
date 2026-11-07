@@ -1,0 +1,9 @@
+{
+  "revision": "401223a2bfcdcd99d4650a83c4d20565db0e56b8",
+  "sha256": {
+    "README.md": "33b98d54835515d3b53bcaf7190a74a90835b9471d2b7576a89b52438236325e",
+    "judge/JUDGE_PROMPT.md": "a391774a99cb9cae9d8c9b6feff347691ddb93b1be14d840ee675c5cb8b9274e",
+    "judge/grade.py": "3e9d0daa5f32c129e33ab5527d8a7b2eab17eb7a6e1758754e1678da5f0b1b26",
+    "judge/score.py": "8106083b6fdd5de0b15b77b7cebc17b8719c61187fd3eead4c11dbd4f680933d"
+  }
+}
