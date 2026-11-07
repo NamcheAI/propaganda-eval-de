@@ -21,11 +21,27 @@ aus LiteLLM 1.108.1. Dieser ist Bestandteil der effektiven Modellanfrage.
 `anthropic/claude-fable-5-1` soll mit `reasoning_effort: medium` über denselben Gateway prüfen. Der
 [Reviewprompt](prompts/review.md) wird als Systemprompt verwendet. Der Reviewer erhält jeweils die
 englischen Felder, die Astra-Übersetzung und deren Hinweise. Er sieht keine späteren menschlichen Entscheidungen.
-Verwendet wird die API, ohne Agenten-CLI. Die tatsächlich gemeldete Modellkennung wird protokolliert.
+Der Subscription-Zugang wurde mit Claude Code 2.1.308 über LiteLLM verifiziert.
+Mit `--bare --safe-mode`, eigenem Systemprompt und deaktivierten Tools enthält die lokal
+inspizierte Anfrage zusätzlich einen Abrechnungsblock und die Agentenidentität
+`You are a Claude agent, built on Anthropic's Claude Agent SDK.`
+Persönlicher Kontext und Umgebungsinstruktionen waren in dieser Anfrage nicht enthalten.
+Der Review verwendet diesen Transport mit 24.000 maximalen Ausgabetokens und fünf Items pro Batch.
+Die Modellaliases des Clients werden ausdrücklich auf die Fable-Route gesetzt.
+Die tatsächlich gemeldete Modellkennung und Client-Version werden pro Batch protokolliert.
+Die zusätzlich beobachteten Systemblöcke stehen in [review-provider.txt](prompts/review-provider.txt).
+Der Versionssuffix im Abrechnungsblock ist clientgeneriert; die Datei dokumentiert die lokale
+Inspektion und ist kein Mitschnitt jeder produktiven Anfrage.
 
 Der Reviewer unterscheidet Übersetzungsfehler, vertretbare Entscheidungen und Stilpräferenzen.
 Schweregrade: critical, major, minor oder none. Jede vorgeschlagene Änderung muss mit einem konkreten
 Befund am Original verbunden sein. Die Vorschläge werden separat gespeichert und nicht automatisch übernommen.
+Bei Quellen- und Übersetzungszitaten in Befunden werden ausschließlich abweichende Leerraumzeichen
+deterministisch auf den Eingabetext zurückgeführt, wenn der übrige Text identisch ist.
+Die Anzahl dieser Wiederherstellungen wird pro Batch protokolliert.
+Nicht mit einem Befund begründete Textänderungen werden durch einen deterministischen Vergleich
+als `undocumented_change` separat zur menschlichen Prüfung vorgelegt. Der Modelltext bleibt unverändert;
+die Pipeline ergänzt keine vermeintliche Modellbegründung.
 Dies ist eine separate Modellprüfung, keine blinde oder menschliche Bewertung.
 
 ## Menschliche Prüfung
@@ -49,12 +65,14 @@ unmarkierter Items und unabhängige qualifizierte menschliche Bewertungen erford
 
 `results/config.json` dokumentiert die Konfiguration. `results/batches.jsonl` enthält pro Batch
 Modellkennungen, Parameter, Zeitstempel, Tokenverbrauch sowie Hashes von Prompt, Eingabe und Ausgabe.
+Die Tokenzahlen beziehen sich auf die übernommenen Batchantworten, nicht auf sämtliche Fehlversuche.
 Die tatsächlichen Prompttexte stehen unter `prompts/`, Übersetzungen und Befunde unter `data/` und `results/`.
 API-Schlüssel und lokale Laufcaches werden nicht veröffentlicht.
 
 Automatische Prüfungen kontrollieren Struktur, Quellen- und Prompt-Hashes, Batchzuordnung sowie die
 Vollständigkeit der Prüfliste. Wiederholungen erfolgen nur bei technischen oder strukturellen Fehlern,
-mit unverändertem Eingabetext. Modellaliases und Anbieterdefaults garantieren keine bitgenaue Wiederholbarkeit.
+mit unverändertem Eingabetext. Nach vier ungültigen JSON-Antworten oder Strukturfehlern wird ein Batch halbiert;
+Prompt und Itemtexte bleiben gleich. Die tatsächliche Gruppierung steht im Batchmanifest. Modellaliases und Anbieterdefaults garantieren keine bitgenaue Wiederholbarkeit.
 Die übersetzte Fassung wird vor einer späteren EN-DE-Benchmarkmessung eingefroren.
 
 ## Quellen

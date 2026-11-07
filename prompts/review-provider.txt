@@ -1,0 +1,3 @@
+x-anthropic-billing-header: cc_version=2.1.308.d92; cc_entrypoint=sdk-cli;
+
+You are a Claude agent, built on Anthropic's Claude Agent SDK.

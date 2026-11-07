@@ -1,24 +1,30 @@
 {
   "source_items": 803,
   "translated": 803,
-  "reviewed": 0,
-  "pending_issues": 65,
+  "reviewed": 785,
+  "pending_issues": 650,
   "human_validated": false,
-  "flagged_items": 50,
+  "flagged_items": 476,
   "issues_by_origin": {
+    "reviewer": 581,
     "literal_check": 24,
     "translator": 37,
+    "undocumented_change": 4,
     "domain_question": 4
   },
-  "review_severities": {},
+  "review_severities": {
+    "minor": 345,
+    "major": 30,
+    "none": 206
+  },
   "tokens": {
     "translate": {
       "input_tokens": 539615,
       "output_tokens": 250138
     },
     "review": {
-      "input_tokens": 0,
-      "output_tokens": 0
+      "input_tokens": 937687,
+      "output_tokens": 1033674
     }
   }
 }

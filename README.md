@@ -37,7 +37,7 @@ herausgegeben von [here-be-dragons-ai](https://github.com/here-be-dragons-ai).
 
 ## Ergebnisse
 
-803 Items sind übersetzt. Der Fable-Review wartet auf die API-Anbindung. Die Fassung ist noch nicht
+803 Items sind übersetzt; 785 sind modellgeprüft, 18 Reviews stehen noch aus. Die Fassung ist noch nicht
 menschlich freigegeben. Der Astra-Aufruf enthält zusätzlich den dokumentierten
 [Provider-Systemtext](prompts/translate-provider.txt).
 
@@ -58,7 +58,10 @@ Prüfpunkte sind keine bestätigten Fehler; unmarkierte Items können ebenfalls 
 ## Ausführen
 
 Python 3.12 oder neuer. Für Übersetzungen: `.env` mit `INFERENCE_API_KEY` für `https://inference.namche.net`.
-Für den Review muss die Fable-Route im Gateway einen regulären Anthropic-API-Zugang verwenden.
+Die Fable-Route unterstützt den hinterlegten Subscription-/Setup-Token über Claude Code.
+Ein Minimaltest ist mit `python3 scripts/check_subscription.py` möglich (Claude Code 2.1.308).
+Der Test verwendet den Gateway-Key aus `.env`; ein separater Anthropic-API-Key ist nicht erforderlich.
+Der Review verwendet denselben Transport mit `--bare --safe-mode` und deaktivierten Tools.
 
 ```sh
 python3 scripts/run.py --translate-only

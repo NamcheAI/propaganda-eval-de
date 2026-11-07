@@ -11,6 +11,8 @@ import os
 import re
 import random
 import threading
+import subprocess
+from subscription import invoke, TransportError
 from pathlib import Path
 import time
 import urllib.error
@@ -119,18 +121,98 @@ def check_result(mode, payload, result):
                 raise ValueError("Missing findings")
             for note in out["findings"]:
                 check_annotation(note, source, inp["translation"], review=True)
-            for field in FIELDS:
-                if field not in source:
-                    continue
-                before, after = inp["translation"][field], target[field]
-                pairs = enumerate(zip(before, after)) if isinstance(before, list) else [(None, (before, after))]
-                for index, (old, new) in pairs:
-                    if old != new and not any(n["field"] == field and n["index"] == index and
-                                             n.get("suggestion") == new for n in out["findings"]):
-                        raise ValueError("Undocumented reviewer change")
+
+
+def undocumented_changes(source, translation, review):
+    notes = []
+    proposed = review['proposed_translation']
+    for field in FIELDS:
+        if field not in source:
+            continue
+        before, after = translation[field], proposed[field]
+        pairs = enumerate(zip(before, after)) if isinstance(before, list) else [(None, (before, after))]
+        for index, (old, new) in pairs:
+            if old != new and not any(n['field'] == field and n['index'] == index
+                                     and n.get('suggestion') == new for n in review['findings']):
+                notes.append({'field': field, 'index': index,
+                              'source': field_value(source, field, index), 'translation': old,
+                              'suggestion': new, 'needs_human_review': True,
+                              'reason': 'Automatischer Textvergleich: Modelländerung ohne zugehörigen Befund.',
+                              'uncertainty': 'Ist die unbegründete Änderung sachlich und sprachlich gerechtfertigt?'})
+    return notes
+
+
+def restore_quote_whitespace(payload, output):
+    count = 0
+    for inp, out in zip(payload['items'], output['items']):
+        for note in out['findings']:
+            for key, original in (('source', inp['source']), ('translation', inp['translation'])):
+                expected = field_value(original, note['field'], note['index'])
+                actual = note[key]
+                if actual != expected and ' '.join(actual.split()) == ' '.join(expected.split()):
+                    note[key] = expected
+                    count += 1
+    return count
+
+
+def split_review(payload, prompt, key):
+    midpoint = len(payload['items']) // 2
+    outputs = []
+    for items in (payload['items'][:midpoint], payload['items'][midpoint:]):
+        outputs.extend(call_subscription({'items': items}, prompt, key)['output']['items'])
+    return {'output': {'items': outputs}}
+
+
+def call_subscription(payload, prompt, key):
+    model, effort = MODELS['review']
+    version = subprocess.check_output(['claude', '--version'], text=True).strip()
+    if version != '2.1.308 (Claude Code)':
+        raise RuntimeError('Claude client version differs from the documented run')
+    body = {'model': model, 'effort': effort, 'system': prompt, 'payload': payload,
+            'transport': 'claude-bare-gateway', 'cli_version': version,
+            'max_tokens': 24000, 'safe_mode': True, 'tools': []}
+    fingerprint = sha(body)
+    cache = ROOT / 'work/model-calls/review' / fingerprint
+    record_path = cache / 'validated.json'
+    if record_path.exists():
+        record = json.loads(record_path.read_text())
+        check_result('review', payload, record['output'])
+        return record
+    write(cache / 'request.json', body)
+    if (cache / 'split.json').exists():
+        return split_review(payload, prompt, key)
+    for attempt in range(1, 5):
+        started = datetime.now(timezone.utc).isoformat()
+        try:
+            data = invoke(model, effort, prompt, payload, key)
+            record = {'request_sha256': fingerprint, 'started_at': started,
+                      'completed_at': datetime.now(timezone.utc).isoformat(),
+                      'requested_model': model, 'requested_reasoning_effort': effort,
+                      'returned_model': model, 'usage': data.get('usage'),
+                      'transport': body['transport'], 'cli_version': version,
+                      'content': data.get('result')}
+            write(cache / f'attempt-{time.time_ns()}.json', record)
+            record['output'] = parse_response(record['content'])
+            record['quote_whitespace_restorations'] = restore_quote_whitespace(payload, record['output'])
+            check_result('review', payload, record['output'])
+            write(record_path, record)
+            return record
+        except (ValueError, KeyError, TypeError, subprocess.TimeoutExpired, TransportError) as exc:
+            error = str(exc).replace(key, '[REDACTED]')
+            if isinstance(exc, TransportError) and ('429' in error or 'rate_limit_error' in error):
+                raise RuntimeError('Provider rate limit; resume from cache after reset') from None
+            print(f'review attempt {attempt}: {error}', flush=True)
+            if attempt == 4:
+                if isinstance(exc, (ValueError, KeyError, TypeError)) and len(payload['items']) > 1:
+                    write(cache / 'split.json', {'reason': 'Repeated structural validation failure', 'item_count': len(payload['items'])})
+                    return split_review(payload, prompt, key)
+                raise RuntimeError(error) from None
+            time.sleep(min(60, 15 * 2 ** (attempt - 1)))
 
 
 def call(mode, payload, prompt, directory, key):
+    if mode == 'review':
+        return call_subscription(payload, prompt, key)
     model, effort = MODELS[mode]
     body = {"model": model, "reasoning_effort": effort, "max_tokens": 24000,
             "messages": [{"role": "system", "content": prompt},
@@ -214,7 +296,7 @@ def export_batches(directory):
                          "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
                          "tokens": tokens,
                          **{k:record.get(k) for k in ("requested_model", "requested_reasoning_effort", "returned_model",
-                                                     "started_at", "completed_at", "transport", "cli_version")}})
+                                                     "started_at", "completed_at", "transport", "cli_version", "quote_whitespace_restorations")}})
     merged = {(r["mode"], tuple(r["item_ids"])):r for r in existing}
     merged.update({(r["mode"], tuple(r["item_ids"])):r for r in rows})
     rows = list(merged.values())
@@ -241,6 +323,8 @@ def build_queue(sources, translations, reviews):
         notes += [("reviewer", n) for n in checked.get(sid, {}).get("findings", [])]
         if sid in first:
             target = first[sid]["translation"]
+            if sid in checked:
+                notes += [("undocumented_change", n) for n in undocumented_changes(s, target, checked[sid])]
             for topic in topics:
                 if topic["item_id"] == sid:
                     field, index = topic["field"], topic["index"]
@@ -327,7 +411,13 @@ def main():
               "batch_size": args.batch_size, "item_ids": [s["id"] for s in sources],
               "endpoint": "https://inference.namche.net/v1/chat/completions",
               "max_tokens": 24000, "sampling": "provider defaults; temperature/top_p/seed not set",
-              "response_format": {"type": "json_object"}, "review_transport": "gateway", "provider_prompt_sha256": {"translate": hashlib.sha256((ROOT / "prompts/translate-provider.txt").read_bytes()).hexdigest()}}
+              "response_format": {"type": "json_object"}, "review_transport": "claude-bare-gateway", "provider_prompt_sha256": {"translate": hashlib.sha256((ROOT / "prompts/translate-provider.txt").read_bytes()).hexdigest()}}
+    config['review_client'] = {'version': '2.1.308 (Claude Code)', 'bare': True,
+                              'safe_mode': True, 'tools': [], 'max_tokens': 24000,
+                              'endpoint': 'https://inference.namche.net/v1/messages',
+                              'response_format': 'prompt-requested JSON; CLI envelope JSON'}
+    config['provider_prompt_sha256']['review'] = hashlib.sha256(
+        (ROOT / 'prompts/review-provider.txt').read_bytes()).hexdigest()
     config_path = args.run_dir / "config.json"
     if config_path.exists() and sha(json.loads(config_path.read_text())) != sha(config):
         raise ValueError("Run configuration changed; use a new directory")

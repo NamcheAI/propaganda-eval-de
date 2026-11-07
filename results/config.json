@@ -826,8 +826,18 @@
   "response_format": {
     "type": "json_object"
   },
-  "review_transport": "gateway",
+  "review_transport": "claude-bare-gateway",
   "provider_prompt_sha256": {
-    "translate": "2fd01dc736506ec3f9f2062aa6c5689eb42e9a79c69f543f3047858b6e7475c5"
+    "translate": "2fd01dc736506ec3f9f2062aa6c5689eb42e9a79c69f543f3047858b6e7475c5",
+    "review": "55dc0329789b1c25b261aace7e3eb87c62bbf58a2139e63507faf1aa1ad48a55"
+  },
+  "review_client": {
+    "version": "2.1.308 (Claude Code)",
+    "bare": true,
+    "safe_mode": true,
+    "tools": [],
+    "max_tokens": 24000,
+    "endpoint": "https://inference.namche.net/v1/messages",
+    "response_format": "prompt-requested JSON; CLI envelope JSON"
   }
 }

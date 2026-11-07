@@ -30,10 +30,13 @@ class TranslationV2Tests(unittest.TestCase):
     def test_unchanged_review(self):
         check_result("review", self.payload, self.result)
 
-    def test_undocumented_change_rejected(self):
+    def test_undocumented_change_requires_humans(self):
         self.result["items"][0]["proposed_translation"]["prompt"] = "Warum?"
-        with self.assertRaisesRegex(ValueError, "Undocumented"):
-            check_result("review", self.payload, self.result)
+        check_result("review", self.payload, self.result)
+        queue = build_queue([self.source], [{"translation": self.target, "notes": []}], self.result["items"])
+        self.assertEqual(queue[0]["origin"], "undocumented_change")
+        self.assertTrue(queue[0]["needs_human_review"])
+        self.assertEqual(queue[0]["suggestion"], "Warum?")
 
     def test_documented_change(self):
         item = self.result["items"][0]
@@ -65,7 +68,7 @@ class TranslationV2Tests(unittest.TestCase):
         finding = {"field": "prompt", "index": None, "source": "Who?", "translation": "Wer?",
                    "reason": "Test", "severity": "minor", "needs_human_review": False}
         queue = build_queue([self.source], [{"translation": self.target, "notes": []}],
-                            [{"id": "0013", "findings": [finding]}])
+                            [{"id": "0013", "findings": [finding], "proposed_translation": self.target}])
         self.assertEqual(len(queue), 1)
         self.assertEqual(queue[0]["status"], "pending")
 

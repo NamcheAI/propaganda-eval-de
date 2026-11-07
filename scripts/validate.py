@@ -18,6 +18,8 @@ def validate_run(run, require_review=False):
     source_path = ROOT / 'upstream/data/items.jsonl'
     assert hashlib.sha256(source_path.read_bytes()).hexdigest() == config['source_sha256'], 'Source hash'
     assert hashlib.sha256((ROOT / 'prompts/translate-provider.txt').read_bytes()).hexdigest() == config['provider_prompt_sha256']['translate'], 'Provider prompt hash'
+    if 'review' in config['provider_prompt_sha256']:
+        assert hashlib.sha256((ROOT / 'prompts/review-provider.txt').read_bytes()).hexdigest() == config['provider_prompt_sha256']['review'], 'Review provider prompt hash'
     sources = read(source_path)
     assert [s['id'] for s in sources] == config['item_ids'], 'Source coverage'
     inputs = {s['id']: {'id':s['id'], **{f:s[f] for f in FIELDS if f in s}} for s in sources}
@@ -44,6 +46,9 @@ def validate_run(run, require_review=False):
             payload = {'items':[inputs[sid] for sid in ids]}
             output = {'items':[tm[sid] for sid in ids]}
         else:
+            assert batch['transport'] == config['review_transport'], 'Review transport mismatch'
+            assert batch['cli_version'] == config['review_client']['version'], 'Review client version mismatch'
+            assert batch['returned_model'] == batch['requested_model'], 'Unexpected review model'
             payload = {'items':[{'source':inputs[sid], **tm[sid]} for sid in ids]}
             output = {'items':[rm[sid] for sid in ids]}
         check_result(mode, payload, output)
