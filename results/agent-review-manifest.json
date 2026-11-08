@@ -1,0 +1,35 @@
+{
+  "recorded_at": "2026-11-08T00:04:34.985850+00:00",
+  "reviewer": "Codex",
+  "human_validated": false,
+  "scope": "All 344 previously open reviewer minor findings; 286 items",
+  "decisions": {
+    "modify": 85,
+    "accept": 137,
+    "reject": 121,
+    "defer": 1
+  },
+  "reviewed_items": 286,
+  "human_decisions_preserved": 39,
+  "human_ledger_sha256_before": "5208deae224b6d5401207db23c44172dd1491f02285735d3514f982cd18d2b2a",
+  "primary_source_access": {
+    "search_excerpt": 86,
+    "source_text": 239,
+    "source_unavailable": 19
+  },
+  "remaining_issues": 274,
+  "input_sha256": {
+    "upstream/data/items.jsonl": "76bf1b75337b948d37ab494d7192aade5cc8fefd08c1e170f1925816ac6c4ef6",
+    "results/translated.jsonl": "f9908213537ec8f2dc34f68017122eefc7491ba9557725d6080de8813877f4f8",
+    "results/reviews.jsonl": "00465686f1f6dcde202c4e01c53ff69400b18ab3e09605c1778c7e5ca33a5f07",
+    "results/human-review-queue.jsonl": "586fb290a6e7739d72129b58ad931c9c0e4ba5f1a36916f8190bea7994ecc4d1",
+    "results/human-decisions.jsonl": "5208deae224b6d5401207db23c44172dd1491f02285735d3514f982cd18d2b2a",
+    "results/human-findings.jsonl": "2d5bc5f904b3544c736d3323c2e77558efc1ad7714d955e64eac72c03c236317",
+    "policies/numbers-de.json": "c6dda15a4c82cedbc298d521d9e833c6033c4638c9d02ab88a73c9ba6380eae9"
+  },
+  "output_sha256": {
+    "results/agent-decisions.jsonl": "f100e37cd28bd5084e6d1ce1cdf7e957d091e3ca3b03e3c32b6f1da0b997331e",
+    "results/agent-research.jsonl": "2e8b863f83355b56b527db0f39b6273c35b470c5d02cc0d27aca9cf8b61508f6",
+    "results/working-translation.jsonl": "71cdc4163ce1ed5e5fc8b8293866912e61e3f89ba351725746c9f681f71ed7ed"
+  }
+}

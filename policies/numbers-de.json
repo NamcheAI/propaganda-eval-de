@@ -1,0 +1,23 @@
+{
+  "id": "numbers-de-v1",
+  "authorized_by": "Auftraggeber, ausdrückliche Anweisung im Projektchat",
+  "rule": "Englische Tausenderkommas werden zu Punkten (1,234 -> 1.234); Dezimalpunkte werden zu Kommas (1.23 -> 1,23). Zahlenwerte bleiben gleich. Reine Formatwechsel benötigen keine weitere Einzelfallfreigabe.",
+  "scope": "Numerische Mengenangaben; keine URLs, technischen Identifikatoren oder Datumsformate. Mehrdeutige Zuordnungen und zusätzliche Bedeutungsfragen bleiben offen.",
+  "reviewed_format_only_issue_ids": [
+    "2560bf8ef02b2acd36b7259f015676acd5f74e8ecb2544f2cd07adcc83d508bb",
+    "2ffd959794e122449bde6bf3a524b2f0a528fd4fb553e9f6b344fdb9b4ac2af0",
+    "3b71b17926166b001a0f61110e614de365c9031d3903c296e1df097216ad2b67",
+    "ed1b31b05d7a5d314b56fbcc58177295729aa94c49cd5b2cb211b784ae3dca5c",
+    "6637f7a34a31684bafb8bdf491a18041e17dd23bc42f0e825b0223f5b410ca72",
+    "5e6eba2402e7b2509f6390230c878fe9423ce051e4364dcc2369dd55c0794cb0",
+    "dd9191fa7dfe5923dfa131e6f6820d7a293d5564aedcb293c0c427aa2d7a4e70",
+    "63ad13d05a9017ab847a46642b2b31b628101cbdc1dc2e76bd2207a72f82bb44",
+    "33007390d60742e4141b5ab48413bdc83d55797d0d2421b086e44e0865fdd49c",
+    "714275e9acf029738085f021f88365641b2a3902e648197edf4f29a355cfa596",
+    "f85006667d37e1c8a8243bf2a4a7b28dfb60ea5970b9d6c2ff97f3fa0b193b63",
+    "fda560a8854e21556398f3ce326a790deb95837b64fd8fd2f7f4482204bc308a",
+    "3e106be9ea7794c4f691ae2e07bf774fc68fa8c731ce6c3cab97f9a8a695ce8d",
+    "cd89e024acd356b8bf4e5a214f7660edc05a90c124e6d1676cab264f9229e420"
+  ],
+  "recorded_at": "2026-11-07T22:46:37.497693+00:00"
+}

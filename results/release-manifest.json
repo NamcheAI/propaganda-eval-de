@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "status": "final",
+  "released_at": "2026-11-08T00:26:46.867153+00:00",
+  "items": 803,
+  "unresolved_issues": 0,
+  "human_validated": false,
+  "adjudication": "Human decisions plus explicitly delegated AI adjudication",
+  "data_file": "data/items.jsonl",
+  "data_sha256": "3c8c438175c99a0ea52e54ae7b2a4aa0fa381de259edca4f638c6171b1da3597",
+  "raw_translation_sha256": "f9908213537ec8f2dc34f68017122eefc7491ba9557725d6080de8813877f4f8",
+  "source_sha256": "76bf1b75337b948d37ab494d7192aade5cc8fefd08c1e170f1925816ac6c4ef6",
+  "adjudication_manifest_sha256": "7ee1a5fdb233245bd290af9d16854dfff818dd080fbc5a2fb041f14ef4e9fa70",
+  "human_decisions": 39,
+  "agent_decisions": 617,
+  "policy_decisions": 14,
+  "editorial_corrections": 1,
+  "changed_fields": 295,
+  "evaluation_snapshot": "eval/main-01",
+  "input_sha256": {
+    "results/human-decisions.jsonl": "5208deae224b6d5401207db23c44172dd1491f02285735d3514f982cd18d2b2a",
+    "results/agent-decisions.jsonl": "255ee4b2e2c56c5baea0febec418098ac1b28e36ad90789dc7b50851824537ed",
+    "results/final-review.jsonl": "adfa6d8879912e0f4d4a69655f45cdc2aac6e2234ccc4b4bd212afdc953946af",
+    "results/editorial-corrections.jsonl": "f3f6017a77a0fdd6fe84f964f871fab1903364319b332bea8bb1e85ae17dd428"
+  }
+}

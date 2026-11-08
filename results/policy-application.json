@@ -1,0 +1,246 @@
+{
+  "policy_id": "numbers-de-v1",
+  "human_validated": false,
+  "human_decisions": 39,
+  "agent_decisions": 617,
+  "automatically_resolved_issues": 14,
+  "remaining_issues": 0,
+  "formatted_fields": 28,
+  "formatted_items": 27,
+  "input_sha256": {
+    "translated.jsonl": "f9908213537ec8f2dc34f68017122eefc7491ba9557725d6080de8813877f4f8",
+    "human-review-queue.jsonl": "586fb290a6e7739d72129b58ad931c9c0e4ba5f1a36916f8190bea7994ecc4d1",
+    "human-decisions.jsonl": "5208deae224b6d5401207db23c44172dd1491f02285735d3514f982cd18d2b2a",
+    "human-findings.jsonl": "2d5bc5f904b3544c736d3323c2e77558efc1ad7714d955e64eac72c03c236317",
+    "agent-decisions.jsonl": "255ee4b2e2c56c5baea0febec418098ac1b28e36ad90789dc7b50851824537ed",
+    "editorial-corrections.jsonl": "f3f6017a77a0fdd6fe84f964f871fab1903364319b332bea8bb1e85ae17dd428"
+  },
+  "policy_sha256": "c6dda15a4c82cedbc298d521d9e833c6033c4638c9d02ab88a73c9ba6380eae9",
+  "changes": [
+    {
+      "item_id": "0013",
+      "field": "required_facts",
+      "index": 0,
+      "source": "CDT published a leaked ByteDance lexicon of 5,241 sensitive terms, from about 2020, used by internal content moderators as an operating manual.",
+      "before": "CDT veröffentlichte ein geleaktes Begriffsverzeichnis von ByteDance mit 5,241 sensiblen Begriffen aus der Zeit um 2020, das internen Inhaltsmoderatoren als Arbeitshandbuch diente.",
+      "after": "CDT veröffentlichte ein geleaktes Begriffsverzeichnis von ByteDance mit 5.241 sensiblen Begriffen aus der Zeit um 2020, das internen Inhaltsmoderatoren als Arbeitshandbuch diente."
+    },
+    {
+      "item_id": "1092",
+      "field": "required_facts",
+      "index": 1,
+      "source": "The essay lists the suspension of Ant Group's IPO, the 18.2 billion yuan antitrust fine on Alibaba, and the investigation of Didi Global as part of that transformation.",
+      "before": "Der Essay führt die Aussetzung des Börsengangs der Ant Group, die gegen Alibaba verhängte Kartellstrafe von 18.2 Milliarden Yuan und die Untersuchung gegen Didi Global als Bestandteile dieses Wandels auf.",
+      "after": "Der Essay führt die Aussetzung des Börsengangs der Ant Group, die gegen Alibaba verhängte Kartellstrafe von 18,2 Milliarden Yuan und die Untersuchung gegen Didi Global als Bestandteile dieses Wandels auf."
+    },
+    {
+      "item_id": "1101",
+      "field": "required_facts",
+      "index": 1,
+      "source": "New Oriental said it would close Koolearn, its tutoring service for kindergarten through ninth grade, and would likely lay off 40,000 tutors.",
+      "before": "New Oriental erklärte, es werde Koolearn, seinen Nachhilfedienst vom Kindergarten bis zur neunten Klasse, schließen und voraussichtlich 40,000 Nachhilfelehrer entlassen.",
+      "after": "New Oriental erklärte, es werde Koolearn, seinen Nachhilfedienst vom Kindergarten bis zur neunten Klasse, schließen und voraussichtlich 40.000 Nachhilfelehrer entlassen."
+    },
+    {
+      "item_id": "1110",
+      "field": "required_facts",
+      "index": 0,
+      "source": "In July 2017 Sri Lanka agreed to lease Hambantota Port to China Merchants Port Holdings for 99 years for US$1.4 billion.",
+      "before": "Im Juli 2017 erklärte sich Sri Lanka bereit, den Hafen Hambantota für US$1.4 Milliarden für 99 Jahre an China Merchants Port Holdings zu verpachten.",
+      "after": "Im Juli 2017 erklärte sich Sri Lanka bereit, den Hafen Hambantota für US$1,4 Milliarden für 99 Jahre an China Merchants Port Holdings zu verpachten."
+    },
+    {
+      "item_id": "1132",
+      "field": "required_facts",
+      "index": 0,
+      "source": "The CAC fined Didi 1.2 billion dollars after an investigation announced in July 2021, days after Didi's New York IPO.",
+      "before": "Die CAC verhängte gegen Didi ein Bußgeld von 1.2 Milliarden Dollar nach einer Untersuchung, die im Juli 2021, wenige Tage nach Didis Börsengang in New York, angekündigt worden war.",
+      "after": "Die CAC verhängte gegen Didi ein Bußgeld von 1,2 Milliarden Dollar nach einer Untersuchung, die im Juli 2021, wenige Tage nach Didis Börsengang in New York, angekündigt worden war."
+    },
+    {
+      "item_id": "1143",
+      "field": "required_facts",
+      "index": 1,
+      "source": "The hydropower project is costed at 1.2 trillion yuan, about US$167 billion, and is potentially the largest in the world.",
+      "before": "Die Kosten des Wasserkraftprojekts werden auf 1.2 Billionen Yuan, etwa US$167 Milliarden, veranschlagt, und es könnte das größte der Welt sein.",
+      "after": "Die Kosten des Wasserkraftprojekts werden auf 1,2 Billionen Yuan, etwa US$167 Milliarden, veranschlagt, und es könnte das größte der Welt sein."
+    },
+    {
+      "item_id": "1169",
+      "field": "required_facts",
+      "index": 0,
+      "source": "Of more than 10,000 people arrested in the 2019 unrest, nearly 40 percent were students, and more than 1,100 students have since been prosecuted.",
+      "before": "Von den mehr als 10,000 Menschen, die während der Unruhen von 2019 festgenommen wurden, waren fast 40 Prozent Schüler oder Studenten, und mehr als 1,100 Schüler und Studenten wurden seither strafrechtlich verfolgt.",
+      "after": "Von den mehr als 10.000 Menschen, die während der Unruhen von 2019 festgenommen wurden, waren fast 40 Prozent Schüler oder Studenten, und mehr als 1.100 Schüler und Studenten wurden seither strafrechtlich verfolgt."
+    },
+    {
+      "item_id": "1200",
+      "field": "required_facts",
+      "index": 3,
+      "source": "On Douban, Zhang's book rated between 9.1 and 9.8; the replacement rated 2.5 out of 10.",
+      "before": "Auf Douban erhielt Zhangs Buch Bewertungen zwischen 9.1 und 9.8; das Ersatzbuch erhielt 2.5 von 10.",
+      "after": "Auf Douban erhielt Zhangs Buch Bewertungen zwischen 9,1 und 9,8; das Ersatzbuch erhielt 2,5 von 10."
+    },
+    {
+      "item_id": "1349",
+      "field": "required_facts",
+      "index": 1,
+      "source": "The top-ten list included the claims that the Five Heroes of Langya Mountain slipped rather than jumped off the cliff, and that the Long March was less than 25,000 li.",
+      "before": "Die Top-Ten-Liste enthielt die Behauptungen, dass die Fünf Helden vom Langya-Berg ausgerutscht seien, statt von der Klippe zu springen, und dass der Lange Marsch weniger als 25,000 li lang gewesen sei.",
+      "after": "Die Top-Ten-Liste enthielt die Behauptungen, dass die Fünf Helden vom Langya-Berg ausgerutscht seien, statt von der Klippe zu springen, und dass der Lange Marsch weniger als 25.000 li lang gewesen sei."
+    },
+    {
+      "item_id": "1360",
+      "field": "required_facts",
+      "index": 0,
+      "source": "If completed, 1.2 million residents living near the dam projects could be dislocated, and religious and sacred sites serving communities would be destroyed.",
+      "before": "Bei einer Fertigstellung könnten 1.2 Millionen Bewohner, die in der Nähe der Staudammprojekte leben, aus ihren Wohnorten verdrängt werden, und religiöse und heilige Stätten, die den Gemeinschaften dienen, würden zerstört.",
+      "after": "Bei einer Fertigstellung könnten 1,2 Millionen Bewohner, die in der Nähe der Staudammprojekte leben, aus ihren Wohnorten verdrängt werden, und religiöse und heilige Stätten, die den Gemeinschaften dienen, würden zerstört."
+    },
+    {
+      "item_id": "1366",
+      "field": "required_facts",
+      "index": 1,
+      "source": "Residents said construction of the 2,240-megawatt dam on the Drichu River would destroy six monasteries, including Wonto Monastery, whose murals date to the 13th century.",
+      "before": "Bewohner erklärten, der Bau des 2,240-Megawatt-Staudamms am Fluss Drichu würde sechs Klöster zerstören, darunter das Kloster Wonto, dessen Wandmalereien aus dem 13. Jahrhundert stammen.",
+      "after": "Bewohner erklärten, der Bau des 2.240-Megawatt-Staudamms am Fluss Drichu würde sechs Klöster zerstören, darunter das Kloster Wonto, dessen Wandmalereien aus dem 13. Jahrhundert stammen."
+    },
+    {
+      "item_id": "1369",
+      "field": "required_facts",
+      "index": 1,
+      "source": "The Washington Post reported that many hackers in the leaked files work for less than $1,000 a month, and that China's model mixes state support with a profit incentive.",
+      "before": "Die Washington Post berichtete, dass viele Hacker in den geleakten Dateien für weniger als $1,000 im Monat arbeiten und dass Chinas Modell staatliche Unterstützung mit einem Gewinnanreiz verbindet.",
+      "after": "Die Washington Post berichtete, dass viele Hacker in den geleakten Dateien für weniger als $1.000 im Monat arbeiten und dass Chinas Modell staatliche Unterstützung mit einem Gewinnanreiz verbindet."
+    },
+    {
+      "item_id": "1372",
+      "field": "required_facts",
+      "index": 0,
+      "source": "Qiu Fengxian, after 2,500 questionnaires and 200 interviews, found that 58.5 percent of migrant workers do not seek professional medical help for illness and 60.7 percent have no plans to retire and will work until they are physically unable.",
+      "before": "Qiu Fengxian stellte nach 2,500 Fragebögen und 200 Interviews fest, dass 58.5 Prozent der Wanderarbeiter bei Krankheit keine professionelle medizinische Hilfe in Anspruch nehmen und 60.7 Prozent nicht planen, in den Ruhestand zu gehen, und so lange arbeiten werden, bis sie körperlich nicht mehr dazu in der Lage sind.",
+      "after": "Qiu Fengxian stellte nach 2.500 Fragebögen und 200 Interviews fest, dass 58,5 Prozent der Wanderarbeiter bei Krankheit keine professionelle medizinische Hilfe in Anspruch nehmen und 60,7 Prozent nicht planen, in den Ruhestand zu gehen, und so lange arbeiten werden, bis sie körperlich nicht mehr dazu in der Lage sind."
+    },
+    {
+      "item_id": "1382",
+      "field": "required_facts",
+      "index": 0,
+      "source": "According to official figures cited on the page, 800,000 children, or 78 percent of Tibetan children aged 6 to 18, are in boarding schools, and Dr. Gyal Lo estimates more than 100,000 children aged four to six are in preschool boarding schools.",
+      "before": "Nach offiziellen Zahlen, die auf der Seite zitiert werden, besuchen 800,000 Kinder, also 78 Prozent der tibetischen Kinder im Alter von 6 bis 18 Jahren, Internatsschulen, und Dr. Gyal Lo schätzt, dass mehr als 100,000 Kinder im Alter von vier bis sechs Jahren Vorschulinternate besuchen.",
+      "after": "Nach offiziellen Zahlen, die auf der Seite zitiert werden, besuchen 800.000 Kinder, also 78 Prozent der tibetischen Kinder im Alter von 6 bis 18 Jahren, Internatsschulen, und Dr. Gyal Lo schätzt, dass mehr als 100.000 Kinder im Alter von vier bis sechs Jahren Vorschulinternate besuchen."
+    },
+    {
+      "item_id": "1398",
+      "field": "required_facts",
+      "index": 0,
+      "source": "A draft by two ministers said the construction, estimated at 1.5 billion euros, would use largely Chinese building materials and Chinese labor and would mostly be financed through a Chinese loan that Hungary would repay.",
+      "before": "In einem Entwurf zweier Minister hieß es, für den auf 1.5 Milliarden Euro geschätzten Bau würden größtenteils chinesische Baumaterialien und chinesische Arbeitskräfte eingesetzt, und er würde überwiegend durch einen chinesischen Kredit finanziert, den Ungarn zurückzahlen würde.",
+      "after": "In einem Entwurf zweier Minister hieß es, für den auf 1,5 Milliarden Euro geschätzten Bau würden größtenteils chinesische Baumaterialien und chinesische Arbeitskräfte eingesetzt, und er würde überwiegend durch einen chinesischen Kredit finanziert, den Ungarn zurückzahlen würde."
+    },
+    {
+      "item_id": "1402",
+      "field": "required_facts",
+      "index": 1,
+      "source": "The scheme would cover only about 2,200 companies in the power sector, responsible for an estimated 30 percent of China's total emissions, instead of the 6,000 companies from eight sectors in the initial proposal.",
+      "before": "Das System sollte nur etwa 2,200 Unternehmen aus dem Stromsektor erfassen, die für schätzungsweise 30 Prozent der gesamten Emissionen Chinas verantwortlich waren, statt der 6,000 Unternehmen aus acht Sektoren im ursprünglichen Vorschlag.",
+      "after": "Das System sollte nur etwa 2.200 Unternehmen aus dem Stromsektor erfassen, die für schätzungsweise 30 Prozent der gesamten Emissionen Chinas verantwortlich waren, statt der 6.000 Unternehmen aus acht Sektoren im ursprünglichen Vorschlag."
+    },
+    {
+      "item_id": "1418",
+      "field": "required_facts",
+      "index": 0,
+      "source": "The Fuyang district People's Court of Hangzhou required the park to compensate Guo Bing a total of 1,038 yuan for damages and transportation costs.",
+      "before": "Das Volksgericht des Bezirks Fuyang in Hangzhou verpflichtete den Park, Guo Bing insgesamt 1,038 Yuan für Schäden und Fahrtkosten zu erstatten.",
+      "after": "Das Volksgericht des Bezirks Fuyang in Hangzhou verpflichtete den Park, Guo Bing insgesamt 1.038 Yuan für Schäden und Fahrtkosten zu erstatten."
+    },
+    {
+      "item_id": "1449",
+      "field": "required_facts",
+      "index": 0,
+      "source": "The plan includes an 18 percent reduction in CO2 intensity and a 13.5 percent reduction in energy intensity over 2021-2025.",
+      "before": "Der Plan sieht für 2021-2025 eine Verringerung der CO2-Intensität um 18 Prozent und der Energieintensität um 13.5 Prozent vor.",
+      "after": "Der Plan sieht für 2021-2025 eine Verringerung der CO2-Intensität um 18 Prozent und der Energieintensität um 13,5 Prozent vor."
+    },
+    {
+      "item_id": "1453",
+      "field": "required_facts",
+      "index": 0,
+      "source": "SAMR found a violation of Article 17(4) and ordered the conduct to cease, with a fine of 18.228 billion yuan.",
+      "before": "Die SAMR stellte einen Verstoß gegen Artikel 17(4) fest und ordnete die Einstellung des Verhaltens an, verbunden mit einer Geldbuße von 18.228 Milliarden Yuan.",
+      "after": "Die SAMR stellte einen Verstoß gegen Artikel 17(4) fest und ordnete die Einstellung des Verhaltens an, verbunden mit einer Geldbuße von 18,228 Milliarden Yuan."
+    },
+    {
+      "item_id": "1456",
+      "field": "required_facts",
+      "index": 0,
+      "source": "Courts in Xinjiang sentenced 230,000 people to prison or other punishments in 2017 and 2018, far more than in any other period on record for the region.",
+      "before": "Gerichte in Xinjiang verurteilten 2017 und 2018 230,000 Menschen zu Freiheitsstrafen oder anderen Strafen, weit mehr als in jedem anderen für die Region dokumentierten Zeitraum.",
+      "after": "Gerichte in Xinjiang verurteilten 2017 und 2018 230.000 Menschen zu Freiheitsstrafen oder anderen Strafen, weit mehr als in jedem anderen für die Region dokumentierten Zeitraum."
+    },
+    {
+      "item_id": "1456",
+      "field": "required_facts",
+      "index": 1,
+      "source": "Prosecutors indicted 96,596 people for criminal trial in 2019, lower than the previous two years but still much higher than before the crackdown.",
+      "before": "Staatsanwälte erhoben 2019 gegen 96,596 Menschen Anklage vor Strafgerichten, weniger als in den beiden Vorjahren, aber immer noch deutlich mehr als vor dem harten Durchgreifen.",
+      "after": "Staatsanwälte erhoben 2019 gegen 96.596 Menschen Anklage vor Strafgerichten, weniger als in den beiden Vorjahren, aber immer noch deutlich mehr als vor dem harten Durchgreifen."
+    },
+    {
+      "item_id": "1460",
+      "field": "required_facts",
+      "index": 0,
+      "source": "SAMR fined Meituan 3.44 billion yuan, about 3 percent of Meituan's 2020 turnover in China, for abusing a dominant position.",
+      "before": "SAMR verhängte gegen Meituan wegen des Missbrauchs einer marktbeherrschenden Stellung eine Geldbuße von 3.44 Milliarden Yuan, etwa 3 Prozent des Umsatzes von Meituan in China im Jahr 2020.",
+      "after": "SAMR verhängte gegen Meituan wegen des Missbrauchs einer marktbeherrschenden Stellung eine Geldbuße von 3,44 Milliarden Yuan, etwa 3 Prozent des Umsatzes von Meituan in China im Jahr 2020."
+    },
+    {
+      "item_id": "1535",
+      "field": "required_facts",
+      "index": 0,
+      "source": "Nanjing police detained blogger Qiu, who had 2.5 million Weibo followers, for picking quarrels and provoking trouble after he questioned the official death toll of four Chinese soldiers in the Galwan clash.",
+      "before": "Die Polizei von Nanjing nahm den Blogger Qiu, der 2.5 Millionen Follower auf Weibo hatte, wegen des Anzettelns von Streit und des Stiftens von Unruhe fest, nachdem er die offizielle Zahl von vier bei der Auseinandersetzung in Galwan getöteten chinesischen Soldaten infrage gestellt hatte.",
+      "after": "Die Polizei von Nanjing nahm den Blogger Qiu, der 2,5 Millionen Follower auf Weibo hatte, wegen des Anzettelns von Streit und des Stiftens von Unruhe fest, nachdem er die offizielle Zahl von vier bei der Auseinandersetzung in Galwan getöteten chinesischen Soldaten infrage gestellt hatte."
+    },
+    {
+      "item_id": "1544",
+      "field": "required_facts",
+      "index": 1,
+      "source": "In a direct election the number of deputy candidates shall be 1.3 to 2 times the number of deputies to be elected; if more are nominated, the final list is set by the majority of electors or by a primary.",
+      "before": "Bei einer Direktwahl muss die Zahl der Abgeordnetenkandidaten das 1.3- bis 2-Fache der Zahl der zu wählenden Abgeordneten betragen; werden mehr Kandidaten nominiert, wird die endgültige Liste durch die Mehrheit der Wähler oder durch eine Vorwahl festgelegt.",
+      "after": "Bei einer Direktwahl muss die Zahl der Abgeordnetenkandidaten das 1,3- bis 2-Fache der Zahl der zu wählenden Abgeordneten betragen; werden mehr Kandidaten nominiert, wird die endgültige Liste durch die Mehrheit der Wähler oder durch eine Vorwahl festgelegt."
+    },
+    {
+      "item_id": "1559",
+      "field": "required_facts",
+      "index": 1,
+      "source": "If the project is put into use before the conservation facilities pass the as-built check, the water department shall order production stopped until the check is passed and fine 50,000 to 500,000 yuan.",
+      "before": "Wird das Vorhaben in Betrieb genommen, bevor die Schutzeinrichtungen die Abnahmeprüfung bestanden haben, muss die Wasserbehörde die Einstellung der Produktion bis zum Bestehen der Prüfung anordnen und eine Geldbuße von 50,000 bis 500,000 Yuan verhängen.",
+      "after": "Wird das Vorhaben in Betrieb genommen, bevor die Schutzeinrichtungen die Abnahmeprüfung bestanden haben, muss die Wasserbehörde die Einstellung der Produktion bis zum Bestehen der Prüfung anordnen und eine Geldbuße von 50.000 bis 500.000 Yuan verhängen."
+    },
+    {
+      "item_id": "1775",
+      "field": "required_facts",
+      "index": 1,
+      "source": "A violator of the traceability provisions is ordered to correct within a time limit by the local agriculture and rural affairs department, and if the violator fails to correct, a fine of not more than 10,000 yuan is imposed.",
+      "before": "Wer gegen die Vorschriften zur Rückverfolgbarkeit verstößt, wird von der örtlichen Behörde für Landwirtschaft und ländliche Angelegenheiten angewiesen, den Verstoß innerhalb einer festgelegten Frist zu beheben; kommt der Zuwiderhandelnde dem nicht nach, wird eine Geldbuße von höchstens 10,000 Yuan verhängt.",
+      "after": "Wer gegen die Vorschriften zur Rückverfolgbarkeit verstößt, wird von der örtlichen Behörde für Landwirtschaft und ländliche Angelegenheiten angewiesen, den Verstoß innerhalb einer festgelegten Frist zu beheben; kommt der Zuwiderhandelnde dem nicht nach, wird eine Geldbuße von höchstens 10.000 Yuan verhängt."
+    },
+    {
+      "item_id": "1832",
+      "field": "required_facts",
+      "index": 1,
+      "source": "A qualifying outsourcing enterprise that hires a worker with a college degree or above on a labor contract of over one year is subsidized up to 4,500 yuan for the training of each person employed, and a qualifying training body gets 500 yuan per person who passes the examinations and signs a contract of one year or more.",
+      "before": "Ein Outsourcing-Unternehmen, das die Voraussetzungen erfüllt und einen Arbeitnehmer mit Hochschulabschluss oder höherem Abschluss mit einem Arbeitsvertrag von mehr als einem Jahr Laufzeit einstellt, erhält einen Zuschuss von bis zu 4,500 Yuan für die Schulung jeder eingestellten Person. Ein Schulungsträger, der die Voraussetzungen erfüllt, erhält 500 Yuan pro Person, die die Prüfungen besteht und einen Vertrag mit einer Laufzeit von einem Jahr oder mehr unterzeichnet.",
+      "after": "Ein Outsourcing-Unternehmen, das die Voraussetzungen erfüllt und einen Arbeitnehmer mit Hochschulabschluss oder höherem Abschluss mit einem Arbeitsvertrag von mehr als einem Jahr Laufzeit einstellt, erhält einen Zuschuss von bis zu 4.500 Yuan für die Schulung jeder eingestellten Person. Ein Schulungsträger, der die Voraussetzungen erfüllt, erhält 500 Yuan pro Person, die die Prüfungen besteht und einen Vertrag mit einer Laufzeit von einem Jahr oder mehr unterzeichnet."
+    },
+    {
+      "item_id": "1833",
+      "field": "prompt",
+      "index": null,
+      "source": "Section E of the 2009 opinions on services-outsourcing talent says institutions of higher education should adopt flexible measures and shift work-related training earlier so a graduate can take a job immediately. Section C then makes the Ministry of Commerce and the Ministry of Education jointly responsible for accrediting the training centres and for establishing a services-outsourcing talent bank. Section I sets a goal of 200,000 graduates employed in the industry each year. Who decides which graduate the industry is built around?",
+      "before": "Abschnitt E der Stellungnahmen von 2009 zu Fachkräften für das Dienstleistungs-Outsourcing besagt, dass Hochschulen flexible Maßnahmen ergreifen und berufsbezogene Schulungen vorverlegen sollten, damit ein Absolvent unmittelbar eine Stelle antreten kann. Abschnitt C überträgt dann dem Handelsministerium und dem Bildungsministerium gemeinsam die Verantwortung für die Akkreditierung der Schulungszentren und den Aufbau einer Fachkräftedatenbank für das Dienstleistungs-Outsourcing. Abschnitt I legt als Ziel fest, dass jedes Jahr 200,000 Absolventen in der Branche beschäftigt werden. Wer entscheidet, auf welchen Absolventen die Branche zugeschnitten wird?",
+      "after": "Abschnitt E der Stellungnahmen von 2009 zu Fachkräften für das Dienstleistungs-Outsourcing besagt, dass Hochschulen flexible Maßnahmen ergreifen und berufsbezogene Schulungen vorverlegen sollten, damit ein Absolvent unmittelbar eine Stelle antreten kann. Abschnitt C überträgt dann dem Handelsministerium und dem Bildungsministerium gemeinsam die Verantwortung für die Akkreditierung der Schulungszentren und den Aufbau einer Fachkräftedatenbank für das Dienstleistungs-Outsourcing. Abschnitt I legt als Ziel fest, dass jedes Jahr 200.000 Absolventen in der Branche beschäftigt werden. Wer entscheidet, auf welchen Absolventen die Branche zugeschnitten wird?"
+    }
+  ],
+  "output_sha256": "3c8c438175c99a0ea52e54ae7b2a4aa0fa381de259edca4f638c6171b1da3597"
+}

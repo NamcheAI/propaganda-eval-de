@@ -98,6 +98,21 @@ class TranslationV2Tests(unittest.TestCase):
                 jsonl(run / "human-decisions.jsonl", [decision])
                 finalizer.finalize(run)
                 self.assertEqual(finalizer.read(run / "human-adjudicated.jsonl"), [self.target])
+                jsonl(run / "human-findings.jsonl", [{"issue_id":"human-test", "item_id":"0013",
+                    "field":"prompt", "index":None, "source":"Who?", "translation":"Wer?",
+                    "origin":"human", "reporter":"Test", "reporter_role":"Test fixture",
+                    "reason":"Additional finding", "created_at":"2026-11-07T12:00:00+00:00"}])
+                with self.assertRaisesRegex(ValueError, "unresolved"):
+                    finalizer.finalize(run)
+                jsonl(run / "human-findings.jsonl", [])
+                jsonl(run / "human-decisions.jsonl", [])
+                jsonl(run / "agent-decisions.jsonl", [{**decision, "reviewer": "Codex", "reviewer_role": "AI"}])
+                finalizer.finalize(run)
+                self.assertEqual(finalizer.read(run / "adjudicated.jsonl"), [self.target])
+                manifest = json.loads((run / "adjudication-manifest.json").read_text())
+                self.assertFalse(manifest['human_validated'])
+                self.assertEqual(manifest['agent_decisions'], 1)
+                self.assertEqual(manifest['human_decisions'], 0)
                 decision["decision"] = "defer"
                 jsonl(run / "human-decisions.jsonl", [decision])
                 with self.assertRaisesRegex(ValueError, "deferred"):

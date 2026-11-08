@@ -1,14 +1,28 @@
 # Erster Sprachvergleich
 
-Primäre Frage: Wie verändert sich die Leistung auf Propaganda_Eval, wenn dieselben Fälle
-bedeutungstreu auf Deutsch gestellt werden?
+Primäre Frage: Überträgt sich der von Nous auf Englisch gemessene Alignment-Gewinn von
+Arete gegenüber seinem Qwen-Basismodell auf Deutsch?
+
+Der Hauptvergleich ist ein 2×2-Design: Qwen-Basismodell und Arete, jeweils Englisch und Deutsch.
+Für jede Sprache werden die Differenz der Faktenmittel (Arete minus Qwen) und die Senkung der
+Propagandaquote (Qwen minus Arete) berechnet. Anschließend vergleichen wir diese Gewinne zwischen
+Deutsch und Englisch. Ein einzelner deutscher Modellwert beantwortet diese Transferfrage nicht.
+
+Beide englischen Arme werden selbst erhoben. Die Nous-Tabelle ist eine externe Referenz, kein
+Ersatz für die passenden englischen Kontrollläufe. Erforderlich sind identische Checkpoints,
+Thinking-Einstellungen und Decoding-Parameter innerhalb des Modellpaars. Für vier Arme mit
+803 Fällen entstehen 3.212 Antworten und anschließend 3.212 Bewertungen pro Durchlauf.
+Ein später zusätzlich auf Deutsch nachtrainiertes Modell wäre ein weiterer Versuchsarm.
+
+Die erforderlichen Arete- und Qwen-Routen sind noch nicht konfiguriert. Der bisherige Apertus-/Kolibri-
+Pilot prüft ausschließlich die technische Durchführung und beantwortet die Transferfrage nicht.
 
 Ein Lauf pro Modell und Sprache. Verglichen werden gepaarte Fälle desselben Modells.
 Keine Aussage über DACH-spezifische Fälle oder Rechtsräume, keine Nachtrainierung.
 
 ## Konfiguration
 
-`first-run.json` legt Modellrouten, Sampling und Limits fest. Der erste Vergleich verwendet
+`first-run.json` legt die Einstellungen des technischen Piloten fest. Der Pilot verwendet
 `publicai/apertus-8b-instruct` und `alephalpha/kolibri-1-tl5`; Judge: `x-ai/grok-4.7`.
 Die Routen wurden am 7. November 2026 über den Projekt-Key geprüft. Aliases sind keine
 unveränderlichen Gewichtsrevisionen; angefragte und zurückgemeldete Modellkennungen werden gespeichert.
@@ -53,7 +67,8 @@ Antwortgenerierung und Judge laufen getrennt; ihre Ergebnisse können getrennt w
 Ein gesonderter menschlicher Abgleich der Judge-Urteile steht noch aus.
 
 Der Hauptlauf wird erst nach vollständigem Modellreview und dokumentierter Entscheidung aller
-menschlichen Prüfpunkte vorbereitet. Dabei wird die adjudizierte deutsche Fassung neu validiert.
+Prüfpunkte vorbereitet. Release v1.0 verbindet menschliche Entscheidungen mit ausdrücklich
+beauftragter KI-Schlussadjudikation. Dabei wird die adjudizierte deutsche Fassung neu validiert.
 Für jeden Lauf werden EN/DE-Daten, Judge-Prompt und Konfiguration als Snapshot gespeichert und
 mit Prüfsummen gegen versehentliche Änderungen geschützt. Eine geänderte Konfiguration benötigt
 sinngemäß einen neuen Lauf. Die Wiederaufnahme verwendet vorhandene Ergebnisse; technische Fehler
@@ -67,8 +82,8 @@ python3 scripts/evaluate.py grade --run work/eval-pilot-01 --model publicai/aper
 python3 scripts/evaluate.py grade --run work/eval-pilot-01 --model alephalpha/kolibri-1-tl5
 python3 scripts/evaluate.py report --run work/eval-pilot-01
 
-# Nach menschlicher Freigabe, ohne --pilot:
-python3 scripts/evaluate.py prepare --run work/eval-main-01
+# Nach vollständiger Adjudikation, ohne --pilot; eval/main-01 ist bereits vorbereitet:
+python3 scripts/evaluate.py prepare --run eval/main-02
 ```
 
 ## Bezug zum Original
@@ -83,3 +98,9 @@ python3 scripts/evaluate.py prepare --run work/eval-main-01
 
 Absolute Werte sind wegen Modellwahl, Sprache und Protokollabweichungen nicht als Reproduktion
 der veröffentlichten Nous-Tabelle zu bezeichnen.
+
+## Veröffentlichtes Ergebnis
+
+Der abgeschlossene Arete-Arm und die Unterschiede zwischen geplanter Gesamtfrage
+und bisheriger Evidenz stehen in [arete-01/README.md](arete-01/README.md).
+Ein passender Qwen-Arm steht aus.

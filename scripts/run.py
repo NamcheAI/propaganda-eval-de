@@ -19,10 +19,19 @@ import urllib.error
 import urllib.request
 
 from common import FIELDS, parse_response, validate
+from number_policy import literals_equal
 
 ROOT = Path(__file__).resolve().parents[1]
 MODELS = {"translate": ("chatgpt/gpt-6-astra", "high"),
           "review": ("anthropic/claude-fable-5-1", "medium")}
+
+
+def prompt_for_hash(mode, digest):
+    for folder in ('prompts', 'prompts/v1'):
+        text = (ROOT / folder / f'{mode}.md').read_text()
+        if hashlib.sha256(text.encode()).hexdigest() == digest:
+            return text
+    raise ValueError('Recorded prompt not found: ' + mode)
 
 
 def sha(value):
@@ -310,7 +319,7 @@ def export_batches(directory):
                             for key in ("input_tokens", "output_tokens")} for mode in MODELS}})
 
 
-def build_queue(sources, translations, reviews):
+def build_queue(sources, translations, reviews, number_policy=False):
     first = {r["translation"]["id"]: r for r in translations}
     checked = {r["id"]: r for r in reviews}
     topics = json.loads((ROOT / "results/expert-topics.json").read_text())
@@ -341,7 +350,9 @@ def build_queue(sources, translations, reviews):
                     def literals(text):
                         return [Counter(re.findall(pattern, text)) for pattern in
                                 (r"\d+(?:[.,]\d+)*", r"[\u3400-\u9fff]+", r"https?://[^\s<>\"]+")]
-                    if literals(english) != literals(german):
+                    mismatch = (not literals_equal(english, german) if number_policy
+                                else literals(english) != literals(german))
+                    if mismatch:
                         notes.append(("literal_check", {"field": field, "index": index,
                             "source": english, "translation": german,
                             "reason": "Zahlen, chinesische Zeichen oder URLs weichen ab. Heuristischer Hinweis, kein bewiesener Bedeutungsfehler.",
@@ -364,7 +375,9 @@ def export(directory, sources, translations, reviews):
                                                  for s in sources if s["id"] in checked])
     jsonl(directory / "translation-notes.jsonl", translations)
     jsonl(directory / "reviews.jsonl", reviews)
-    queue = build_queue(sources, translations, reviews)
+    config_path = directory / 'config.json'
+    policy = json.loads(config_path.read_text()).get('number_policy', False) if config_path.exists() else False
+    queue = build_queue(sources, translations, reviews, number_policy=policy)
     jsonl(directory / "human-review-queue.jsonl", queue)
     # An empty ledger never implies that pending issues were accepted.
     ledger = directory / "human-decisions.jsonl"
@@ -405,7 +418,10 @@ def main():
     if args.limit:
         sources = sources[:args.limit]
     inputs = [{"id": s["id"], **{f: s[f] for f in FIELDS if f in s}} for s in sources]
-    prompts = {mode: (ROOT / f"prompts/{mode}.md").read_text() for mode in MODELS}
+    config_path = args.run_dir / 'config.json'
+    previous = json.loads(config_path.read_text()) if config_path.exists() else None
+    prompts = {mode: (prompt_for_hash(mode, previous['prompt_sha256'][mode]) if previous
+                     else (ROOT / f"prompts/{mode}.md").read_text()) for mode in MODELS}
     config = {"source_sha256": hashlib.sha256(source_path.read_bytes()).hexdigest(),
               "models": MODELS, "prompt_sha256": {k: hashlib.sha256(v.encode()).hexdigest() for k,v in prompts.items()},
               "batch_size": args.batch_size, "item_ids": [s["id"] for s in sources],
@@ -419,6 +435,8 @@ def main():
     config['provider_prompt_sha256']['review'] = hashlib.sha256(
         (ROOT / 'prompts/review-provider.txt').read_bytes()).hexdigest()
     config_path = args.run_dir / "config.json"
+    if previous is None or previous.get('number_policy'):
+        config['number_policy'] = 'numbers-de-v1'
     if config_path.exists() and sha(json.loads(config_path.read_text())) != sha(config):
         raise ValueError("Run configuration changed; use a new directory")
     write(config_path, config)

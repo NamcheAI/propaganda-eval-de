@@ -8,6 +8,7 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import evaluate as ev
+import grade_queue
 
 
 class EvalTest(unittest.TestCase):
@@ -39,6 +40,22 @@ class EvalTest(unittest.TestCase):
         content = json.dumps(self.verdict) if body['model'] == 'judge' else 'Fixture answer'
         return {'model': body['model'], 'choices': [{'message': {'content': content}, 'finish_reason': 'stop'}]}
 
+    def test_stream_assembles_content_and_usage_without_reasoning(self):
+        chunks = [
+            {'id': 'stream-id', 'model': 'judge', 'choices': [{'index': 0, 'delta': {'reasoning': 'internal'}}]},
+            {'choices': [{'index': 0, 'delta': {'content': '{"score":'}}]},
+            {'choices': [{'index': 0, 'delta': {'content': '5}'}, 'finish_reason': 'stop'}]},
+            {'choices': [], 'usage': {'total_tokens': 25}}]
+        lines = [b': keepalive\n'] + [('data: '+json.dumps(c)+'\n').encode() for c in chunks] + [b'data: [DONE]\n']
+        result = ev.read_stream(lines)
+        self.assertEqual(result['choices'][0]['message']['content'], '{"score":5}')
+        self.assertEqual(result['usage']['total_tokens'], 25)
+        self.assertEqual(result['id'], 'stream-id')
+        with self.assertRaisesRegex(ValueError, 'Incomplete'):
+            ev.read_stream(lines[:-1])
+        with self.assertRaisesRegex(ValueError, 'Provider error'):
+            ev.read_stream([b'data: {"error":{"message":"failed"}}\n'])
+
     def test_end_to_end_and_resume(self):
         with patch.object(ev, 'configured_request', side_effect=self.response) as call:
             ev.generate(self.run, 'target'); ev.grade(self.run, 'target')
@@ -49,12 +66,25 @@ class EvalTest(unittest.TestCase):
                 self.assertEqual(body['messages'][0]['role'], 'user')
                 if body['model'] == 'target':
                     self.assertNotIn('Fact A', body['messages'][0]['content'])
+                else:
+                    self.assertTrue(body['stream'])
+                    self.assertEqual(body['cache'], {'no-cache': True, 'no-store': True})
             ev.generate(self.run, 'target'); ev.grade(self.run, 'target')
             self.assertEqual(call.call_count, 12)
         report = ev.report(self.run)['target']
         self.assertTrue(report['complete'])
         self.assertEqual(report['paired_items'], 3)
         self.assertEqual(report['delta_de_minus_en']['fact_mean'], 0)
+
+    def test_concurrent_grade_queue_resumes_without_duplicate_calls(self):
+        with patch.object(ev, 'configured_request', side_effect=self.response):
+            ev.generate(self.run, 'target')
+        with patch.object(ev, 'configured_request', side_effect=self.response) as call:
+            grade_queue.run(self.run, workers=2)
+            self.assertEqual(call.call_count, 6)
+            grade_queue.run(self.run, workers=2)
+            self.assertEqual(call.call_count, 6)
+        self.assertTrue(ev.report(self.run)['target']['complete'])
 
     def test_failed_grade_does_not_become_a_real_zero(self):
         with patch.object(ev, 'configured_request', side_effect=self.response):
@@ -93,3 +123,17 @@ class EvalTest(unittest.TestCase):
         with patch.object(ev, 'ROOT', self.root), patch('finalize.finalize', side_effect=ValueError('unresolved')):
             with self.assertRaisesRegex(ValueError, 'unresolved'):
                 ev.prepare(self.root/'config.json', self.root/'final', pilot=False)
+
+    def test_main_run_uses_mixed_adjudication_manifest(self):
+        results = self.root/'results'
+        results.mkdir()
+        (results/'adjudicated.jsonl').write_bytes((self.root/'data/items.jsonl').read_bytes())
+        ev.write(results/'adjudication-manifest.json', {
+            'output_file': 'adjudicated.jsonl', 'output_sha256': ev.digest(results/'adjudicated.jsonl'),
+            'human_validated': False, 'agent_decisions': 1})
+        with patch.object(ev, 'ROOT', self.root), patch('finalize.finalize'):
+            ev.prepare(self.root/'config.json', self.root/'final', pilot=False)
+        manifest = ev.load(self.root/'final')
+        self.assertEqual(len(manifest['item_ids']), 6)
+        self.assertEqual(manifest['german_source_file'], 'results/adjudicated.jsonl')
+        self.assertIn('adjudication-manifest.json', manifest['input_hashes'])

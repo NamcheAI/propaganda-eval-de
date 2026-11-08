@@ -4,3 +4,13 @@ __pycache__/
 .env
 work/
 dist/
+
+# Local request histories and infrastructure diagnostics
+eval/arete-01/answers/
+eval/arete-01/grades/
+eval/arete-01/throughput/
+eval/arete-01/gpu-startup.json
+eval/arete-01/operational-status.json
+eval/arete-01/serving-provenance.json
+eval/main-01/answers/
+eval/main-01/grades/

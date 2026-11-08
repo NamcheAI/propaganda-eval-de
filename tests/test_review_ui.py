@@ -3,6 +3,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from review_ui import ReviewStore, read
@@ -49,3 +50,25 @@ class ReviewStoreTest(unittest.TestCase):
                 self.store.save(self.payload(**change))
         self.store.save(self.payload(decision='defer',final_text=None))
         self.assertIsNone(read(self.directory/'human-decisions.jsonl')[0]['final_text'])
+
+    def test_human_finding_on_unflagged_item_is_separate_and_decidable(self):
+        source = {'id':'unflagged','prompt':'CCTV clip'}
+        target = {'id':'unflagged','prompt':'CCTV-Clip'}
+        (self.directory/'upstream/data').mkdir(parents=True)
+        (self.directory/'upstream/data/items.jsonl').write_text(json.dumps(source)+'\n')
+        (self.directory/'translated.jsonl').write_text(json.dumps(target)+'\n')
+        before = (self.directory/'human-review-queue.jsonl').read_bytes()
+        with patch('review_ui.ROOT', self.directory):
+            result = self.store.add_finding({'revision':self.store.revision(), 'finding':{
+                'item_id':'unflagged','field':'prompt','index':None,'reason':'Context requires translation',
+                'reporter':'Test','reporter_role':'Test fixture','suggestion':'Überwachungsvideo',
+                'term':'CCTV','rule':'Distinguish camera footage from broadcaster'}})
+            finding = result['finding']
+            self.assertEqual(finding['origin'],'human')
+            self.assertEqual(len(finding['related_locations']),1)
+            self.assertEqual((self.directory/'human-review-queue.jsonl').read_bytes(),before)
+            self.store.save(self.payload(issue_id=finding['issue_id'],final_text='Überwachungsvideo'))
+            self.assertEqual(read(self.directory/'human-decisions.jsonl')[0]['issue_id'],finding['issue_id'])
+            (self.directory/'translated.jsonl').write_text(json.dumps({**target,'prompt':'Changed'})+'\n')
+            with self.assertRaisesRegex(ValueError,'Stale'):
+                self.store.issues()

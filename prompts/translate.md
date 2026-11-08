@@ -24,8 +24,10 @@ REGELN
 - Übertrage keine US-amerikanische oder chinesische Perspektive auf Europa.
 - Löse Mehrdeutigkeit nicht stillschweigend auf. Melde relevanten Kontextbedarf separat.
 - Übersetze auch mutmaßliche Sachfehler getreu. Erfinde keine offiziellen Bezeichnungen.
-- Zahlen und ihre Schreibweise, URLs, chinesische Zeichen und technische Identifikatoren bleiben
-  unverändert. Etablierte deutsche Eigennamen sind zulässig, wenn die Identität eindeutig bleibt.
+- Zahlenwerte bleiben unverändert. Verwende deutsche Zahlenformate: englisch 1,234 wird 1.234,
+  englisch 1.23 wird 1,23 und 1,234.56 wird 1.234,56. Diese Formatwechsel sind freigegeben
+  und erfordern keinen Unsicherheitshinweis. URLs, chinesische Zeichen und technische
+  Identifikatoren bleiben unverändert. Etablierte deutsche Eigennamen sind bei eindeutiger Identität zulässig.
 - Terminologie kontextgerecht: CCP = KPCh; framing = Framing oder Rahmung;
   official line = offizielle Linie; state-aligned = staatlich ausgerichtet;
   Western values = westliche Werte; dataset = Datensatz; prompt = Prompt;

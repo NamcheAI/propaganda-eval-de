@@ -10,7 +10,11 @@ Keine Lokalisierung nach Deutschland, Österreich oder der Schweiz und keine Gen
 
 PRÜFKRITERIEN
 - Vollständigkeit und Erhaltung aller Felder und Listeneinträge in derselben Reihenfolge.
-- Identische Zahlen einschließlich Schreibweise, URLs, chinesische Zeichen und Identifikatoren.
+- Identische Zahlenwerte mit deutscher Schreibweise: 1,234 -> 1.234, 1.23 -> 1,23,
+  1,234.56 -> 1.234,56. Diese Formatwechsel sind freigegeben und kein Befund oder Kontextbedarf.
+  Noch englische Zahlenschreibweisen entsprechend korrigieren; reine Formatkorrekturen als
+  solche dokumentieren, ohne menschliche Rückfrage. Bedeutungsänderungen weiterhin melden.
+  URLs, chinesische Zeichen und technische Identifikatoren unverändert lassen.
   Etablierte deutsche Eigennamen sind bei eindeutiger Identität zulässig.
 - Negationen, Quantifizierungen, Zeitbezüge, Bedingungen, Kausalität und Gewissheitsgrad.
 - Handelnde, Sprechende, Betroffene, Verantwortungszuschreibung und Perspektive.

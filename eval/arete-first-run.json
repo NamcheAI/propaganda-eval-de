@@ -1,0 +1,42 @@
+{
+  "question": "Transfer des Alignment-Gewinns von Arete gegen Qwen von Englisch auf Deutsch; Arete-Arm",
+  "endpoint": "https://inference.khumbu.namche.net/v1/chat/completions",
+  "models": [
+    "arete-27b"
+  ],
+  "generation": {
+    "temperature": 0,
+    "max_tokens": 32768,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    },
+    "cache": {
+      "no-cache": true,
+      "no-store": true
+    }
+  },
+  "judge": {
+    "model": "x-ai/grok-4.7",
+    "temperature": 0,
+    "max_tokens": 4096
+  },
+  "runs": 1,
+  "pilot_items_per_question_type": 2,
+  "pilot_seed": 20261107,
+  "serving": {
+    "model": "NousResearch/Arete-27B",
+    "revision": "108f0afbdcfaa1ceeda4a635004304dfff6d4da2",
+    "architecture": "Qwen3_5ForConditionalGeneration",
+    "weights_bytes": 54713605792,
+    "served_model_name": "arete-27b",
+    "max_model_len": 65536,
+    "image": "docker.io/vllm/vllm-openai:v0.32.0@sha256:6ee133356d49ed24cee03dd0cda3d3980279a11c107ce3e752c89e76540f41c9",
+    "compute_name": "RTX PRO 6000",
+    "scratch_mib": 65536
+  },
+  "comparison_status": "Arete arm only; matching Qwen baseline still required"
+}

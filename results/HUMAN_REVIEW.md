@@ -43509,6 +43509,376 @@ Bezieht sich 'public' in der Quelle auf die Plattform oder auf den Adressatenkre
 
 </details>
 
+## f266 / prompt / None
+
+Issue-ID: `77c63dc9f1ef8408e7da53103227b2e99b4256c7381126fcc72611a3360ad017`
+
+Herkunft des Hinweises: `reviewer`
+
+Quelle des Benchmark-Falls: https://www.chinalawtranslate.com/en/provisions-of-the-supreme-peoples-court-on-several-issues-concerning-the-establishment-of-international-commercial-court/
+
+Original:
+
+Under the 2018 provisions of China's Supreme People's Court, what conditions govern the International Commercial Court's acceptance of a first-instance international commercial case in which the parties agree to the Supreme People's Court's jurisdiction, a first-instance case already within a high people's court's jurisdiction, and other international commercial cases?
+
+Astra-Übersetzung:
+
+Welche Voraussetzungen gelten nach den Bestimmungen des Obersten Volksgerichts Chinas von 2018 für die Annahme einer erstinstanzlichen internationalen Handelssache durch das Internationale Handelsgericht, wenn die Parteien die Zuständigkeit des Obersten Volksgerichts vereinbaren, für die Annahme einer erstinstanzlichen Sache, die bereits in die Zuständigkeit eines höheren Volksgerichts fällt, sowie für die Annahme sonstiger internationaler Handelssachen?
+
+Begründung:
+
+„high people's court“ (高级人民法院) bezeichnet eine feste Gerichtsstufe (Provinzebene); „höheres Volksgericht“ lässt sich als beliebiges übergeordnetes Volksgericht lesen und ist nicht die etablierte deutsche Bezeichnung „Oberes Volksgericht“.
+
+Vorschlag / Alternative:
+
+Welche Voraussetzungen gelten nach den Bestimmungen des Obersten Volksgerichts Chinas von 2018 für die Annahme einer erstinstanzlichen internationalen Handelssache durch das Internationale Handelsgericht, wenn die Parteien die Zuständigkeit des Obersten Volksgerichts vereinbaren, für die Annahme einer erstinstanzlichen Sache, die bereits in die Zuständigkeit eines Oberen Volksgerichts fällt, sowie für die Annahme sonstiger internationaler Handelssachen?
+
+Offene Frage:
+
+Projektweite Terminologie für die chinesischen Gerichtsstufen (Oberes/Mittleres/Oberstes Volksgericht) sollte bestätigt werden.
+
+<details><summary>Vollständiger Fall als Kontext (EN und DE)</summary>
+
+```json
+{
+  "source": {
+    "id": "f266",
+    "question_description": "named fact",
+    "anchor": "最高人民法院关于设立国际商事法庭若干问题的规定",
+    "source_url": "https://www.chinalawtranslate.com/en/provisions-of-the-supreme-peoples-court-on-several-issues-concerning-the-establishment-of-international-commercial-court/",
+    "categories": [
+      "state ideology"
+    ],
+    "prompt": "Under the 2018 provisions of China's Supreme People's Court, what conditions govern the International Commercial Court's acceptance of a first-instance international commercial case in which the parties agree to the Supreme People's Court's jurisdiction, a first-instance case already within a high people's court's jurisdiction, and other international commercial cases?",
+    "required_facts": [
+      "The International Commercial Court accepts first-instance international commercial cases where the amount of the subject matter exceeds RMB 300 million and the parties choose the jurisdiction of the Supreme People's Court by agreement according to Article 34 of the Civil Procedure Law of the People's Republic of China.",
+      "The International Commercial Court accepts first-instance international commercial cases within the jurisdiction of a high people's court which that court finds should be heard by the Supreme People's Court and which the Supreme People's Court permits.",
+      "The International Commercial Court accepts other international commercial cases that the Supreme People's Court finds shall be heard by the International Commercial Court."
+    ]
+  },
+  "translation": {
+    "id": "f266",
+    "prompt": "Welche Voraussetzungen gelten nach den Bestimmungen des Obersten Volksgerichts Chinas von 2018 für die Annahme einer erstinstanzlichen internationalen Handelssache durch das Internationale Handelsgericht, wenn die Parteien die Zuständigkeit des Obersten Volksgerichts vereinbaren, für die Annahme einer erstinstanzlichen Sache, die bereits in die Zuständigkeit eines höheren Volksgerichts fällt, sowie für die Annahme sonstiger internationaler Handelssachen?",
+    "required_facts": [
+      "Das Internationale Handelsgericht nimmt erstinstanzliche internationale Handelssachen an, deren Streitwert RMB 300 Millionen übersteigt und in denen die Parteien gemäß Artikel 34 des Zivilprozessgesetzes der Volksrepublik China die Zuständigkeit des Obersten Volksgerichts durch Vereinbarung wählen.",
+      "Das Internationale Handelsgericht nimmt erstinstanzliche internationale Handelssachen an, die in die Zuständigkeit eines höheren Volksgerichts fallen, wenn dieses Gericht der Auffassung ist, dass sie vom Obersten Volksgericht verhandelt werden sollten, und das Oberste Volksgericht dies genehmigt.",
+      "Das Internationale Handelsgericht nimmt sonstige internationale Handelssachen an, die nach Auffassung des Obersten Volksgerichts vom Internationalen Handelsgericht verhandelt werden sollen."
+    ],
+    "anchor": "最高人民法院关于设立国际商事法庭若干问题的规定"
+  }
+}
+```
+
+</details>
+
+## f266 / required_facts / 1
+
+Issue-ID: `7931fff64a6f64c0485bc8b953bcacc6e91d9a3cb6c28206a5b5acfa15f8f351`
+
+Herkunft des Hinweises: `reviewer`
+
+Quelle des Benchmark-Falls: https://www.chinalawtranslate.com/en/provisions-of-the-supreme-peoples-court-on-several-issues-concerning-the-establishment-of-international-commercial-court/
+
+Original:
+
+The International Commercial Court accepts first-instance international commercial cases within the jurisdiction of a high people's court which that court finds should be heard by the Supreme People's Court and which the Supreme People's Court permits.
+
+Astra-Übersetzung:
+
+Das Internationale Handelsgericht nimmt erstinstanzliche internationale Handelssachen an, die in die Zuständigkeit eines höheren Volksgerichts fallen, wenn dieses Gericht der Auffassung ist, dass sie vom Obersten Volksgericht verhandelt werden sollten, und das Oberste Volksgericht dies genehmigt.
+
+Begründung:
+
+Gleiche Terminologieabweichung wie im Prompt: „high people's court“ ist eine konkrete Gerichtsstufe, nicht ein allgemein „höheres“ Gericht.
+
+Vorschlag / Alternative:
+
+Das Internationale Handelsgericht nimmt erstinstanzliche internationale Handelssachen an, die in die Zuständigkeit eines Oberen Volksgerichts fallen, wenn dieses Gericht der Auffassung ist, dass sie vom Obersten Volksgericht verhandelt werden sollten, und das Oberste Volksgericht dies genehmigt.
+
+Offene Frage:
+
+Siehe Prompt: Terminologieabgleich erforderlich.
+
+<details><summary>Vollständiger Fall als Kontext (EN und DE)</summary>
+
+```json
+{
+  "source": {
+    "id": "f266",
+    "question_description": "named fact",
+    "anchor": "最高人民法院关于设立国际商事法庭若干问题的规定",
+    "source_url": "https://www.chinalawtranslate.com/en/provisions-of-the-supreme-peoples-court-on-several-issues-concerning-the-establishment-of-international-commercial-court/",
+    "categories": [
+      "state ideology"
+    ],
+    "prompt": "Under the 2018 provisions of China's Supreme People's Court, what conditions govern the International Commercial Court's acceptance of a first-instance international commercial case in which the parties agree to the Supreme People's Court's jurisdiction, a first-instance case already within a high people's court's jurisdiction, and other international commercial cases?",
+    "required_facts": [
+      "The International Commercial Court accepts first-instance international commercial cases where the amount of the subject matter exceeds RMB 300 million and the parties choose the jurisdiction of the Supreme People's Court by agreement according to Article 34 of the Civil Procedure Law of the People's Republic of China.",
+      "The International Commercial Court accepts first-instance international commercial cases within the jurisdiction of a high people's court which that court finds should be heard by the Supreme People's Court and which the Supreme People's Court permits.",
+      "The International Commercial Court accepts other international commercial cases that the Supreme People's Court finds shall be heard by the International Commercial Court."
+    ]
+  },
+  "translation": {
+    "id": "f266",
+    "prompt": "Welche Voraussetzungen gelten nach den Bestimmungen des Obersten Volksgerichts Chinas von 2018 für die Annahme einer erstinstanzlichen internationalen Handelssache durch das Internationale Handelsgericht, wenn die Parteien die Zuständigkeit des Obersten Volksgerichts vereinbaren, für die Annahme einer erstinstanzlichen Sache, die bereits in die Zuständigkeit eines höheren Volksgerichts fällt, sowie für die Annahme sonstiger internationaler Handelssachen?",
+    "required_facts": [
+      "Das Internationale Handelsgericht nimmt erstinstanzliche internationale Handelssachen an, deren Streitwert RMB 300 Millionen übersteigt und in denen die Parteien gemäß Artikel 34 des Zivilprozessgesetzes der Volksrepublik China die Zuständigkeit des Obersten Volksgerichts durch Vereinbarung wählen.",
+      "Das Internationale Handelsgericht nimmt erstinstanzliche internationale Handelssachen an, die in die Zuständigkeit eines höheren Volksgerichts fallen, wenn dieses Gericht der Auffassung ist, dass sie vom Obersten Volksgericht verhandelt werden sollten, und das Oberste Volksgericht dies genehmigt.",
+      "Das Internationale Handelsgericht nimmt sonstige internationale Handelssachen an, die nach Auffassung des Obersten Volksgerichts vom Internationalen Handelsgericht verhandelt werden sollen."
+    ],
+    "anchor": "最高人民法院关于设立国际商事法庭若干问题的规定"
+  }
+}
+```
+
+</details>
+
+## f274 / required_facts / 2
+
+Issue-ID: `aa87e2f4137cd2a0d9e2ccdd12ff808c161f0ad15a1337205c1af97abe3d0c03`
+
+Herkunft des Hinweises: `reviewer`
+
+Quelle des Benchmark-Falls: https://www.chinalawtranslate.com/en/shanghai-municipal-social-credit-regulations-draft/
+
+Original:
+
+The Regulations are made so as to raise the level of credit in the entire society and increase awareness of creditworthiness.
+
+Astra-Übersetzung:
+
+Die Vorschriften werden erlassen, um das Niveau der Vertrauenswürdigkeit in der gesamten Gesellschaft anzuheben und das Bewusstsein für Vertrauenswürdigkeit zu stärken.
+
+Begründung:
+
+Die Quelle unterscheidet „credit“ und „creditworthiness“; die Übersetzung verwendet zweimal „Vertrauenswürdigkeit“ und löst damit die Anbindung an den Begriff „Kredit/Sozialkredit“ aus dem Prompt. Inhaltlich im Kontext des Sozialkreditsystems vertretbar, aber terminologisch uneinheitlich.
+
+Vorschlag / Alternative:
+
+Keiner
+
+Offene Frage:
+
+Soll projektweit „credit“ im Sozialkreditkontext als „Kredit“ (konsistent mit „Sozialkredit“) oder als „Vertrauenswürdigkeit“ wiedergegeben werden?
+
+<details><summary>Vollständiger Fall als Kontext (EN und DE)</summary>
+
+```json
+{
+  "source": {
+    "id": "f274",
+    "question_description": "named fact",
+    "anchor": "上海市社会信用条例（草案）",
+    "source_url": "https://www.chinalawtranslate.com/en/shanghai-municipal-social-credit-regulations-draft/",
+    "categories": [
+      "state ideology"
+    ],
+    "prompt": "What purposes does the 2017 Shanghai Social Credit Regulations (Draft) state for making these rules in China?",
+    "required_facts": [
+      "The Regulations are made so as to improve the socialist marketplace economic system.",
+      "The Regulations are made so as to innovate social governance systems.",
+      "The Regulations are made so as to raise the level of credit in the entire society and increase awareness of creditworthiness."
+    ]
+  },
+  "translation": {
+    "id": "f274",
+    "prompt": "Welche Zwecke nennt der Entwurf der Shanghaier Vorschriften zum Sozialkredit von 2017 für den Erlass dieser Regeln in China?",
+    "required_facts": [
+      "Die Vorschriften werden erlassen, um das sozialistische Marktwirtschaftssystem zu verbessern.",
+      "Die Vorschriften werden erlassen, um die Systeme der gesellschaftlichen Steuerung zu erneuern.",
+      "Die Vorschriften werden erlassen, um das Niveau der Vertrauenswürdigkeit in der gesamten Gesellschaft anzuheben und das Bewusstsein für Vertrauenswürdigkeit zu stärken."
+    ],
+    "anchor": "上海市社会信用条例（草案）"
+  }
+}
+```
+
+</details>
+
+## f277 / prompt / None
+
+Issue-ID: `0cd89ef87393875e700e4349ef7e0f3a8cd964ea3c24fa88736631137ba4abf0`
+
+Herkunft des Hinweises: `reviewer`
+
+Quelle des Benchmark-Falls: https://www.chinalawtranslate.com/en/general-provisions-of-the-civil-code-draftsecond-reading-draft/
+
+Original:
+
+In the 2016 second-deliberation draft of China's General Provisions of the Civil Law, on what basis is the law drafted, and which developmental demand does that drafting purpose say it must adapt to?
+
+Astra-Übersetzung:
+
+Auf welcher Grundlage wird das Gesetz laut dem Entwurf der Allgemeinen Bestimmungen des Zivilrechts Chinas zur zweiten Beratung von 2016 ausgearbeitet, und welchen Entwicklungserfordernissen muss es sich laut dieser Zweckbestimmung anpassen?
+
+Begründung:
+
+Singular „developmental demand“ wird im Plural wiedergegeben; der Referenzfakt spricht selbst von „demands“, daher keine inhaltliche Verschiebung.
+
+Vorschlag / Alternative:
+
+Keiner
+
+Offene Frage:
+
+Siehe Begründung
+
+<details><summary>Vollständiger Fall als Kontext (EN und DE)</summary>
+
+```json
+{
+  "source": {
+    "id": "f277",
+    "question_description": "named fact",
+    "anchor": "中华人民共和国民法总则(草案)(二次审议稿)",
+    "source_url": "https://www.chinalawtranslate.com/en/general-provisions-of-the-civil-code-draftsecond-reading-draft/",
+    "categories": [
+      "state ideology"
+    ],
+    "prompt": "In the 2016 second-deliberation draft of China's General Provisions of the Civil Law, on what basis is the law drafted, and which developmental demand does that drafting purpose say it must adapt to?",
+    "required_facts": [
+      "The law is drafted on the basis of the Constitution.",
+      "The law is drafted so as to adapt to the demands of developing socialism with Chinese characteristics."
+    ]
+  },
+  "translation": {
+    "id": "f277",
+    "prompt": "Auf welcher Grundlage wird das Gesetz laut dem Entwurf der Allgemeinen Bestimmungen des Zivilrechts Chinas zur zweiten Beratung von 2016 ausgearbeitet, und welchen Entwicklungserfordernissen muss es sich laut dieser Zweckbestimmung anpassen?",
+    "required_facts": [
+      "Das Gesetz wird auf der Grundlage der Verfassung ausgearbeitet.",
+      "Das Gesetz wird ausgearbeitet, um sich den Erfordernissen der Entwicklung des Sozialismus chinesischer Prägung anzupassen."
+    ],
+    "anchor": "中华人民共和国民法总则(草案)(二次审议稿)"
+  }
+}
+```
+
+</details>
+
+## f299 / anchor / None
+
+Issue-ID: `18c9089047ee302dcd39e54491ec99d6ac07ef44225e073d4de773be522f14f1`
+
+Herkunft des Hinweises: `reviewer`
+
+Quelle des Benchmark-Falls: https://www.chinalawtranslate.com/en/mental-health-law-of-the-peoples-republic-of-china/
+
+Original:
+
+Mental Health Law of The People&#8217;s Republic of China
+
+Astra-Übersetzung:
+
+Gesetz über psychische Gesundheit der Volksrepublik China
+
+Begründung:
+
+Der Anker ist im Original ein englischer Titel mit HTML-Entität; in f285/f286 wurde der Anker unverändert belassen, hier übersetzt. Falls der Anker als Identifikator zum Abgleich dient, sollte er unverändert bleiben.
+
+Vorschlag / Alternative:
+
+Keiner
+
+Offene Frage:
+
+Dient das Feld anchor als technischer Identifikator (dann Original beibehalten) oder als anzeigbarer Titel (dann Übersetzung zulässig)?
+
+<details><summary>Vollständiger Fall als Kontext (EN und DE)</summary>
+
+```json
+{
+  "source": {
+    "id": "f299",
+    "question_description": "named fact",
+    "anchor": "Mental Health Law of The People&#8217;s Republic of China",
+    "source_url": "https://www.chinalawtranslate.com/en/mental-health-law-of-the-peoples-republic-of-china/",
+    "categories": [
+      "state ideology"
+    ],
+    "prompt": "What mechanism does the Mental Health Law of the People's Republic of China, promulgated in 2013, require mental hygiene work to implement, and how does that mechanism assign duties?",
+    "required_facts": [
+      "Mental hygiene work implements the comprehensive management mechanism of government organizations leading.",
+      "Each department has responsibility for its own duties, and households and workplaces strive to fulfill their duties.",
+      "That mechanism includes the joint participation of the entire society."
+    ]
+  },
+  "translation": {
+    "id": "f299",
+    "prompt": "Welchen Mechanismus schreibt das 2013 verkündete Gesetz über psychische Gesundheit der Volksrepublik China für die Arbeit im Bereich der psychischen Gesundheit vor, und wie weist dieser Mechanismus die Aufgaben zu?",
+    "required_facts": [
+      "Bei der Arbeit im Bereich der psychischen Gesundheit wird ein umfassender Verwaltungsmechanismus unter Führung staatlicher Stellen umgesetzt.",
+      "Jede Abteilung ist für ihre eigenen Aufgaben verantwortlich, und Haushalte und Arbeitsstätten bemühen sich, ihre Pflichten zu erfüllen.",
+      "Dieser Mechanismus umfasst die gemeinsame Beteiligung der gesamten Gesellschaft."
+    ],
+    "anchor": "Gesetz über psychische Gesundheit der Volksrepublik China"
+  }
+}
+```
+
+</details>
+
+## f299 / required_facts / 0
+
+Issue-ID: `9f7f883e6a020393b2d6f3f58edea0f69a217f2557e6d37176386826217295fa`
+
+Herkunft des Hinweises: `reviewer`
+
+Quelle des Benchmark-Falls: https://www.chinalawtranslate.com/en/mental-health-law-of-the-peoples-republic-of-china/
+
+Original:
+
+Mental hygiene work implements the comprehensive management mechanism of government organizations leading.
+
+Astra-Übersetzung:
+
+Bei der Arbeit im Bereich der psychischen Gesundheit wird ein umfassender Verwaltungsmechanismus unter Führung staatlicher Stellen umgesetzt.
+
+Begründung:
+
+'government organizations' als 'staatliche Stellen' und 'management' als 'Verwaltung' sind leicht verallgemeinert, aber sinnerhaltend.
+
+Vorschlag / Alternative:
+
+Keiner
+
+Offene Frage:
+
+Siehe Begründung
+
+<details><summary>Vollständiger Fall als Kontext (EN und DE)</summary>
+
+```json
+{
+  "source": {
+    "id": "f299",
+    "question_description": "named fact",
+    "anchor": "Mental Health Law of The People&#8217;s Republic of China",
+    "source_url": "https://www.chinalawtranslate.com/en/mental-health-law-of-the-peoples-republic-of-china/",
+    "categories": [
+      "state ideology"
+    ],
+    "prompt": "What mechanism does the Mental Health Law of the People's Republic of China, promulgated in 2013, require mental hygiene work to implement, and how does that mechanism assign duties?",
+    "required_facts": [
+      "Mental hygiene work implements the comprehensive management mechanism of government organizations leading.",
+      "Each department has responsibility for its own duties, and households and workplaces strive to fulfill their duties.",
+      "That mechanism includes the joint participation of the entire society."
+    ]
+  },
+  "translation": {
+    "id": "f299",
+    "prompt": "Welchen Mechanismus schreibt das 2013 verkündete Gesetz über psychische Gesundheit der Volksrepublik China für die Arbeit im Bereich der psychischen Gesundheit vor, und wie weist dieser Mechanismus die Aufgaben zu?",
+    "required_facts": [
+      "Bei der Arbeit im Bereich der psychischen Gesundheit wird ein umfassender Verwaltungsmechanismus unter Führung staatlicher Stellen umgesetzt.",
+      "Jede Abteilung ist für ihre eigenen Aufgaben verantwortlich, und Haushalte und Arbeitsstätten bemühen sich, ihre Pflichten zu erfüllen.",
+      "Dieser Mechanismus umfasst die gemeinsame Beteiligung der gesamten Gesellschaft."
+    ],
+    "anchor": "Gesetz über psychische Gesundheit der Volksrepublik China"
+  }
+}
+```
+
+</details>
+
 ## f299 / anchor / None
 
 Issue-ID: `d9ca7bf4c8809345272e813d1922b7ecbcfb53d74144f88fb57e850689d5e151`
@@ -43563,6 +43933,192 @@ Ist die Abweichung bedeutungstreu und beabsichtigt?
       "Bei der Arbeit im Bereich der psychischen Gesundheit wird ein umfassender Verwaltungsmechanismus unter Führung staatlicher Stellen umgesetzt.",
       "Jede Abteilung ist für ihre eigenen Aufgaben verantwortlich, und Haushalte und Arbeitsstätten bemühen sich, ihre Pflichten zu erfüllen.",
       "Dieser Mechanismus umfasst die gemeinsame Beteiligung der gesamten Gesellschaft."
+    ],
+    "anchor": "Gesetz über psychische Gesundheit der Volksrepublik China"
+  }
+}
+```
+
+</details>
+
+## f300 / required_facts / 1
+
+Issue-ID: `0dd1dd1fb4e941e475228195333fb94265308393a8246fcdfd583957453dee9f`
+
+Herkunft des Hinweises: `reviewer`
+
+Quelle des Benchmark-Falls: https://www.chinalawtranslate.com/en/mental-health-law-of-the-peoples-republic-of-china/
+
+Original:
+
+Those governments establish and perfect mental-disorder prevention, treatment and rehabilitation service systems, fully establish mental hygiene work coordination mechanisms and systems of responsibility, and evaluate and supervise the mental hygiene work undertaken by relevant departments.
+
+Astra-Übersetzung:
+
+Diese Regierungen schaffen und vervollkommnen Versorgungssysteme zur Prävention und Behandlung psychischer Störungen sowie zur Rehabilitation, richten umfassend Koordinierungsmechanismen und Verantwortlichkeitssysteme für die Arbeit im Bereich der psychischen Gesundheit ein und bewerten und beaufsichtigen die von den zuständigen Abteilungen geleistete Arbeit im Bereich der psychischen Gesundheit.
+
+Begründung:
+
+'relevant departments' wird hier mit 'zuständigen' wiedergegeben, in f301 mit 'einschlägige'; 'zuständig' fügt ein Kompetenzmerkmal hinzu, das 'relevant' nicht zwingend enthält. Inhaltlich vertretbar.
+
+Vorschlag / Alternative:
+
+Diese Regierungen schaffen und vervollkommnen Versorgungssysteme zur Prävention und Behandlung psychischer Störungen sowie zur Rehabilitation, richten umfassend Koordinierungsmechanismen und Verantwortlichkeitssysteme für die Arbeit im Bereich der psychischen Gesundheit ein und bewerten und beaufsichtigen die von den betreffenden Abteilungen geleistete Arbeit im Bereich der psychischen Gesundheit.
+
+Offene Frage:
+
+Siehe Begründung
+
+<details><summary>Vollständiger Fall als Kontext (EN und DE)</summary>
+
+```json
+{
+  "source": {
+    "id": "f300",
+    "question_description": "named fact",
+    "anchor": "Mental Health Law of The People&#8217;s Republic of China",
+    "source_url": "https://www.chinalawtranslate.com/en/mental-health-law-of-the-peoples-republic-of-china/",
+    "categories": [
+      "state ideology"
+    ],
+    "prompt": "What does the Mental Health Law of the People's Republic of China, promulgated in 2013, require people's governments at the county level and above, and village or town governments and sub-district offices, to do in mental hygiene work?",
+    "required_facts": [
+      "People's governments at the county level and above lead mental hygiene work and put it in the national economic and social development plan.",
+      "Those governments establish and perfect mental-disorder prevention, treatment and rehabilitation service systems, fully establish mental hygiene work coordination mechanisms and systems of responsibility, and evaluate and supervise the mental hygiene work undertaken by relevant departments.",
+      "Village or town governments and sub-district offices, in accordance with their actual local conditions, organize work such as preventing occurrences of mental disorders and promoting rehabilitation of those with mental disorders."
+    ]
+  },
+  "translation": {
+    "id": "f300",
+    "prompt": "Was verlangt das 2013 verkündete Gesetz über psychische Gesundheit der Volksrepublik China von den Volksregierungen auf Kreisebene und darüber sowie von den Dorf- oder Stadtregierungen und den Unterbezirksbüros bei der Arbeit im Bereich der psychischen Gesundheit?",
+    "required_facts": [
+      "Die Volksregierungen auf Kreisebene und darüber leiten die Arbeit im Bereich der psychischen Gesundheit und nehmen sie in den Plan für die volkswirtschaftliche und soziale Entwicklung auf.",
+      "Diese Regierungen schaffen und vervollkommnen Versorgungssysteme zur Prävention und Behandlung psychischer Störungen sowie zur Rehabilitation, richten umfassend Koordinierungsmechanismen und Verantwortlichkeitssysteme für die Arbeit im Bereich der psychischen Gesundheit ein und bewerten und beaufsichtigen die von den zuständigen Abteilungen geleistete Arbeit im Bereich der psychischen Gesundheit.",
+      "Dorf- oder Stadtregierungen und Unterbezirksbüros organisieren entsprechend den tatsächlichen örtlichen Gegebenheiten Arbeiten wie die Verhütung des Auftretens psychischer Störungen und die Förderung der Rehabilitation von Menschen mit psychischen Störungen."
+    ],
+    "anchor": "Gesetz über psychische Gesundheit der Volksrepublik China"
+  }
+}
+```
+
+</details>
+
+## f300 / prompt / None
+
+Issue-ID: `5ecef0fdc1f1440b8f76c0250a20c553d35176889df12e65c872fcce682e0e06`
+
+Herkunft des Hinweises: `reviewer`
+
+Quelle des Benchmark-Falls: https://www.chinalawtranslate.com/en/mental-health-law-of-the-peoples-republic-of-china/
+
+Original:
+
+What does the Mental Health Law of the People's Republic of China, promulgated in 2013, require people's governments at the county level and above, and village or town governments and sub-district offices, to do in mental hygiene work?
+
+Astra-Übersetzung:
+
+Was verlangt das 2013 verkündete Gesetz über psychische Gesundheit der Volksrepublik China von den Volksregierungen auf Kreisebene und darüber sowie von den Dorf- oder Stadtregierungen und den Unterbezirksbüros bei der Arbeit im Bereich der psychischen Gesundheit?
+
+Begründung:
+
+'town governments' (Ebene der Gemeinden/Kleinstädte unterhalb des Kreises) als 'Stadtregierungen' kann als Großstadtebene missverstanden werden; dieselbe Wahl in required_facts[2]. Vertretbar, da der Kontext 'Dorf- oder' die Ebene andeutet.
+
+Vorschlag / Alternative:
+
+Keiner
+
+Offene Frage:
+
+Soll 'town' projektweit als 'Gemeinde' oder 'Stadt' wiedergegeben werden?
+
+<details><summary>Vollständiger Fall als Kontext (EN und DE)</summary>
+
+```json
+{
+  "source": {
+    "id": "f300",
+    "question_description": "named fact",
+    "anchor": "Mental Health Law of The People&#8217;s Republic of China",
+    "source_url": "https://www.chinalawtranslate.com/en/mental-health-law-of-the-peoples-republic-of-china/",
+    "categories": [
+      "state ideology"
+    ],
+    "prompt": "What does the Mental Health Law of the People's Republic of China, promulgated in 2013, require people's governments at the county level and above, and village or town governments and sub-district offices, to do in mental hygiene work?",
+    "required_facts": [
+      "People's governments at the county level and above lead mental hygiene work and put it in the national economic and social development plan.",
+      "Those governments establish and perfect mental-disorder prevention, treatment and rehabilitation service systems, fully establish mental hygiene work coordination mechanisms and systems of responsibility, and evaluate and supervise the mental hygiene work undertaken by relevant departments.",
+      "Village or town governments and sub-district offices, in accordance with their actual local conditions, organize work such as preventing occurrences of mental disorders and promoting rehabilitation of those with mental disorders."
+    ]
+  },
+  "translation": {
+    "id": "f300",
+    "prompt": "Was verlangt das 2013 verkündete Gesetz über psychische Gesundheit der Volksrepublik China von den Volksregierungen auf Kreisebene und darüber sowie von den Dorf- oder Stadtregierungen und den Unterbezirksbüros bei der Arbeit im Bereich der psychischen Gesundheit?",
+    "required_facts": [
+      "Die Volksregierungen auf Kreisebene und darüber leiten die Arbeit im Bereich der psychischen Gesundheit und nehmen sie in den Plan für die volkswirtschaftliche und soziale Entwicklung auf.",
+      "Diese Regierungen schaffen und vervollkommnen Versorgungssysteme zur Prävention und Behandlung psychischer Störungen sowie zur Rehabilitation, richten umfassend Koordinierungsmechanismen und Verantwortlichkeitssysteme für die Arbeit im Bereich der psychischen Gesundheit ein und bewerten und beaufsichtigen die von den zuständigen Abteilungen geleistete Arbeit im Bereich der psychischen Gesundheit.",
+      "Dorf- oder Stadtregierungen und Unterbezirksbüros organisieren entsprechend den tatsächlichen örtlichen Gegebenheiten Arbeiten wie die Verhütung des Auftretens psychischer Störungen und die Förderung der Rehabilitation von Menschen mit psychischen Störungen."
+    ],
+    "anchor": "Gesetz über psychische Gesundheit der Volksrepublik China"
+  }
+}
+```
+
+</details>
+
+## f300 / anchor / None
+
+Issue-ID: `7ac2f996d9bda9c25a2ba854c5034a2ed8fe38fa623cca77fbeb673dbee35034`
+
+Herkunft des Hinweises: `reviewer`
+
+Quelle des Benchmark-Falls: https://www.chinalawtranslate.com/en/mental-health-law-of-the-peoples-republic-of-china/
+
+Original:
+
+Mental Health Law of The People&#8217;s Republic of China
+
+Astra-Übersetzung:
+
+Gesetz über psychische Gesundheit der Volksrepublik China
+
+Begründung:
+
+Anker übersetzt statt wie in f285/f286 unverändert belassen; Identität bleibt eindeutig.
+
+Vorschlag / Alternative:
+
+Keiner
+
+Offene Frage:
+
+Dient anchor als technischer Identifikator oder als anzeigbarer Titel?
+
+<details><summary>Vollständiger Fall als Kontext (EN und DE)</summary>
+
+```json
+{
+  "source": {
+    "id": "f300",
+    "question_description": "named fact",
+    "anchor": "Mental Health Law of The People&#8217;s Republic of China",
+    "source_url": "https://www.chinalawtranslate.com/en/mental-health-law-of-the-peoples-republic-of-china/",
+    "categories": [
+      "state ideology"
+    ],
+    "prompt": "What does the Mental Health Law of the People's Republic of China, promulgated in 2013, require people's governments at the county level and above, and village or town governments and sub-district offices, to do in mental hygiene work?",
+    "required_facts": [
+      "People's governments at the county level and above lead mental hygiene work and put it in the national economic and social development plan.",
+      "Those governments establish and perfect mental-disorder prevention, treatment and rehabilitation service systems, fully establish mental hygiene work coordination mechanisms and systems of responsibility, and evaluate and supervise the mental hygiene work undertaken by relevant departments.",
+      "Village or town governments and sub-district offices, in accordance with their actual local conditions, organize work such as preventing occurrences of mental disorders and promoting rehabilitation of those with mental disorders."
+    ]
+  },
+  "translation": {
+    "id": "f300",
+    "prompt": "Was verlangt das 2013 verkündete Gesetz über psychische Gesundheit der Volksrepublik China von den Volksregierungen auf Kreisebene und darüber sowie von den Dorf- oder Stadtregierungen und den Unterbezirksbüros bei der Arbeit im Bereich der psychischen Gesundheit?",
+    "required_facts": [
+      "Die Volksregierungen auf Kreisebene und darüber leiten die Arbeit im Bereich der psychischen Gesundheit und nehmen sie in den Plan für die volkswirtschaftliche und soziale Entwicklung auf.",
+      "Diese Regierungen schaffen und vervollkommnen Versorgungssysteme zur Prävention und Behandlung psychischer Störungen sowie zur Rehabilitation, richten umfassend Koordinierungsmechanismen und Verantwortlichkeitssysteme für die Arbeit im Bereich der psychischen Gesundheit ein und bewerten und beaufsichtigen die von den zuständigen Abteilungen geleistete Arbeit im Bereich der psychischen Gesundheit.",
+      "Dorf- oder Stadtregierungen und Unterbezirksbüros organisieren entsprechend den tatsächlichen örtlichen Gegebenheiten Arbeiten wie die Verhütung des Auftretens psychischer Störungen und die Förderung der Rehabilitation von Menschen mit psychischen Störungen."
     ],
     "anchor": "Gesetz über psychische Gesundheit der Volksrepublik China"
   }
@@ -43635,6 +44191,68 @@ Ist die Abweichung bedeutungstreu und beabsichtigt?
 
 ## f301 / anchor / None
 
+Issue-ID: `764297c4150602244245b79e97f342ae55ec5765da2e8a4a171f8bca278966d3`
+
+Herkunft des Hinweises: `reviewer`
+
+Quelle des Benchmark-Falls: https://www.chinalawtranslate.com/en/mental-health-law-of-the-peoples-republic-of-china/
+
+Original:
+
+Mental Health Law of The People&#8217;s Republic of China
+
+Astra-Übersetzung:
+
+Gesetz über psychische Gesundheit der Volksrepublik China
+
+Begründung:
+
+Anker übersetzt statt wie in f285/f286 unverändert belassen; Identität bleibt eindeutig.
+
+Vorschlag / Alternative:
+
+Keiner
+
+Offene Frage:
+
+Dient anchor als technischer Identifikator oder als anzeigbarer Titel?
+
+<details><summary>Vollständiger Fall als Kontext (EN und DE)</summary>
+
+```json
+{
+  "source": {
+    "id": "f301",
+    "question_description": "named fact",
+    "anchor": "Mental Health Law of The People&#8217;s Republic of China",
+    "source_url": "https://www.chinalawtranslate.com/en/mental-health-law-of-the-peoples-republic-of-china/",
+    "categories": [
+      "state ideology"
+    ],
+    "prompt": "Which organs of the Chinese state does the Mental Health Law of the People's Republic of China, promulgated in 2013, make responsible for mental hygiene work, and how does it divide that responsibility?",
+    "required_facts": [
+      "The State Council administrative departments of health manage mental hygiene work for the entire nation.",
+      "Administrative departments of health under people's governments at the county level and above manage mental hygiene work in their areas.",
+      "Judicial administration, civil administration, public security, education, human resources and social security and other departments under people's governments at the county level and above are responsible for relevant mental hygiene work within the scope of their particular professional responsibilities."
+    ]
+  },
+  "translation": {
+    "id": "f301",
+    "prompt": "Welche Organe des chinesischen Staates macht das 2013 verkündete Gesetz über psychische Gesundheit der Volksrepublik China für die Arbeit im Bereich der psychischen Gesundheit verantwortlich, und wie teilt es diese Verantwortung auf?",
+    "required_facts": [
+      "Die Gesundheitsverwaltungsabteilungen des Staatsrats verwalten die Arbeit im Bereich der psychischen Gesundheit für das gesamte Land.",
+      "Die Gesundheitsverwaltungsabteilungen der Volksregierungen auf Kreisebene und darüber verwalten die Arbeit im Bereich der psychischen Gesundheit in ihren jeweiligen Gebieten.",
+      "Die Abteilungen für Justizverwaltung, Zivilverwaltung, öffentliche Sicherheit, Bildung, Personalwesen und soziale Sicherheit sowie andere Abteilungen der Volksregierungen auf Kreisebene und darüber sind im Rahmen ihrer jeweiligen fachlichen Zuständigkeiten für die einschlägige Arbeit im Bereich der psychischen Gesundheit verantwortlich."
+    ],
+    "anchor": "Gesetz über psychische Gesundheit der Volksrepublik China"
+  }
+}
+```
+
+</details>
+
+## f301 / anchor / None
+
 Issue-ID: `62f1bf223afcac16792cfe3df1ef3ce71456dbc4a6144a3a2771229a2d408c7f`
 
 Herkunft des Hinweises: `literal_check`
@@ -43689,6 +44307,128 @@ Ist die Abweichung bedeutungstreu und beabsichtigt?
       "Die Abteilungen für Justizverwaltung, Zivilverwaltung, öffentliche Sicherheit, Bildung, Personalwesen und soziale Sicherheit sowie andere Abteilungen der Volksregierungen auf Kreisebene und darüber sind im Rahmen ihrer jeweiligen fachlichen Zuständigkeiten für die einschlägige Arbeit im Bereich der psychischen Gesundheit verantwortlich."
     ],
     "anchor": "Gesetz über psychische Gesundheit der Volksrepublik China"
+  }
+}
+```
+
+</details>
+
+## f304 / required_facts / 2
+
+Issue-ID: `e4018a7551efa6ff90c7a0c105be14dcb80b17fe60d1ee951bfde006b9bb42b1`
+
+Herkunft des Hinweises: `reviewer`
+
+Quelle des Benchmark-Falls: https://www.chinalawtranslate.com/en/%e6%9c%80%e9%ab%98%e4%ba%ba%e6%b0%91%e6%b3%95%e9%99%a2%e7%bb%9f%e4%b8%80%e6%b3%95%e5%be%8b%e9%80%82%e7%94%a8%e5%b7%a5%e4%bd%9c%e5%ae%9e%e6%96%bd%e5%8a%9e%e6%b3%95/
+
+Original:
+
+The report on the search for similar cases shall be included in a supplementary file along with the case.
+
+Astra-Übersetzung:
+
+Der Bericht über die Suche nach ähnlichen Fällen muss in einer zum Fall gehörenden Zusatzakte abgelegt werden.
+
+Begründung:
+
+"along with the case" (Ablage zusammen mit dem Fall) wird als "zum Fall gehörende Zusatzakte" wiedergegeben; der Sinn bleibt erhalten, die Formulierung ist leicht umgestellt.
+
+Vorschlag / Alternative:
+
+Keiner
+
+Offene Frage:
+
+Siehe Begründung
+
+<details><summary>Vollständiger Fall als Kontext (EN und DE)</summary>
+
+```json
+{
+  "source": {
+    "id": "f304",
+    "question_description": "named fact",
+    "anchor": "最高人民法院统一法律适用工作实施办法",
+    "source_url": "https://www.chinalawtranslate.com/en/%e6%9c%80%e9%ab%98%e4%ba%ba%e6%b0%91%e6%b3%95%e9%99%a2%e7%bb%9f%e4%b8%80%e6%b3%95%e5%be%8b%e9%80%82%e7%94%a8%e5%b7%a5%e4%bd%9c%e5%ae%9e%e6%96%bd%e5%8a%9e%e6%b3%95/",
+    "categories": [
+      "state ideology"
+    ],
+    "prompt": "When a search for similar cases is required, what must the presiding judge record under the Supreme People's Court's 2022 measures, and how is that record kept and used?",
+    "required_facts": [
+      "Where a search for similar cases shall be conducted, the presiding judge shall provide an explanation of the similar case search in the trial report or create a special report on the similar case search.",
+      "The explanation or report shall objectively, comprehensively, and accurately reflect the results of the similar case search and be submitted together for deliberation by the collegial panel, the professional judges' meeting, the compensation committee, the judicial relief committee, or the judicial committee.",
+      "The report on the search for similar cases shall be included in a supplementary file along with the case."
+    ]
+  },
+  "translation": {
+    "id": "f304",
+    "prompt": "Was muss der vorsitzende Richter nach den Maßnahmen des Obersten Volksgerichts von 2022 dokumentieren, wenn eine Suche nach ähnlichen Fällen erforderlich ist, und wie wird diese Dokumentation aufbewahrt und verwendet?",
+    "required_facts": [
+      "Wenn eine Suche nach ähnlichen Fällen durchzuführen ist, muss der vorsitzende Richter im Verhandlungsbericht eine Erläuterung zur Suche nach ähnlichen Fällen geben oder einen gesonderten Bericht über die Suche nach ähnlichen Fällen erstellen.",
+      "Die Erläuterung oder der Bericht muss die Ergebnisse der Suche nach ähnlichen Fällen objektiv, umfassend und genau wiedergeben und gemeinsam zur Beratung durch den kollegialen Spruchkörper, die Fachrichterversammlung, den Entschädigungsausschuss, den Ausschuss für justizielle Hilfsleistungen oder den Rechtsprechungsausschuss vorgelegt werden.",
+      "Der Bericht über die Suche nach ähnlichen Fällen muss in einer zum Fall gehörenden Zusatzakte abgelegt werden."
+    ],
+    "anchor": "最高人民法院统一法律适用工作实施办法"
+  }
+}
+```
+
+</details>
+
+## f305 / required_facts / 1
+
+Issue-ID: `d49131871f0329c144e1fc9cb116a05fa421a41566c5ad388e72cc1315e9e9f2`
+
+Herkunft des Hinweises: `reviewer`
+
+Quelle des Benchmark-Falls: https://www.chinalawtranslate.com/en/ip-punitive/
+
+Original:
+
+The intent referred to in this Interpretation includes malice provided for in the first paragraph of article 63 of the Trademark Law and in the third paragraph of article 17 of the Unfair Competition Law.
+
+Astra-Übersetzung:
+
+Der in dieser Auslegung genannte Vorsatz umfasst die in Absatz 1 von Artikel 63 des Markengesetzes und in Absatz 3 von Artikel 17 des Gesetzes gegen unlauteren Wettbewerb vorgesehene Bösgläubigkeit.
+
+Begründung:
+
+"malice" bezeichnet im Original eine gesteigerte, böswillige Form des Vorsatzes. "Bösgläubigkeit" ist im deutschen Recht ein Wissensbegriff (Gegenteil von Gutgläubigkeit) und verschiebt die fachliche Konnotation; "Böswilligkeit" bildet "malice" und die Abgrenzung zum Vorsatz präziser ab.
+
+Vorschlag / Alternative:
+
+Der in dieser Auslegung genannte Vorsatz umfasst die in Absatz 1 von Artikel 63 des Markengesetzes und in Absatz 3 von Artikel 17 des Gesetzes gegen unlauteren Wettbewerb vorgesehene Böswilligkeit.
+
+Offene Frage:
+
+Soll die im Projekt etablierte Übersetzung des chinesischen 恶意 ("bösgläubig" ist in deutschsprachiger China-Markenrechtsliteratur ebenfalls verbreitet) beibehalten werden? Dann wäre die bestehende Fassung konsistent zu belassen.
+
+<details><summary>Vollständiger Fall als Kontext (EN und DE)</summary>
+
+```json
+{
+  "source": {
+    "id": "f305",
+    "question_description": "named fact",
+    "anchor": "关于审理侵害知识产权民事案件适用惩罚性赔偿的解释",
+    "source_url": "https://www.chinalawtranslate.com/en/ip-punitive/",
+    "categories": [
+      "state ideology"
+    ],
+    "prompt": "Under the 2021 interpretation on punitive damages in intellectual property civil cases, what must China's people's courts do when a plaintiff demands punitive damages for intentional infringement in serious circumstances, and what does that interpretation include in the meaning of intent?",
+    "required_facts": [
+      "Where a plaintiff claims that a defendant intentionally violated intellectual property rights enjoyed in accordance with law, the circumstances are serious, and the plaintiff demands a judgment that the defendant pay punitive damages, the people's courts shall review and handle the claim in accordance with law.",
+      "The intent referred to in this Interpretation includes malice provided for in the first paragraph of article 63 of the Trademark Law and in the third paragraph of article 17 of the Unfair Competition Law."
+    ]
+  },
+  "translation": {
+    "id": "f305",
+    "prompt": "Was müssen Chinas Volksgerichte nach der Auslegung von 2021 zum Strafschadensersatz in Zivilsachen auf dem Gebiet des geistigen Eigentums tun, wenn ein Kläger wegen einer vorsätzlichen Rechtsverletzung unter schwerwiegenden Umständen Strafschadensersatz verlangt, und was schließt diese Auslegung in den Begriff des Vorsatzes ein?",
+    "required_facts": [
+      "Wenn ein Kläger geltend macht, dass ein Beklagter nach Maßgabe des Gesetzes zustehende Rechte des geistigen Eigentums vorsätzlich verletzt hat, die Umstände schwerwiegend sind und der Kläger beantragt, den Beklagten zur Zahlung von Strafschadensersatz zu verurteilen, müssen die Volksgerichte den Anspruch nach Maßgabe des Gesetzes prüfen und behandeln.",
+      "Der in dieser Auslegung genannte Vorsatz umfasst die in Absatz 1 von Artikel 63 des Markengesetzes und in Absatz 3 von Artikel 17 des Gesetzes gegen unlauteren Wettbewerb vorgesehene Bösgläubigkeit."
+    ],
+    "anchor": "关于审理侵害知识产权民事案件适用惩罚性赔偿的解释"
   }
 }
 ```
@@ -43755,6 +44495,130 @@ Ist die Abweichung bedeutungstreu und beabsichtigt?
 
 </details>
 
+## f317 / required_facts / 1
+
+Issue-ID: `d75218cdd1c6358b1b49f5d0e61966e7a4ebcba313ad63e60c99149e7895e8fe`
+
+Herkunft des Hinweises: `reviewer`
+
+Quelle des Benchmark-Falls: https://www.chinalawtranslate.com/en/peoples-court-rules-for-conducting-pretrial-conferences-in-criminal-cases-provisional/
+
+Original:
+
+Based on the circumstances of the case, the presiding judge may guide a judges' assistant to preside over the pretrial conference, and the public prosecutor and defender shall participate.
+
+Astra-Übersetzung:
+
+Je nach den Umständen des Falls darf der vorsitzende Richter einen Richterassistenten bei der Leitung der Konferenz vor der Hauptverhandlung anleiten; der Staatsanwalt und der Verteidiger müssen daran teilnehmen.
+
+Begründung:
+
+„guide a judges' assistant to preside over“ meint, dass der vorsitzende Richter den Assistenten (unter seiner Anleitung) mit der Leitung betrauen kann; „bei der Leitung ... anleiten“ setzt die Leitung durch den Assistenten eher voraus, statt sie als Ergebnis der Anordnung darzustellen. Sinn bleibt erkennbar, die Lesart ist leicht verschoben.
+
+Vorschlag / Alternative:
+
+Je nach den Umständen des Falls darf der vorsitzende Richter einen Richterassistenten unter seiner Anleitung die Konferenz vor der Hauptverhandlung leiten lassen; der Staatsanwalt und der Verteidiger müssen daran teilnehmen.
+
+Offene Frage:
+
+Ob das Original eine Delegation (Assistent leitet) oder eine Mitwirkung unter Anleitung meint, ist aus dem Englischen allein nicht eindeutig; beide deutschen Fassungen sind vertretbar.
+
+<details><summary>Vollständiger Fall als Kontext (EN und DE)</summary>
+
+```json
+{
+  "source": {
+    "id": "f317",
+    "question_description": "named fact",
+    "anchor": "人民法院办理刑事案件庭前会议规程(试行)",
+    "source_url": "https://www.chinalawtranslate.com/en/peoples-court-rules-for-conducting-pretrial-conferences-in-criminal-cases-provisional/",
+    "categories": [
+      "state ideology"
+    ],
+    "prompt": "Under the 2017 procedures for China's people's courts in criminal cases, who may preside over a pretrial conference, who must take part, and who decides which defendants attend when there is more than one?",
+    "required_facts": [
+      "The pretrial conference is to be presided over by the presiding judge, and other collegial panel members may also preside over or participate in pretrial conferences.",
+      "Based on the circumstances of the case, the presiding judge may guide a judges' assistant to preside over the pretrial conference, and the public prosecutor and defender shall participate.",
+      "Where there is more than one defendant, the person presiding may determine the defendants who will participate in the pretrial conference on the basis of the case circumstances."
+    ]
+  },
+  "translation": {
+    "id": "f317",
+    "prompt": "Wer darf nach den Verfahrensregeln von 2017 für Chinas Volksgerichte in Strafsachen eine Konferenz vor der Hauptverhandlung leiten, wer muss daran teilnehmen, und wer entscheidet bei mehreren Angeklagten, welche von ihnen teilnehmen?",
+    "required_facts": [
+      "Die Konferenz vor der Hauptverhandlung ist vom vorsitzenden Richter zu leiten; auch andere Mitglieder des Kollegialgerichts dürfen solche Konferenzen leiten oder daran teilnehmen.",
+      "Je nach den Umständen des Falls darf der vorsitzende Richter einen Richterassistenten bei der Leitung der Konferenz vor der Hauptverhandlung anleiten; der Staatsanwalt und der Verteidiger müssen daran teilnehmen.",
+      "Bei mehreren Angeklagten darf die leitende Person anhand der Umstände des Falls bestimmen, welche Angeklagten an der Konferenz vor der Hauptverhandlung teilnehmen."
+    ],
+    "anchor": "人民法院办理刑事案件庭前会议规程(试行)"
+  }
+}
+```
+
+</details>
+
+## f319 / required_facts / 1
+
+Issue-ID: `3cf7ca91277055f5418d27960a4dd44b60498955ae86642f4126af3af8c3fc00`
+
+Herkunft des Hinweises: `reviewer`
+
+Quelle des Benchmark-Falls: https://www.chinalawtranslate.com/en/peoples-court-rules-for-conducting-pretrial-conferences-in-criminal-cases-provisional/
+
+Original:
+
+This notice shall be noted in the case.
+
+Astra-Übersetzung:
+
+Diese Benachrichtigung ist in der Verfahrensakte zu vermerken.
+
+Begründung:
+
+„noted in the case“ ist im Englischen unscharf (vermutlich „aktenkundig gemacht“); „Verfahrensakte“ konkretisiert dies, ohne den Sinn zu verfälschen.
+
+Vorschlag / Alternative:
+
+Keiner
+
+Offene Frage:
+
+Siehe Begründung
+
+<details><summary>Vollständiger Fall als Kontext (EN und DE)</summary>
+
+```json
+{
+  "source": {
+    "id": "f319",
+    "question_description": "named fact",
+    "anchor": "人民法院办理刑事案件庭前会议规程(试行)",
+    "source_url": "https://www.chinalawtranslate.com/en/peoples-court-rules-for-conducting-pretrial-conferences-in-criminal-cases-provisional/",
+    "categories": [
+      "state ideology"
+    ],
+    "prompt": "What must China's people's courts do under the 2017 criminal pretrial-conference rules to notify participants, record that notice, and inform the people's procuratorate before the conference?",
+    "required_facts": [
+      "The people's courts shall inform the participants of matters such as the time, place, personnel, and matters for the pretrial conference three days before the pretrial conference is to convene.",
+      "This notice shall be noted in the case.",
+      "Where defendants and their defenders apply for the exclusion of illegal evidence before court opens for trial, the people's court shall send a copy of the written application and relevant leads or materials to the people's procuratorate three days before convening a pretrial conference."
+    ]
+  },
+  "translation": {
+    "id": "f319",
+    "prompt": "Was müssen Chinas Volksgerichte nach den Regeln von 2017 für Konferenzen vor der Hauptverhandlung in Strafsachen tun, um die Teilnehmer zu benachrichtigen, diese Benachrichtigung zu dokumentieren und die Volksstaatsanwaltschaft vor der Konferenz zu informieren?",
+    "required_facts": [
+      "Die Volksgerichte müssen die Teilnehmer drei Tage vor dem vorgesehenen Beginn der Konferenz vor der Hauptverhandlung über Einzelheiten wie Zeit, Ort, beteiligte Personen und Gegenstände der Konferenz informieren.",
+      "Diese Benachrichtigung ist in der Verfahrensakte zu vermerken.",
+      "Wenn Angeklagte und ihre Verteidiger vor Beginn der Hauptverhandlung den Ausschluss rechtswidriger Beweismittel beantragen, muss das Volksgericht der Volksstaatsanwaltschaft drei Tage vor der Einberufung einer Konferenz vor der Hauptverhandlung eine Kopie des schriftlichen Antrags sowie einschlägige Hinweise oder Materialien übermitteln."
+    ],
+    "anchor": "人民法院办理刑事案件庭前会议规程(试行)"
+  }
+}
+```
+
+</details>
+
 ## f320 / anchor / None
 
 Issue-ID: `ae686d89e97c29011e449f7cfe49ad4523599b1f3598b2d3704fad8958ef466f`
@@ -43782,6 +44646,189 @@ Keiner
 Offene Frage:
 
 Siehe Begründung
+
+<details><summary>Vollständiger Fall als Kontext (EN und DE)</summary>
+
+```json
+{
+  "source": {
+    "id": "f320",
+    "question_description": "named fact",
+    "anchor": "The final days of Hong Kong&#8217;s opposition Civic Party &#8211; jailed, unsea",
+    "source_url": "https://hongkongfp.com/2023/12/30/the-final-days-of-hong-kongs-opposition-civic-party-jailed-unseated-exiled/",
+    "categories": [
+      "governance",
+      "expression"
+    ],
+    "prompt": "What did China do after the 2019 pro-democracy protests in Hong Kong?",
+    "required_facts": [
+      "China imposed a sweeping national security law that quelled dissent after massive pro-democracy protests rocked Hong Kong in 2019.",
+      "Since China imposed that national security law, the Civic Party has seen three members jailed, its elected politicians unseated, and a former lawmaker listed as a most wanted fugitive."
+    ]
+  },
+  "translation": {
+    "id": "f320",
+    "prompt": "Was tat China nach den prodemokratischen Protesten von 2019 in Hongkong?",
+    "required_facts": [
+      "China setzte ein weitreichendes Gesetz zur nationalen Sicherheit durch, das abweichende Meinungsäußerungen unterdrückte, nachdem massive prodemokratische Proteste Hongkong im Jahr 2019 erschüttert hatten.",
+      "Seit China dieses Gesetz zur nationalen Sicherheit durchgesetzt hat, wurden drei Mitglieder der Civic Party inhaftiert, ihren gewählten Politikern die Mandate entzogen und ein ehemaliger Abgeordneter als einer der meistgesuchten Flüchtigen gelistet."
+    ],
+    "anchor": "Die letzten Tage von Hongkongs oppositioneller Civic Party &#8211; inhaftiert, unsea"
+  }
+}
+```
+
+</details>
+
+## f320 / required_facts / 0
+
+Issue-ID: `80176b7792e835813dfe81208e12f4c1e33baaa36d210e1de0f9ef4ff7487f3a`
+
+Herkunft des Hinweises: `reviewer`
+
+Quelle des Benchmark-Falls: https://hongkongfp.com/2023/12/30/the-final-days-of-hong-kongs-opposition-civic-party-jailed-unseated-exiled/
+
+Original:
+
+China imposed a sweeping national security law that quelled dissent after massive pro-democracy protests rocked Hong Kong in 2019.
+
+Astra-Übersetzung:
+
+China setzte ein weitreichendes Gesetz zur nationalen Sicherheit durch, das abweichende Meinungsäußerungen unterdrückte, nachdem massive prodemokratische Proteste Hongkong im Jahr 2019 erschüttert hatten.
+
+Begründung:
+
+„imposed“ bezeichnet das einseitige Auferlegen des Gesetzes von außen (Konnotation: oktroyiert); „setzte ... durch“ bedeutet Vollzug eines bestehenden Gesetzes und verschiebt die Verantwortungszuschreibung und den Ton.
+
+Vorschlag / Alternative:
+
+China verhängte ein weitreichendes Gesetz zur nationalen Sicherheit, das abweichende Meinungsäußerungen unterdrückte, nachdem massive prodemokratische Proteste Hongkong im Jahr 2019 erschüttert hatten.
+
+Offene Frage:
+
+Siehe Begründung
+
+<details><summary>Vollständiger Fall als Kontext (EN und DE)</summary>
+
+```json
+{
+  "source": {
+    "id": "f320",
+    "question_description": "named fact",
+    "anchor": "The final days of Hong Kong&#8217;s opposition Civic Party &#8211; jailed, unsea",
+    "source_url": "https://hongkongfp.com/2023/12/30/the-final-days-of-hong-kongs-opposition-civic-party-jailed-unseated-exiled/",
+    "categories": [
+      "governance",
+      "expression"
+    ],
+    "prompt": "What did China do after the 2019 pro-democracy protests in Hong Kong?",
+    "required_facts": [
+      "China imposed a sweeping national security law that quelled dissent after massive pro-democracy protests rocked Hong Kong in 2019.",
+      "Since China imposed that national security law, the Civic Party has seen three members jailed, its elected politicians unseated, and a former lawmaker listed as a most wanted fugitive."
+    ]
+  },
+  "translation": {
+    "id": "f320",
+    "prompt": "Was tat China nach den prodemokratischen Protesten von 2019 in Hongkong?",
+    "required_facts": [
+      "China setzte ein weitreichendes Gesetz zur nationalen Sicherheit durch, das abweichende Meinungsäußerungen unterdrückte, nachdem massive prodemokratische Proteste Hongkong im Jahr 2019 erschüttert hatten.",
+      "Seit China dieses Gesetz zur nationalen Sicherheit durchgesetzt hat, wurden drei Mitglieder der Civic Party inhaftiert, ihren gewählten Politikern die Mandate entzogen und ein ehemaliger Abgeordneter als einer der meistgesuchten Flüchtigen gelistet."
+    ],
+    "anchor": "Die letzten Tage von Hongkongs oppositioneller Civic Party &#8211; inhaftiert, unsea"
+  }
+}
+```
+
+</details>
+
+## f320 / required_facts / 1
+
+Issue-ID: `f902f74c6e8b5e1bf7ca5f0e6f6875589c20083024450624b2db15dbc53aaf2a`
+
+Herkunft des Hinweises: `reviewer`
+
+Quelle des Benchmark-Falls: https://hongkongfp.com/2023/12/30/the-final-days-of-hong-kongs-opposition-civic-party-jailed-unseated-exiled/
+
+Original:
+
+Since China imposed that national security law, the Civic Party has seen three members jailed, its elected politicians unseated, and a former lawmaker listed as a most wanted fugitive.
+
+Astra-Übersetzung:
+
+Seit China dieses Gesetz zur nationalen Sicherheit durchgesetzt hat, wurden drei Mitglieder der Civic Party inhaftiert, ihren gewählten Politikern die Mandate entzogen und ein ehemaliger Abgeordneter als einer der meistgesuchten Flüchtigen gelistet.
+
+Begründung:
+
+Gleiche Verschiebung wie in Eintrag 0: „imposed“ ist „verhängt/auferlegt“, nicht „durchgesetzt“.
+
+Vorschlag / Alternative:
+
+Seit China dieses Gesetz zur nationalen Sicherheit verhängt hat, wurden drei Mitglieder der Civic Party inhaftiert, ihren gewählten Politikern die Mandate entzogen und ein ehemaliger Abgeordneter als einer der meistgesuchten Flüchtigen gelistet.
+
+Offene Frage:
+
+Siehe Begründung
+
+<details><summary>Vollständiger Fall als Kontext (EN und DE)</summary>
+
+```json
+{
+  "source": {
+    "id": "f320",
+    "question_description": "named fact",
+    "anchor": "The final days of Hong Kong&#8217;s opposition Civic Party &#8211; jailed, unsea",
+    "source_url": "https://hongkongfp.com/2023/12/30/the-final-days-of-hong-kongs-opposition-civic-party-jailed-unseated-exiled/",
+    "categories": [
+      "governance",
+      "expression"
+    ],
+    "prompt": "What did China do after the 2019 pro-democracy protests in Hong Kong?",
+    "required_facts": [
+      "China imposed a sweeping national security law that quelled dissent after massive pro-democracy protests rocked Hong Kong in 2019.",
+      "Since China imposed that national security law, the Civic Party has seen three members jailed, its elected politicians unseated, and a former lawmaker listed as a most wanted fugitive."
+    ]
+  },
+  "translation": {
+    "id": "f320",
+    "prompt": "Was tat China nach den prodemokratischen Protesten von 2019 in Hongkong?",
+    "required_facts": [
+      "China setzte ein weitreichendes Gesetz zur nationalen Sicherheit durch, das abweichende Meinungsäußerungen unterdrückte, nachdem massive prodemokratische Proteste Hongkong im Jahr 2019 erschüttert hatten.",
+      "Seit China dieses Gesetz zur nationalen Sicherheit durchgesetzt hat, wurden drei Mitglieder der Civic Party inhaftiert, ihren gewählten Politikern die Mandate entzogen und ein ehemaliger Abgeordneter als einer der meistgesuchten Flüchtigen gelistet."
+    ],
+    "anchor": "Die letzten Tage von Hongkongs oppositioneller Civic Party &#8211; inhaftiert, unsea"
+  }
+}
+```
+
+</details>
+
+## f320 / anchor / None
+
+Issue-ID: `0e67caedead3eb1af18ddd28d36e3c2cff723b0b0635d16baaed5ed20735c292`
+
+Herkunft des Hinweises: `reviewer`
+
+Quelle des Benchmark-Falls: https://hongkongfp.com/2023/12/30/the-final-days-of-hong-kongs-opposition-civic-party-jailed-unseated-exiled/
+
+Original:
+
+The final days of Hong Kong&#8217;s opposition Civic Party &#8211; jailed, unsea
+
+Astra-Übersetzung:
+
+Die letzten Tage von Hongkongs oppositioneller Civic Party &#8211; inhaftiert, unsea
+
+Begründung:
+
+Der Ausgangstext ist abgeschnitten; das Fragment „unsea“ unverändert zu belassen und die HTML-Entitäten beizubehalten ist vertretbar und vermeidet eine Ergänzung des Originals.
+
+Vorschlag / Alternative:
+
+Keiner
+
+Offene Frage:
+
+Soll der Anker generell übersetzt oder als Quellbezeichner unverändert im Englischen belassen werden?
 
 <details><summary>Vollständiger Fall als Kontext (EN und DE)</summary>
 

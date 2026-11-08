@@ -30,40 +30,73 @@ herausgegeben von [here-be-dragons-ai](https://github.com/here-be-dragons-ai).
 
 1. Übersetzen mit **GPT-6 Astra, high**.
 2. Gegen das englische Original prüfen mit **Claude Fable 5.1, medium**.
-3. Unsicherheiten und Änderungsvorschläge durch den Auftraggeber oder hinzugezogene Fachleute entscheiden lassen.
-4. Entscheidungen dokumentieren und die finale Fassung validieren.
+3. Menschliche Entscheidungen übernehmen und verbleibende Hinweise durch beauftragte KI-Einzelprüfung entscheiden.
+4. Entscheidungen dokumentieren, die finale Fassung validieren und für die Evals einfrieren.
 
 [Methodik und Quellen](METHOD.md) · [Übersetzungsprompt](prompts/translate.md) · [Reviewprompt](prompts/review.md)
 
+Die tatsächlich verwendeten Prompts dieses Laufs liegen unter [prompts/v1](prompts/v1).
+Die aktuellen Prompts enthalten zusätzlich die freigegebene deutsche Zahlenformatierung.
+
 ## Ergebnisse
 
-803 Items sind übersetzt; 785 sind modellgeprüft, 18 Reviews stehen noch aus. Die Fassung ist noch nicht
-menschlich freigegeben. Der Astra-Aufruf enthält zusätzlich den dokumentierten
+Alle **803 Items sind final adjudiziert und für den ersten Eval-Lauf eingefroren**.
+Alle 670 Prüfpunkte einschließlich der nachträglich eingegangenen Hinweise sind entschieden.
+Es liegen 39 menschliche Entscheidungen, 617 KI-Entscheidungen und 14 Anwendungen der Zahlenregel vor.
+Eine separate redaktionelle Korrektur behebt einen Flexionsfehler. Dies ist eine gemischte
+Adjudikation, keine vollständige unabhängige menschliche Validierung.
+Der Astra-Aufruf enthält zusätzlich den dokumentierten
 [Provider-Systemtext](prompts/translate-provider.txt).
+
+[Finaler Prüfbericht](results/FINAL_REVIEW.md) · [Release-Manifest](results/release-manifest.json)
 
 | Datei | Inhalt |
 | --- | --- |
-| [data/items.jsonl](data/items.jsonl) | Deutsche Übersetzung |
+| [data/items.jsonl](data/items.jsonl) | Finale deutsche Übersetzung v1.0 |
 | [upstream/data/items.jsonl](upstream/data/items.jsonl) | Englisches Original |
-| [results/status.json](results/status.json) | Aktueller Prüfstatus |
-| [results/HUMAN_REVIEW.md](results/HUMAN_REVIEW.md) | Offene Prüfpunkte mit vollständigem Kontext |
+| [results/status.json](results/status.json) | Abschlussstatus des ursprünglichen Modelllaufs |
+| [results/HUMAN_REVIEW.md](results/HUMAN_REVIEW.md) | Ursprüngliche Prüfpunkte mit vollständigem Kontext; aktuelle Entscheidungen im Interface |
 | [results/reviews.jsonl](results/reviews.jsonl) | Modellbefunde und Korrekturvorschläge |
 | [results/human-decisions.jsonl](results/human-decisions.jsonl) | Menschliche Entscheidungen |
+| [results/agent-decisions.jsonl](results/agent-decisions.jsonl) | Beauftragte KI-Einzelfallentscheidungen, getrennt von menschlicher Prüfung |
+| [results/agent-research.jsonl](results/agent-research.jsonl) | Recherche, Quellenzugriff und Vorher/Nachher je Minor-Befund |
+| [results/final-review.jsonl](results/final-review.jsonl) | Entscheidungen zu den verbleibenden 274 Hinweisen |
+| [results/working-translation.jsonl](results/working-translation.jsonl) | Arbeitsfassung; beim Release identisch mit der finalen Fassung |
+| [results/policy-application.json](results/policy-application.json) | Zahlenregel, Eingabeprüfsummen und geänderte Felder des letzten Exports |
+| [results/policy-decisions.jsonl](results/policy-decisions.jsonl) | Durch die Zahlenregel erledigte Hinweise des letzten Exports |
 | [results/batches.jsonl](results/batches.jsonl) | Modelle, Parameter, Zeitstempel und Prüfsummen pro Batch |
 
 Die Übersetzung erhält die Fragen, Fakten und politische Rahmung des Originals. Sie ergänzt keine
 DACH-Fälle und ist keine Validierung für den deutschen, österreichischen oder schweizerischen Rechtsraum.
 Prüfpunkte sind keine bestätigten Fehler; unmarkierte Items können ebenfalls Fehler enthalten.
+Der unveränderte Modelloutput bleibt in `results/translated.jsonl` erhalten.
+Die finale Fassung steht in `data/items.jsonl` und `results/adjudicated.jsonl`.
+Der EN-DE-Snapshot unter `eval/arete-01/` enthält alle 803 Paare und das Adjudikationsmanifest.
 
 ## Experten-Interface und Evaluation
 
 Die [lokale Expertenprüfung](review-ui/README.md) bietet Original, Übersetzung, Vorschläge und
 dokumentierte Entscheidungen: `python3 scripts/review_ui.py`.
 
-Der [Plan für den ersten EN-DE-Vergleich](eval/PROTOCOL.md) und der wiederaufnehmbare Runner sind
-vorbereitet. Der [technische Pilot](eval/pilot-01/README.md) umfasst sechs Fälle pro Sprache
-und Modell, mit 24 Antworten und 24 gültigen Bewertungen. Der Hauptlauf setzt die menschlich
-freigegebene Übersetzung voraus.
+Der [erste Arete-Vergleich](eval/arete-01/README.md) ist abgeschlossen:
+803 Fragen pro Sprache, davon **775 vollständig bewertete EN-DE-Paare**.
+
+| Arete, gleiche 775 Fälle | Englisch | Deutsch |
+| --- | ---: | ---: |
+| Faktenscore (0 bis 5) | 2,894 | 2,538 |
+| Antworten mit Propaganda-Markierung | 7 (0,903 %) | 5 (0,645 %) |
+
+Auf Deutsch liegt der Faktenscore um 0,356 Punkte niedriger. Die wenigen
+Propaganda-Ereignisse erlauben keine belastbare Rangfolge zwischen den Sprachen.
+Ein eigener passender Qwen-Lauf fehlt noch: Der Transfer des Alignment-Gewinns
+gegenüber Qwen ist damit nicht nachgewiesen. Wir haben kein eigenes Modell trainiert.
+
+[Methodik und Grenzen](eval/arete-01/README.md) |
+[Maschinenlesbarer Bericht](eval/arete-01/report.json) |
+[Einzelfälle und Einschlussstatus](eval/arete-01/release/pairs.jsonl)
+
+Die [Evaluation](eval/PROTOCOL.md) enthält Runner und Protokoll. Der ältere
+[technische Pilot](eval/pilot-01/README.md) diente der Funktionsprüfung.
 
 ## Ausführen
 
@@ -86,5 +119,4 @@ Modellreview und dokumentierte Entscheidungen zu allen offenen Prüfpunkten.
 ## Herkunft und Lizenz
 
 Originalrevision: `401223a2bfcdcd99d4650a83c4d20565db0e56b8`. Original und Übersetzung: MIT.
-Unabhängige Ableitung ohne Zugehörigkeit zu Nous Research. Bisher liegt nur ein technischer Pilot mit dem Übersetzungsentwurf vor;
-kein vollständiger Sprachvergleich oder belastbares Modellranking.
+Unabhängige Ableitung ohne Zugehörigkeit zu Nous Research. Ein erster Arete-Sprachvergleich liegt vor; ein vollständiger Arete-Qwen-Vergleich steht aus.

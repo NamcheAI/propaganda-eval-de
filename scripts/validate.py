@@ -5,12 +5,25 @@ import hashlib
 import json
 from pathlib import Path
 
-from run import ROOT, build_queue, check_result, sha
+from run import ROOT, build_queue, check_result, sha, prompt_for_hash
 from common import FIELDS
 
 
 def read(path):
     return [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
+
+
+def validate_published(run):
+    published = ROOT / 'data/items.jsonl'
+    if not (run / 'release-manifest.json').exists():
+        assert read(published) == read(run / 'translated.jsonl'), 'Published translation mismatch'
+        return
+    release = json.loads((run / 'release-manifest.json').read_text())
+    digest = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
+    assert release['status'] == 'final', 'Translation is not released'
+    assert digest(published) == release['data_sha256'], 'Published translation mismatch'
+    assert digest(run / 'adjudicated.jsonl') == release['data_sha256'], 'Adjudicated translation mismatch'
+    assert digest(run / 'translated.jsonl') == release['raw_translation_sha256'], 'Raw translation mismatch'
 
 
 def validate_run(run, require_review=False):
@@ -26,7 +39,7 @@ def validate_run(run, require_review=False):
     translations = read(run / 'translation-notes.jsonl')
     check_result('translate', {'items':list(inputs.values())}, {'items':translations})
     assert read(run / 'translated.jsonl') == [{**s, **t['translation']} for s,t in zip(sources, translations)]
-    assert read(ROOT / 'data/items.jsonl') == read(run / 'translated.jsonl'), 'Published translation mismatch'
+    validate_published(run)
     reviews = read(run / 'reviews.jsonl')
     if require_review:
         assert len(reviews) == len(sources), 'Incomplete review'
@@ -38,7 +51,7 @@ def validate_run(run, require_review=False):
         mode, ids = batch['mode'], batch['item_ids']
         assert not seen[mode].intersection(ids) and len(set(ids)) == len(ids), 'Duplicate batch items'
         seen[mode].update(ids)
-        prompt = (ROOT / f'prompts/{mode}.md').read_text()
+        prompt = prompt_for_hash(mode, config['prompt_sha256'][mode])
         assert hashlib.sha256(prompt.encode()).hexdigest() == batch['prompt_sha256'] == config['prompt_sha256'][mode]
         assert batch['requested_model'] == config['models'][mode][0]
         assert batch['requested_reasoning_effort'] == config['models'][mode][1]
@@ -56,7 +69,7 @@ def validate_run(run, require_review=False):
         assert sha(output) == batch['output_sha256'], 'Batch output mismatch'
     assert seen['translate'] == set(inputs), 'Missing translation provenance'
     assert seen['review'] == set(rm), 'Missing review provenance'
-    assert read(run / 'human-review-queue.jsonl') == build_queue(sources, translations, reviews), 'Queue mismatch'
+    assert read(run / 'human-review-queue.jsonl') == build_queue(sources, translations, reviews, number_policy=config.get('number_policy', False)), 'Queue mismatch'
     print(f'PASS: {len(translations)} translations, {len(reviews)} reviews; provenance and review queue verified')
 
 

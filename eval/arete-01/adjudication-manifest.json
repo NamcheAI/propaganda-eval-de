@@ -1,0 +1,22 @@
+{
+  "resolved_issues": 670,
+  "output_file": "adjudicated.jsonl",
+  "human_validated": false,
+  "human_decisions": 39,
+  "agent_decisions": 617,
+  "editorial_corrections": 1,
+  "number_policy_sha256": "c6dda15a4c82cedbc298d521d9e833c6033c4638c9d02ab88a73c9ba6380eae9",
+  "adjudicated_fields": 620,
+  "changed_fields": 295,
+  "scope": "Flagged cases only, not representative validation",
+  "input_hashes": {
+    "translated.jsonl": "f9908213537ec8f2dc34f68017122eefc7491ba9557725d6080de8813877f4f8",
+    "reviews.jsonl": "00465686f1f6dcde202c4e01c53ff69400b18ab3e09605c1778c7e5ca33a5f07",
+    "human-review-queue.jsonl": "586fb290a6e7739d72129b58ad931c9c0e4ba5f1a36916f8190bea7994ecc4d1",
+    "human-decisions.jsonl": "5208deae224b6d5401207db23c44172dd1491f02285735d3514f982cd18d2b2a",
+    "human-findings.jsonl": "2d5bc5f904b3544c736d3323c2e77558efc1ad7714d955e64eac72c03c236317",
+    "agent-decisions.jsonl": "255ee4b2e2c56c5baea0febec418098ac1b28e36ad90789dc7b50851824537ed",
+    "editorial-corrections.jsonl": "f3f6017a77a0fdd6fe84f964f871fab1903364319b332bea8bb1e85ae17dd428"
+  },
+  "output_sha256": "3c8c438175c99a0ea52e54ae7b2a4aa0fa381de259edca4f638c6171b1da3597"
+}

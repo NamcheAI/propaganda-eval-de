@@ -1,7 +1,7 @@
 'use strict';
 const $ = id => document.getElementById(id);
 let state, decisions, cases, selectedCase, selectedIssue, dirty = false;
-const originNames = {reviewer:'Modellreview',translator:'Übersetzerhinweis',literal_check:'Automatischer Vergleich',domain_question:'Fachfrage',undocumented_change:'Unbegründete Modelländerung'};
+const originNames = {human:'Menschlicher Hinweis',reviewer:'Modellreview',translator:'Übersetzerhinweis',literal_check:'Automatischer Vergleich',domain_question:'Fachfrage',undocumented_change:'Unbegründete Modelländerung'};
 const fields = {prompt:'Frage',required_facts:'Referenzfakt',anchor:'Anker',official_frame_markers:'Rahmungsmarker'};
 const done = q => decisions.has(q.issue_id) && decisions.get(q.issue_id).decision !== 'defer';
 const important = q => ['critical','major'].includes(q.severity) || q.origin === 'domain_question';
@@ -15,10 +15,10 @@ function discard() { return !dirty || window.confirm('Ungespeicherte Änderungen
 function renderCases() {
   const complete = state.issues.filter(done).length;
   text('remaining', state.issues.length-complete);
-  text('counts', `${cases.size} Fälle · ${complete} von ${state.issues.length} entschieden`);
+  text('counts', `${cases.size} Fälle · ${complete} von ${state.issues.length} entschieden · ${state.human_decisions||0} menschliche / ${state.agent_decisions||0} KI-Entscheidungen · ${state.policy_resolved||0} per Zahlenregel`);
   $('progress').max = state.issues.length; $('progress').value = complete;
   const query = $('search').value.toLocaleLowerCase('de');
-  const visible = [...cases.entries()].filter(([id, qs]) => qs.some(matches) &&
+  const visible = [...cases.entries()].filter(([id, qs]) => (qs.some(matches) || !qs.length && ['all','unflagged'].includes($('filter').value)) &&
     (!query || JSON.stringify([id, qs, state.sources.find(s=>s.id===id)]).toLocaleLowerCase('de').includes(query)));
   text('case-count', visible.length); $('cases').replaceChildren();
   if (!visible.some(([id])=>id===selectedCase)) { selectedCase=visible[0]?.[0]; selectedIssue=null; }
@@ -26,7 +26,7 @@ function renderCases() {
   for (const [id, qs] of visible) {
     const button=document.createElement('button'); button.type='button'; button.className='case-button'+(id===selectedCase?' active':'');
     const title=document.createElement('strong'); title.textContent=`Fall ${id}`;
-    const description=document.createElement('span'); description.textContent=state.translations.find(s=>s.id===id)?.anchor || qs[0].translation;
+    const description=document.createElement('span'); description.textContent=state.translations.find(s=>s.id===id)?.anchor || qs[0]?.translation || id;
     const count=document.createElement('small'); count.textContent=`${qs.filter(q=>!done(q)).length} offen / ${qs.length} Hinweise${qs.some(important)?' · Fachprüfung':''}`;
     button.append(title,description,count); button.onclick=()=>{if(!discard())return;dirty=false;selectedCase=id;selectedIssue=null;render();};
     $('cases').append(button);
@@ -35,9 +35,18 @@ function renderCases() {
 function renderIssue() {
   if (!selectedCase) return;
   const qs=cases.get(selectedCase);
-  if (!qs.some(q=>q.issue_id===selectedIssue)) selectedIssue=(qs.find(matches)||qs[0]).issue_id;
-  const q=qs.find(q=>q.issue_id===selectedIssue), saved=decisions.get(q.issue_id);
+  if (!qs.some(q=>q.issue_id===selectedIssue)) selectedIssue=(qs.find(matches)||qs[0])?.issue_id;
   const source=state.sources.find(s=>s.id===selectedCase), translated=state.translations.find(s=>s.id===selectedCase);
+  const q=qs.find(q=>q.issue_id===selectedIssue) || {field:'prompt',index:null,source:source.prompt,translation:translated.prompt,origin:'Noch kein Hinweis',reason:'Du kannst für jedes Feld einen eigenen Hinweis hinzufügen.'};
+  const saved=decisions.get(q.issue_id);
+  $('decision-form').hidden=!q.issue_id;
+  $('finding-field').replaceChildren();
+  for (const field of Object.keys(fields)) {
+    if (!source[field]) continue;
+    const values=Array.isArray(source[field])?source[field].map((v,i)=>[i,v]):[[null,source[field]]];
+    for(const [index,value] of values){const o=document.createElement('option');o.value=JSON.stringify({field,index});o.textContent=fields[field]+(index===null?'':` ${index+1}`);$('finding-field').append(o);}
+  }
+  previewFinding();
   text('case-meta', `FALL ${selectedCase} / ${source.question_description || ''}`);
   text('case-title', translated.anchor || 'Übersetzung prüfen');
   const url=source.source_url; $('source-link').hidden=!/^https?:\/\//i.test(url||'');
@@ -45,7 +54,7 @@ function renderIssue() {
   $('issues').replaceChildren();
   qs.forEach((item,index)=>{const b=document.createElement('button');b.type='button';b.textContent=`${done(item)?'✓ ':''}${index+1} · ${fields[item.field]||item.field}`;b.className=item.issue_id===selectedIssue?'selected':'';b.setAttribute('aria-pressed',String(item.issue_id===selectedIssue));b.onclick=()=>{if(!discard())return;dirty=false;selectedIssue=item.issue_id;renderIssue();};$('issues').append(b);});
   text('issue-meta', `${originNames[q.origin]||q.origin} / ${fields[q.field]||q.field}${q.index!==null?' '+(q.index+1):''}${q.severity?' / '+q.severity:''}`);
-  text('original',q.source);text('translation',q.translation);text('reason',q.reason);text('uncertainty',q.uncertainty);
+  text('original',q.source);text('translation',q.translation);text('reason',q.reason+(q.terminology_proposal?'\n\nTerminologievorschlag: '+q.terminology_proposal.rule+'\nSuchbegriff: '+q.terminology_proposal.term+' · '+q.related_locations.length+' Fundstellen. Über die Suche einzeln prüfen.':''));text('uncertainty',q.uncertainty);
   const suggestion=q.suggestion||q.alternative; text('suggestion',suggestion);$('suggestion-wrap').hidden=!suggestion;
   document.querySelector('input[value="accept"]').disabled=!suggestion;
   $('context').replaceChildren();
@@ -60,8 +69,8 @@ function renderIssue() {
   }
   document.querySelectorAll('input[name="decision"]').forEach(r=>r.checked=saved?.decision===r.value);
   $('decision-reason').value=saved?.reason||'';$('evidence').value=(saved?.evidence||[]).join('\n');
-  $('final-text').value=saved?.final_text||q.translation;setChoice(false);
-  text('saved-status',saved?`${saved.decision==='defer'?'Zurückgestellt':'Gespeichert'} · ${saved.reviewer}`:'Noch nicht entschieden');
+  $('final-text').value=saved?.final_text||q.translation;if(q.issue_id)setChoice(false);
+  text('saved-status',saved?`${saved.decision==='defer'?'Zurückgestellt':'Gespeichert'} · ${saved.reviewer}${saved.decision_origin==='agent'?' · KI-Einzelprüfung, keine menschliche Freigabe':''}`:'Noch nicht entschieden');
   text('message','');
 }
 function render(){renderCases();renderIssue();}
@@ -80,23 +89,44 @@ async function save(event) {
     const decision={issue_id:selectedIssue,decision:choice,reviewer:$('reviewer').value.trim(),reviewer_role:$('role').value.trim(),reason:$('decision-reason').value.trim(),final_text:choice==='defer'?null:$('final-text').value,evidence:$('evidence').value.split('\n').map(x=>x.trim()).filter(Boolean)};
     const response=await fetch('/api/decision',{method:'POST',headers:{'Content-Type':'application/json','X-Review-Token':state.token},body:JSON.stringify({revision:state.revision,decision})});
     const result=await response.json();if(!response.ok)throw Error(result.error);
-    state.revision=result.revision;decisions.set(result.decision.issue_id,result.decision);dirty=false;
+    await refreshState();dirty=false;
     localStorage.setItem('reviewer',$('reviewer').value);localStorage.setItem('reviewer_role',$('role').value);
     render();text('message','Entscheidung gespeichert.');
   } catch(error){text('message',error.message);} finally{$('save').disabled=false;}
 }
+function previewFinding(){
+  const value=$('finding-field').value;if(!value)return;
+  const {field,index}=JSON.parse(value),source=state.sources.find(s=>s.id===selectedCase),target=state.translations.find(s=>s.id===selectedCase);
+  text('finding-preview','EN: '+(index===null?source[field]:source[field][index])+'\n\nDE: '+(index===null?target[field]:target[field][index]));
+}
+async function saveFinding(event){
+  event.preventDefault();
+  try{
+    const finding={item_id:selectedCase,...JSON.parse($('finding-field').value),reporter:$('reviewer').value.trim(),reporter_role:$('role').value.trim(),reason:$('finding-reason').value.trim(),suggestion:$('finding-suggestion').value||null,term:$('finding-term').value.trim(),rule:$('finding-rule').value.trim()};
+    const response=await fetch('/api/finding',{method:'POST',headers:{'Content-Type':'application/json','X-Review-Token':state.token},body:JSON.stringify({revision:state.revision,finding})});
+    const result=await response.json();if(!response.ok)throw Error(result.error);
+    state.revision=result.revision;state.issues.push(result.finding);cases.get(selectedCase).push(result.finding);selectedIssue=result.finding.issue_id;
+    dirty=false;$('filter').value='all';$('priority').value='all';$('finding-form').reset();render();text('finding-message','Hinweis gespeichert. Noch keine Entscheidung übernommen.');
+  }catch(error){text('finding-message',error.message);}
+}
 async function init(){
   try {
-    const response=await fetch('/api/state');if(!response.ok)throw Error('Prüfliste konnte nicht geladen werden.');state=await response.json();
-    decisions=new Map(state.decisions.map(d=>[d.issue_id,d]));cases=new Map();
-    state.issues.forEach(q=>{if(!cases.has(q.item_id))cases.set(q.item_id,[]);cases.get(q.item_id).push(q);});
+    await refreshState();
     $('reviewer').value=localStorage.getItem('reviewer')||'';$('role').value=localStorage.getItem('reviewer_role')||'';
     render();
     for(const id of ['search','filter','priority']) $(id).addEventListener(id==='search'?'input':'change',()=>{if(!discard())return;dirty=false;render();});
     $('decision-form').addEventListener('input',()=>dirty=true);
     document.querySelectorAll('input[name="decision"]').forEach(r=>r.addEventListener('change',()=>setChoice()));
     $('decision-form').addEventListener('submit',save);
+    $('finding-form').addEventListener('input',()=>dirty=true);
+    $('finding-form').addEventListener('submit',saveFinding);
+    $('finding-field').addEventListener('change',previewFinding);
     window.addEventListener('beforeunload',event=>{if(dirty){event.preventDefault();event.returnValue='';}});
   } catch(error){text('case-title',error.message);}
+}
+async function refreshState(){
+  const response=await fetch('/api/state');if(!response.ok)throw Error('Prüfliste konnte nicht geladen werden.');state=await response.json();
+  decisions=new Map(state.decisions.map(d=>[d.issue_id,d]));cases=new Map(state.sources.map(s=>[s.id,[]]));
+  state.issues.forEach(q=>{if(!cases.has(q.item_id))cases.set(q.item_id,[]);cases.get(q.item_id).push(q);});
 }
 init();

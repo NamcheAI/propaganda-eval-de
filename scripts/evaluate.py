@@ -9,6 +9,7 @@ from pathlib import Path
 import random
 import urllib.error
 import urllib.request
+import http.client
 
 from common import parse_response
 from run import ROOT, load_key, sha, write, jsonl
@@ -37,8 +38,12 @@ def prepare(config_path, directory, pilot=False):
     de_path = ROOT / ('data/items.jsonl' if pilot else 'results/human-adjudicated.jsonl')
     if not pilot:
         from finalize import finalize
-        # Rebuild from validated, complete human decisions instead of trusting a stale file.
+        # Rebuild from complete attributed decisions instead of trusting a stale file.
         finalize(ROOT / 'results')
+        adjudication = json.loads((ROOT / 'results/adjudication-manifest.json').read_text())
+        de_path = ROOT / 'results' / adjudication['output_file']
+        if digest(de_path) != adjudication['output_sha256']:
+            raise ValueError('Adjudicated translation hash differs')
     english, german = read(ROOT / 'upstream/data/items.jsonl'), read(de_path)
     if [x['id'] for x in english] != [x['id'] for x in german]:
         raise ValueError('English/German IDs or order differ')
@@ -58,7 +63,11 @@ def prepare(config_path, directory, pilot=False):
                 'upstream_revision': upstream['revision'],
                 'input_hashes': {name: digest(directory / name) for name in ('en.jsonl', 'de.jsonl', 'judge.md')},
                 'german_source_sha256': digest(de_path),
+                'german_source_file': str(de_path.relative_to(ROOT)),
                 'item_ids': [x['id'] for x in english if x['id'] in selected]}
+    if not pilot:
+        write(directory / 'adjudication-manifest.json', adjudication)
+        manifest['input_hashes']['adjudication-manifest.json'] = digest(directory / 'adjudication-manifest.json')
     write(directory / 'manifest.json', manifest)
     (directory / 'manifest.sha256').write_text(digest(directory / 'manifest.json') + '\n')
     print(f"Prepared {'pilot' if pilot else 'final'} snapshot: {len(selected)} paired items")
@@ -78,16 +87,51 @@ def path_for(directory, stage, model, language, sid):
     return directory / stage / hashlib.sha256(model.encode()).hexdigest()[:16] / language / (sid + '.json')
 
 
+def read_stream(response):
+    result = {'choices': [{'message': {'content': ''}, 'finish_reason': None}]}
+    parts, done = [], False
+    for raw in response:
+        line = raw.decode('utf-8').strip()
+        if not line.startswith('data:'):
+            continue
+        data = line[5:].strip()
+        if data == '[DONE]':
+            done = True
+            break
+        chunk = json.loads(data)
+        if chunk.get('error'):
+            raise ValueError('Provider error in stream')
+        for key in ('id', 'model', 'usage'):
+            if chunk.get(key) is not None:
+                result[key] = chunk[key]
+        for choice in chunk.get('choices', []):
+            if choice.get('index', 0) != 0:
+                raise ValueError('Unexpected additional stream choice')
+            delta = choice.get('delta', {})
+            if delta.get('content') is not None:
+                if not isinstance(delta['content'], str):
+                    raise ValueError('Non-text stream content')
+                parts.append(delta['content'])
+            if delta.get('refusal'):
+                result['choices'][0]['message']['refusal'] = delta['refusal']
+            if choice.get('finish_reason'):
+                result['choices'][0]['finish_reason'] = choice['finish_reason']
+    if not done or not result['choices'][0]['finish_reason']:
+        raise ValueError('Incomplete response stream')
+    result['choices'][0]['message']['content'] = ''.join(parts)
+    return result
+
+
 def configured_request(endpoint, body):
     req = urllib.request.Request(endpoint, data=json.dumps(body).encode(), headers={
         'Authorization': 'Bearer ' + load_key(), 'Content-Type': 'application/json',
         'User-Agent': 'curl/8.7.1', 'Cache-Control': 'no-cache'})
     try:
         with urllib.request.urlopen(req, timeout=180) as response:
-            return json.load(response)
+            return read_stream(response) if body.get('stream') else json.load(response)
     except urllib.error.HTTPError as exc:
         raise RuntimeError('HTTP ' + str(exc.code)) from None
-    except (urllib.error.URLError, TimeoutError):
+    except (urllib.error.URLError, TimeoutError, http.client.IncompleteRead, ConnectionError):
         raise RuntimeError('Network failure') from None
 
 
@@ -102,8 +146,12 @@ def run_call(directory, stage, model, language, sid, body, manifest, retry_error
             return previous
     record = {'id': sid, 'language': language, 'model': model, 'request': body,
               'request_sha256': fingerprint, 'started_at': datetime.now(timezone.utc).isoformat()}
+    wire_body = ({**body, 'stream': True, 'stream_options': {'include_usage': True},
+                  'cache': {'no-cache': True, 'no-store': True}} if stage == 'grades' else body)
+    record['transport_request'] = wire_body
+    record['transport_request_sha256'] = sha(wire_body)
     try:
-        response = configured_request(manifest['config']['endpoint'], body)
+        response = configured_request(manifest['config']['endpoint'], wire_body)
         choice = response['choices'][0]
         text = choice['message'].get('content') or ''
         if not isinstance(text, str):
