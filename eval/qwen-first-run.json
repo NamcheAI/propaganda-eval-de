@@ -1,0 +1,29 @@
+{
+  "question": "Transfer des Alignment-Gewinns von Arete gegen Qwen von Englisch auf Deutsch; gehosteter Qwen-Arm",
+  "endpoint": "https://inference.namche.net/v1/chat/completions",
+  "models": ["qwen/qwen3.8-27b"],
+  "generation": {
+    "temperature": 0,
+    "max_tokens": 32768,
+    "reasoning": {"enabled": false},
+    "stream": true,
+    "stream_options": {"include_usage": true},
+    "cache": {"no-cache": true, "no-store": true}
+  },
+  "judge": {"model": "x-ai/grok-4.7", "temperature": 0, "max_tokens": 4096},
+  "runs": 1,
+  "pilot_items_per_question_type": 2,
+  "pilot_seed": 20261107,
+  "serving": {
+    "model_family": "Qwen/Qwen3.8-27B",
+    "route": "qwen/qwen3.8-27b",
+    "provider": "OpenRouter via Namche gateway, per owner confirmation",
+    "revision": null,
+    "quantization": null,
+    "inference_engine": null,
+    "chat_template": null,
+    "provenance_limitation": "Hosted route; exact backend weights revision, quantization and serving configuration not independently verified. Not a matched BF16 serving replication of Arete.",
+    "nonthinking_validation": "Six EN/DE probe responses completed with zero reported reasoning tokens and no reasoning chunks using reasoning.enabled=false."
+  },
+  "comparison_status": "Hosted Qwen baseline; serving differences limit causal attribution to Arete training."
+}

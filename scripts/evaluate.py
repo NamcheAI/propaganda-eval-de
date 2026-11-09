@@ -101,7 +101,7 @@ def read_stream(response):
         chunk = json.loads(data)
         if chunk.get('error'):
             raise ValueError('Provider error in stream')
-        for key in ('id', 'model', 'usage'):
+        for key in ('id', 'model', 'usage', 'provider'):
             if chunk.get(key) is not None:
                 result[key] = chunk[key]
         for choice in chunk.get('choices', []):
@@ -128,30 +128,41 @@ def configured_request(endpoint, body):
         'User-Agent': 'curl/8.7.1', 'Cache-Control': 'no-cache'})
     try:
         with urllib.request.urlopen(req, timeout=180) as response:
-            return read_stream(response) if body.get('stream') else json.load(response)
+            result = read_stream(response) if body.get('stream') else json.load(response)
+            result['routing_metadata'] = {name: response.headers[name] for name in
+                ('x-litellm-model-id', 'x-litellm-model-group', 'x-openrouter-provider')
+                if response.headers.get(name)}
+            if result.get('provider'):
+                result['routing_metadata']['provider'] = result['provider']
+            return result
     except urllib.error.HTTPError as exc:
         raise RuntimeError('HTTP ' + str(exc.code)) from None
     except (urllib.error.URLError, TimeoutError, http.client.IncompleteRead, ConnectionError):
         raise RuntimeError('Network failure') from None
 
 
-def run_call(directory, stage, model, language, sid, body, manifest, retry_errors):
+def run_call(directory, stage, model, language, sid, body, manifest, retry_errors, provenance=None,
+             retry_statuses=('technical_error',)):
     path = path_for(directory, stage, model, language, sid)
     fingerprint = sha({'request': body, 'manifest': manifest, 'stage': stage, 'language': language})
     if path.exists():
         previous = json.loads(path.read_text())
         if previous['request_sha256'] != fingerprint:
             raise ValueError('Configuration changed for existing response')
-        if previous['status'] != 'technical_error' or not retry_errors:
+        if previous['status'] not in retry_statuses or not retry_errors:
             return previous
     record = {'id': sid, 'language': language, 'model': model, 'request': body,
               'request_sha256': fingerprint, 'started_at': datetime.now(timezone.utc).isoformat()}
+    if provenance:
+        record['provenance'] = provenance
+    is_grade = stage in ('grades', 'grade-repairs')
     wire_body = ({**body, 'stream': True, 'stream_options': {'include_usage': True},
-                  'cache': {'no-cache': True, 'no-store': True}} if stage == 'grades' else body)
+                  'cache': {'no-cache': True, 'no-store': True}} if is_grade else body)
     record['transport_request'] = wire_body
     record['transport_request_sha256'] = sha(wire_body)
     try:
         response = configured_request(manifest['config']['endpoint'], wire_body)
+        record['routing_metadata'] = response.get('routing_metadata', {})
         choice = response['choices'][0]
         text = choice['message'].get('content') or ''
         if not isinstance(text, str):
@@ -161,7 +172,7 @@ def run_call(directory, stage, model, language, sid, body, manifest, retry_error
         record.update(status=status, response=text, returned_model=response.get('model'),
                       finish_reason=finish, usage=response.get('usage'), response_id=response.get('id'),
                       provider_refusal=choice['message'].get('refusal'))
-        if stage == 'grades':
+        if is_grade:
             if status != 'ok':
                 raise ValueError('Judge response incomplete')
             verdict = parse_response(text)
@@ -227,6 +238,19 @@ def validate_grade(item, answer, verdict):
         raise ValueError('Propaganda score requires quoted evidence')
 
 
+def selected_grade_path(directory, model, language, sid):
+    """Use a validated correction only while its invalid source record is unchanged."""
+    original = path_for(directory, 'grades', model, language, sid)
+    if not original.exists() or json.loads(original.read_text())['status'] == 'ok':
+        return original
+    repair = path_for(directory, 'grade-repairs', model, language, sid)
+    if repair.exists():
+        r = json.loads(repair.read_text())
+        if r['status'] == 'ok' and r.get('provenance', {}).get('source_grade_sha256') == digest(original):
+            return repair
+    return original
+
+
 def grade(directory, model, retry_errors=False):
     manifest = load(directory)
     if model not in manifest['config']['models']:
@@ -266,7 +290,7 @@ def report(directory):
                 if answer['status'] == 'unanswered':
                     scores[language][sid] = (0, 0)
                 elif answer['status'] == 'ok':
-                    gpath = path_for(directory, 'grades', model, language, sid)
+                    gpath = selected_grade_path(directory, model, language, sid)
                     if gpath.exists() and (g := json.loads(gpath.read_text()))['status'] == 'ok':
                         v = g['verdict']; scores[language][sid] = (v['score'], v['propaganda'])
                         counts['refused'] += int(v['refused'])

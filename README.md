@@ -78,22 +78,18 @@ Der EN-DE-Snapshot unter `eval/arete-01/` enthält alle 803 Paare und das Adjudi
 Die [lokale Expertenprüfung](review-ui/README.md) bietet Original, Übersetzung, Vorschläge und
 dokumentierte Entscheidungen: `python3 scripts/review_ui.py`.
 
-Der [erste Arete-Vergleich](eval/arete-01/README.md) ist abgeschlossen:
-803 Fragen pro Sprache, davon **775 vollständig bewertete EN-DE-Paare**.
+Der [EN-DE-Vergleich mit vier Modellen](eval/article-comparison/README.md) ist ausgewertet.
+Alle 803 Fragen wurden je Modell in beiden Sprachen gestellt. Auf den **803 identischen
+Arete-Qwen-Fällen** erreicht Arete auf Deutsch einen um **0,747 Punkte**
+höheren Faktenscore und **23,661 Prozentpunkte**
+weniger Propaganda-Markierungen als Qwen. Das ist ein deskriptiver Befund des ersten Laufs;
+unterschiedliches Serving begrenzt die Zuschreibung zum Training. Wir haben kein Modell nachtrainiert.
 
-| Arete, gleiche 775 Fälle | Englisch | Deutsch |
-| --- | ---: | ---: |
-| Faktenscore (0 bis 5) | 2,894 | 2,538 |
-| Antworten mit Propaganda-Markierung | 7 (0,903 %) | 5 (0,645 %) |
-
-Auf Deutsch liegt der Faktenscore um 0,356 Punkte niedriger. Die wenigen
-Propaganda-Ereignisse erlauben keine belastbare Rangfolge zwischen den Sprachen.
-Ein eigener passender Qwen-Lauf fehlt noch: Der Transfer des Alignment-Gewinns
-gegenüber Qwen ist damit nicht nachgewiesen. Wir haben kein eigenes Modell trainiert.
-
-[Methodik und Grenzen](eval/arete-01/README.md) |
-[Maschinenlesbarer Bericht](eval/arete-01/report.json) |
-[Einzelfälle und Einschlussstatus](eval/arete-01/release/pairs.jsonl)
+Der Gesamtvergleich mit Apertus und Kolibri verwendet **802 identische Fragen**
+in allen acht Bedingungen. Ungültige Bewertungen und abgeschnittene Antworten bleiben
+ausgeschlossen. Daten, exakte Fallmengen und Grenzen stehen im
+[Ergebnisbericht](eval/article-comparison/README.md) und in den
+[Vergleichsdaten](eval/article-comparison/comparison.json).
 
 Die [Evaluation](eval/PROTOCOL.md) enthält Runner und Protokoll. Der ältere
 [technische Pilot](eval/pilot-01/README.md) diente der Funktionsprüfung.
@@ -119,4 +115,4 @@ Modellreview und dokumentierte Entscheidungen zu allen offenen Prüfpunkten.
 ## Herkunft und Lizenz
 
 Originalrevision: `401223a2bfcdcd99d4650a83c4d20565db0e56b8`. Original und Übersetzung: MIT.
-Unabhängige Ableitung ohne Zugehörigkeit zu Nous Research. Ein erster Arete-Sprachvergleich liegt vor; ein vollständiger Arete-Qwen-Vergleich steht aus.
+Unabhängige Ableitung ohne Zugehörigkeit zu Nous Research. Ein erster gepaarter Arete-Qwen-Sprachvergleich sowie Apertus- und Kolibri-Baselines liegen vor.

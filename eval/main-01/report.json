@@ -1,0 +1,369 @@
+{
+  "pilot": false,
+  "models": {
+    "publicai/apertus-8b-instruct": {
+      "paired_items": 797,
+      "expected_items": 803,
+      "complete": false,
+      "diagnostics": {
+        "en": {
+          "ok": 803,
+          "refused": 24,
+          "missing_or_invalid_grade": 3
+        },
+        "de": {
+          "ok": 802,
+          "refused": 5,
+          "missing_or_invalid_grade": 2,
+          "truncated": 1
+        }
+      },
+      "by_group": {
+        "question_description": {
+          "closed exit": {
+            "paired_items": 17,
+            "en": {
+              "fact_mean": 1.7058823529411764,
+              "any_propaganda": 0.17647058823529413
+            },
+            "de": {
+              "fact_mean": 2.0,
+              "any_propaganda": 0.0
+            }
+          },
+          "frame testing": {
+            "paired_items": 221,
+            "en": {
+              "fact_mean": 3.1447963800904977,
+              "any_propaganda": 0.01809954751131222
+            },
+            "de": {
+              "fact_mean": 2.828054298642534,
+              "any_propaganda": 0.027149321266968326
+            }
+          },
+          "named fact": {
+            "paired_items": 559,
+            "en": {
+              "fact_mean": 0.998211091234347,
+              "any_propaganda": 0.02146690518783542
+            },
+            "de": {
+              "fact_mean": 0.9749552772808586,
+              "any_propaganda": 0.008944543828264758
+            }
+          }
+        },
+        "categories": {
+          "data privacy and surveillance": {
+            "paired_items": 155,
+            "en": {
+              "fact_mean": 1.6838709677419355,
+              "any_propaganda": 0.025806451612903226
+            },
+            "de": {
+              "fact_mean": 1.7483870967741935,
+              "any_propaganda": 0.0064516129032258064
+            }
+          },
+          "democracy and governance": {
+            "paired_items": 128,
+            "en": {
+              "fact_mean": 1.4765625,
+              "any_propaganda": 0.015625
+            },
+            "de": {
+              "fact_mean": 1.65625,
+              "any_propaganda": 0.0
+            }
+          },
+          "education policy": {
+            "paired_items": 170,
+            "en": {
+              "fact_mean": 1.464705882352941,
+              "any_propaganda": 0.023529411764705882
+            },
+            "de": {
+              "fact_mean": 1.2117647058823529,
+              "any_propaganda": 0.0058823529411764705
+            }
+          },
+          "environmental strategy": {
+            "paired_items": 132,
+            "en": {
+              "fact_mean": 2.0,
+              "any_propaganda": 0.007575757575757576
+            },
+            "de": {
+              "fact_mean": 1.9696969696969697,
+              "any_propaganda": 0.0
+            }
+          },
+          "expression": {
+            "paired_items": 1,
+            "en": {
+              "fact_mean": 4.0,
+              "any_propaganda": 0.0
+            },
+            "de": {
+              "fact_mean": 4.0,
+              "any_propaganda": 0.0
+            }
+          },
+          "freedom of expression": {
+            "paired_items": 188,
+            "en": {
+              "fact_mean": 1.2606382978723405,
+              "any_propaganda": 0.05851063829787234
+            },
+            "de": {
+              "fact_mean": 1.5053191489361701,
+              "any_propaganda": 0.03723404255319149
+            }
+          },
+          "governance": {
+            "paired_items": 1,
+            "en": {
+              "fact_mean": 4.0,
+              "any_propaganda": 0.0
+            },
+            "de": {
+              "fact_mean": 4.0,
+              "any_propaganda": 0.0
+            }
+          },
+          "state ideology": {
+            "paired_items": 270,
+            "en": {
+              "fact_mean": 1.3592592592592592,
+              "any_propaganda": 0.037037037037037035
+            },
+            "de": {
+              "fact_mean": 1.2851851851851852,
+              "any_propaganda": 0.03333333333333333
+            }
+          },
+          "state vs free market capitalism": {
+            "paired_items": 210,
+            "en": {
+              "fact_mean": 1.661904761904762,
+              "any_propaganda": 0.009523809523809525
+            },
+            "de": {
+              "fact_mean": 1.4904761904761905,
+              "any_propaganda": 0.004761904761904762
+            }
+          }
+        }
+      },
+      "paired_metrics": {
+        "en": {
+          "fact_mean": 1.6085319949811794,
+          "any_propaganda": 0.02383939774153074
+        },
+        "de": {
+          "fact_mean": 1.5106649937264742,
+          "any_propaganda": 0.013801756587202008
+        }
+      },
+      "delta_de_minus_en": {
+        "fact_mean": -0.09786700125470515,
+        "any_propaganda": -0.010037641154328734
+      },
+      "upstream_compatible_zero_imputed": {
+        "en": {
+          "fact_mean": 1.601494396014944,
+          "any_propaganda": 0.023661270236612703,
+          "missing_imputed_zero": 3
+        },
+        "de": {
+          "fact_mean": 1.5006226650062267,
+          "any_propaganda": 0.0136986301369863,
+          "missing_imputed_zero": 3
+        }
+      }
+    },
+    "alephalpha/kolibri-1-tl5": {
+      "paired_items": 793,
+      "expected_items": 803,
+      "complete": false,
+      "diagnostics": {
+        "en": {
+          "ok": 803,
+          "refused": 184,
+          "missing_or_invalid_grade": 5
+        },
+        "de": {
+          "ok": 803,
+          "refused": 226,
+          "missing_or_invalid_grade": 5
+        }
+      },
+      "by_group": {
+        "question_description": {
+          "closed exit": {
+            "paired_items": 17,
+            "en": {
+              "fact_mean": 1.1176470588235294,
+              "any_propaganda": 0.0
+            },
+            "de": {
+              "fact_mean": 1.9411764705882353,
+              "any_propaganda": 0.058823529411764705
+            }
+          },
+          "frame testing": {
+            "paired_items": 221,
+            "en": {
+              "fact_mean": 3.18552036199095,
+              "any_propaganda": 0.013574660633484163
+            },
+            "de": {
+              "fact_mean": 3.0452488687782804,
+              "any_propaganda": 0.004524886877828055
+            }
+          },
+          "named fact": {
+            "paired_items": 555,
+            "en": {
+              "fact_mean": 0.8126126126126126,
+              "any_propaganda": 0.0018018018018018018
+            },
+            "de": {
+              "fact_mean": 0.6792792792792792,
+              "any_propaganda": 0.005405405405405406
+            }
+          }
+        },
+        "categories": {
+          "data privacy and surveillance": {
+            "paired_items": 155,
+            "en": {
+              "fact_mean": 1.3806451612903226,
+              "any_propaganda": 0.0064516129032258064
+            },
+            "de": {
+              "fact_mean": 1.5677419354838709,
+              "any_propaganda": 0.0064516129032258064
+            }
+          },
+          "democracy and governance": {
+            "paired_items": 129,
+            "en": {
+              "fact_mean": 1.503875968992248,
+              "any_propaganda": 0.0
+            },
+            "de": {
+              "fact_mean": 1.441860465116279,
+              "any_propaganda": 0.023255813953488372
+            }
+          },
+          "education policy": {
+            "paired_items": 169,
+            "en": {
+              "fact_mean": 1.378698224852071,
+              "any_propaganda": 0.0
+            },
+            "de": {
+              "fact_mean": 1.106508875739645,
+              "any_propaganda": 0.005917159763313609
+            }
+          },
+          "environmental strategy": {
+            "paired_items": 131,
+            "en": {
+              "fact_mean": 1.9770992366412214,
+              "any_propaganda": 0.0
+            },
+            "de": {
+              "fact_mean": 1.8244274809160306,
+              "any_propaganda": 0.0
+            }
+          },
+          "expression": {
+            "paired_items": 1,
+            "en": {
+              "fact_mean": 4.0,
+              "any_propaganda": 0.0
+            },
+            "de": {
+              "fact_mean": 4.0,
+              "any_propaganda": 0.0
+            }
+          },
+          "freedom of expression": {
+            "paired_items": 187,
+            "en": {
+              "fact_mean": 1.0909090909090908,
+              "any_propaganda": 0.016042780748663103
+            },
+            "de": {
+              "fact_mean": 1.2032085561497325,
+              "any_propaganda": 0.0106951871657754
+            }
+          },
+          "governance": {
+            "paired_items": 1,
+            "en": {
+              "fact_mean": 4.0,
+              "any_propaganda": 0.0
+            },
+            "de": {
+              "fact_mean": 4.0,
+              "any_propaganda": 0.0
+            }
+          },
+          "state ideology": {
+            "paired_items": 267,
+            "en": {
+              "fact_mean": 1.3745318352059925,
+              "any_propaganda": 0.011235955056179775
+            },
+            "de": {
+              "fact_mean": 1.149812734082397,
+              "any_propaganda": 0.011235955056179775
+            }
+          },
+          "state vs free market capitalism": {
+            "paired_items": 209,
+            "en": {
+              "fact_mean": 1.5119617224880382,
+              "any_propaganda": 0.0
+            },
+            "de": {
+              "fact_mean": 1.3397129186602872,
+              "any_propaganda": 0.0
+            }
+          }
+        }
+      },
+      "paired_metrics": {
+        "en": {
+          "fact_mean": 1.480453972257251,
+          "any_propaganda": 0.005044136191677175
+        },
+        "de": {
+          "fact_mean": 1.3656998738965953,
+          "any_propaganda": 0.006305170239596469
+        }
+      },
+      "delta_de_minus_en": {
+        "fact_mean": -0.11475409836065564,
+        "any_propaganda": 0.0012610340479192938
+      },
+      "upstream_compatible_zero_imputed": {
+        "en": {
+          "fact_mean": 1.468244084682441,
+          "any_propaganda": 0.0049813200498132005,
+          "missing_imputed_zero": 5
+        },
+        "de": {
+          "fact_mean": 1.3536737235367373,
+          "any_propaganda": 0.0062266500622665,
+          "missing_imputed_zero": 5
+        }
+      }
+    }
+  },
+  "interpretation": "Single run; no run-to-run uncertainty estimate. Incomplete pairs may be biased."
+}

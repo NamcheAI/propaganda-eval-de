@@ -1,0 +1,9 @@
+{
+  "observed_at": "2026-11-08T20:42:05.109061+00:00",
+  "source": "https://inference.namche.net/model/info",
+  "model": "qwen/qwen3.8-27b",
+  "active_provider": "openrouter",
+  "active_deployments": 1,
+  "inactive_deployments": 1,
+  "scope": "Deployment state at observation time, not per-response provider or weights verification."
+}

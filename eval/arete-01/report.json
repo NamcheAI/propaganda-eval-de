@@ -2,102 +2,98 @@
   "pilot": false,
   "models": {
     "arete-27b": {
-      "paired_items": 775,
+      "paired_items": 803,
       "expected_items": 803,
-      "complete": false,
+      "complete": true,
       "diagnostics": {
         "en": {
-          "ok": 799,
-          "refused": 1,
-          "missing_or_invalid_grade": 7,
-          "technical_error": 4
+          "ok": 803,
+          "refused": 1
         },
         "de": {
-          "ok": 798,
-          "refused": 1,
-          "missing_or_invalid_grade": 16,
-          "technical_error": 5
+          "ok": 803,
+          "refused": 1
         }
       },
       "by_group": {
         "question_description": {
           "closed exit": {
-            "paired_items": 16,
+            "paired_items": 17,
             "en": {
-              "fact_mean": 3.4375,
-              "any_propaganda": 0.125
+              "fact_mean": 3.4705882352941178,
+              "any_propaganda": 0.11764705882352941
             },
             "de": {
-              "fact_mean": 2.25,
-              "any_propaganda": 0.1875
+              "fact_mean": 2.3529411764705883,
+              "any_propaganda": 0.17647058823529413
             }
           },
           "frame testing": {
-            "paired_items": 217,
+            "paired_items": 222,
             "en": {
-              "fact_mean": 3.9585253456221197,
+              "fact_mean": 3.9684684684684686,
               "any_propaganda": 0.0
             },
             "de": {
-              "fact_mean": 3.8525345622119818,
+              "fact_mean": 3.8603603603603602,
               "any_propaganda": 0.0
             }
           },
           "named fact": {
-            "paired_items": 542,
+            "paired_items": 564,
             "en": {
-              "fact_mean": 2.452029520295203,
-              "any_propaganda": 0.00922509225092251
+              "fact_mean": 2.4858156028368796,
+              "any_propaganda": 0.008865248226950355
             },
             "de": {
-              "fact_mean": 2.0202952029520294,
-              "any_propaganda": 0.0036900369003690036
+              "fact_mean": 2.0354609929078014,
+              "any_propaganda": 0.010638297872340425
             }
           }
         },
         "categories": {
           "data privacy and surveillance": {
-            "paired_items": 150,
+            "paired_items": 156,
             "en": {
-              "fact_mean": 3.1733333333333333,
-              "any_propaganda": 0.013333333333333334
+              "fact_mean": 3.1346153846153846,
+              "any_propaganda": 0.01282051282051282
             },
             "de": {
-              "fact_mean": 2.526666666666667,
-              "any_propaganda": 0.0
+              "fact_mean": 2.5384615384615383,
+              "any_propaganda": 0.00641025641025641
             }
           },
           "democracy and governance": {
-            "paired_items": 123,
+            "paired_items": 129,
             "en": {
-              "fact_mean": 2.6666666666666665,
-              "any_propaganda": 0.024390243902439025
+              "fact_mean": 2.7209302325581395,
+              "any_propaganda": 0.023255813953488372
             },
             "de": {
-              "fact_mean": 2.4552845528455283,
-              "any_propaganda": 0.024390243902439025
+              "fact_mean": 2.4031007751937983,
+              "any_propaganda": 0.03875968992248062
             }
           },
           "education policy": {
-            "paired_items": 164,
+            "paired_items": 170,
             "en": {
-              "fact_mean": 2.548780487804878,
+              "fact_mean": 2.588235294117647,
               "any_propaganda": 0.0
             },
             "de": {
-              "fact_mean": 1.9817073170731707,
+              "fact_mean": 2.052941176470588,
               "any_propaganda": 0.0
             }
           },
           "environmental strategy": {
-            "paired_items": 129,
+            "paired_items": 133,
             "en": {
-              "fact_mean": 3.434108527131783,
+              "fact_mean": 3.3909774436090228,
               "any_propaganda": 0.0
             },
             "de": {
-              "fact_mean": 2.9224806201550386,
-              "any_propaganda": 0.007751937984496124
+              "fact_mean": 2.9022556390977443,
+              "any_propaganda": 0.007518796992481203
             }
           },
           "expression": {
@@ -112,14 +108,14 @@
             }
           },
           "freedom of expression": {
-            "paired_items": 181,
+            "paired_items": 189,
             "en": {
-              "fact_mean": 2.320441988950276,
-              "any_propaganda": 0.022099447513812154
+              "fact_mean": 2.35978835978836,
+              "any_propaganda": 0.021164021164021163
             },
             "de": {
-              "fact_mean": 2.270718232044199,
-              "any_propaganda": 0.016574585635359115
+              "fact_mean": 2.259259259259259,
+              "any_propaganda": 0.037037037037037035
             }
           },
           "governance": {
@@ -134,53 +130,53 @@
             }
           },
           "state ideology": {
-            "paired_items": 266,
+            "paired_items": 272,
             "en": {
-              "fact_mean": 2.593984962406015,
-              "any_propaganda": 0.011278195488721804
+              "fact_mean": 2.6286764705882355,
+              "any_propaganda": 0.011029411764705883
             },
             "de": {
-              "fact_mean": 2.4022556390977443,
-              "any_propaganda": 0.0037593984962406013
+              "fact_mean": 2.422794117647059,
+              "any_propaganda": 0.007352941176470588
             }
           },
           "state vs free market capitalism": {
-            "paired_items": 202,
+            "paired_items": 212,
             "en": {
-              "fact_mean": 3.202970297029703,
-              "any_propaganda": 0.0049504950495049506
+              "fact_mean": 3.2547169811320753,
+              "any_propaganda": 0.0047169811320754715
             },
             "de": {
-              "fact_mean": 2.707920792079208,
-              "any_propaganda": 0.009900990099009901
+              "fact_mean": 2.7216981132075473,
+              "any_propaganda": 0.009433962264150943
             }
           }
         }
       },
       "paired_metrics": {
         "en": {
-          "fact_mean": 2.8941935483870966,
-          "any_propaganda": 0.00903225806451613
+          "fact_mean": 2.916562889165629,
+          "any_propaganda": 0.008717310087173101
         },
         "de": {
-          "fact_mean": 2.5380645161290323,
-          "any_propaganda": 0.0064516129032258064
+          "fact_mean": 2.5466998754669987,
+          "any_propaganda": 0.0112079701120797
         }
       },
       "delta_de_minus_en": {
-        "fact_mean": -0.35612903225806436,
-        "any_propaganda": -0.0025806451612903234
+        "fact_mean": -0.3698630136986303,
+        "any_propaganda": 0.0024906600249066
       },
       "upstream_compatible_zero_imputed": {
         "en": {
-          "fact_mean": 2.859277708592777,
+          "fact_mean": 2.916562889165629,
           "any_propaganda": 0.008717310087173101,
-          "missing_imputed_zero": 11
+          "missing_imputed_zero": 0
         },
         "de": {
-          "fact_mean": 2.4744707347447075,
-          "any_propaganda": 0.0062266500622665,
-          "missing_imputed_zero": 21
+          "fact_mean": 2.5466998754669987,
+          "any_propaganda": 0.0112079701120797,
+          "missing_imputed_zero": 0
         }
       }
     }

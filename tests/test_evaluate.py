@@ -9,6 +9,8 @@ from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import evaluate as ev
 import grade_queue
+import retry_evaluation
+import repair_judge_validation
 
 
 class EvalTest(unittest.TestCase):
@@ -98,6 +100,57 @@ class EvalTest(unittest.TestCase):
         self.assertEqual(report['paired_metrics']['de']['fact_mean'], 5)
         self.assertEqual(report['upstream_compatible_zero_imputed']['de']['missing_imputed_zero'], 1)
 
+    def test_repair_preserves_successes_and_obeys_missing_only_and_attempt_cap(self):
+        with patch.object(ev, 'configured_request', side_effect=self.response):
+            ev.generate(self.run, 'target'); ev.grade(self.run, 'target')
+        ids = ev.load(self.run)['item_ids']
+        missing = ev.path_for(self.run, 'grades', 'target', 'de', ids[0])
+        failed = ev.path_for(self.run, 'grades', 'target', 'de', ids[1])
+        preserved = ev.path_for(self.run, 'grades', 'target', 'de', ids[2])
+        old = preserved.read_bytes()
+        missing.unlink()
+        data = json.loads(failed.read_text()); data['status'] = 'technical_error'; ev.write(failed, data)
+        argv = ['repair', '--run', str(self.run), '--stage', 'grades', '--workers', '1']
+        with patch.object(sys, 'argv', argv + ['--only-missing']), patch.object(ev, 'configured_request', side_effect=self.response) as call:
+            retry_evaluation.main()
+        self.assertEqual(call.call_count, 1)
+        self.assertEqual(json.loads(failed.read_text())['status'], 'technical_error')
+        def invalid(endpoint, body):
+            response = self.response(endpoint, body)
+            verdict = {**self.verdict, 'score': 0}
+            response['choices'][0]['message']['content'] = json.dumps(verdict)
+            return response
+        with patch.object(sys, 'argv', argv), patch.object(ev, 'configured_request', side_effect=invalid) as call, patch.object(retry_evaluation.time, 'sleep'):
+            retry_evaluation.main()
+        self.assertEqual(call.call_count, 2)
+        self.assertEqual(preserved.read_bytes(), old)
+        self.assertEqual(json.loads(failed.read_text())['status'], 'technical_error')
+
+    def test_validation_feedback_is_separate_and_bound_to_the_original_record(self):
+        with patch.object(ev, 'configured_request', side_effect=self.response):
+            ev.generate(self.run, 'target'); ev.grade(self.run, 'target')
+        sid = ev.load(self.run)['item_ids'][0]
+        original = ev.path_for(self.run, 'grades', 'target', 'de', sid)
+        row = json.loads(original.read_text())
+        row.update(status='technical_error', error='Score contradicts fact counts')
+        ev.write(original, row)
+        before = original.read_bytes()
+        argv = ['repair', '--run', str(self.run), '--workers', '1']
+        with patch.object(sys, 'argv', argv), patch.object(ev, 'configured_request', side_effect=self.response) as call:
+            repair_judge_validation.main()
+        self.assertEqual(call.call_count, 1)
+        body = call.call_args.args[1]
+        self.assertEqual([m['role'] for m in body['messages']], ['user', 'assistant', 'user'])
+        self.assertEqual(body['messages'][0], row['request']['messages'][0])
+        self.assertEqual(body['temperature'], self.config['judge']['temperature'])
+        self.assertEqual(body['max_tokens'], self.config['judge']['max_tokens'])
+        self.assertEqual(original.read_bytes(), before)
+        self.assertNotEqual(ev.selected_grade_path(self.run, 'target', 'de', sid), original)
+        self.assertTrue(ev.report(self.run)['target']['complete'])
+        row['error'] = 'Changed original'; ev.write(original, row)
+        self.assertEqual(ev.selected_grade_path(self.run, 'target', 'de', sid), original)
+        self.assertFalse(ev.report(self.run)['target']['complete'])
+
     def test_tampered_snapshot_and_config_rejected(self):
         (self.run/'de.jsonl').write_text('')
         with self.assertRaisesRegex(ValueError, 'Snapshot changed'):
@@ -113,6 +166,30 @@ class EvalTest(unittest.TestCase):
             verdict = copy.deepcopy(self.verdict); verdict[key] = value
             with self.subTest(key=key, value=value), self.assertRaises(ValueError):
                 ev.validate_grade(item, 'Fixture answer', verdict)
+
+    def test_truncated_answer_retry_is_explicit_and_keeps_attempts(self):
+        def incomplete(endpoint, body):
+            result = self.response(endpoint, body)
+            result['choices'][0]['finish_reason'] = 'length'
+            return result
+        with patch.object(ev, 'configured_request', side_effect=incomplete):
+            ev.generate(self.run, 'target')
+        sid = ev.load(self.run)['item_ids'][0]
+        path = ev.path_for(self.run, 'answers', 'target', 'en', sid)
+        body = json.loads(path.read_text())['request']
+        manifest = ev.load(self.run)
+        with patch.object(ev, 'configured_request', side_effect=self.response) as call:
+            ev.run_call(self.run, 'answers', 'target', 'en', sid, body, manifest, True)
+            self.assertEqual(call.call_count, 0)
+            ev.run_call(self.run, 'answers', 'target', 'en', sid, body, manifest, True,
+                        retry_statuses=('technical_error', 'truncated'))
+            self.assertEqual(call.call_count, 1)
+            ev.run_call(self.run, 'answers', 'target', 'en', sid, body, manifest, True,
+                        retry_statuses=('technical_error', 'truncated'))
+            self.assertEqual(call.call_count, 1)
+        attempts = path.parent / (sid + '-attempts')
+        self.assertEqual(json.loads((attempts/'0.json').read_text())['status'], 'truncated')
+        self.assertEqual(json.loads(path.read_text())['status'], 'ok')
 
     def test_score_precedence(self):
         for counts, expected in [((0,2,0),0), ((1,0,1),0), ((2,0,0),5),
