@@ -40,14 +40,38 @@ def main():
     article = site / 'content/insights/arete-auf-deutsch.md'
     old = article.read_text()
     front = old.split('---', 2)[1].strip()
-    front = front.replace("title: 'Arete auf Deutsch: wenig Propaganda, weniger Fakten'", "title: 'Arete auf Deutsch: weniger Propaganda als Qwen'")
     lines=front.splitlines()
-    lines=["description: '803 Fragen in zwei Sprachen, vier Modelle und offene Ergebnisse: Wie Arete gegenüber Qwen auf Deutsch abschneidet.'" if x.startswith('description:') else x for x in lines]
+    lines=["title: 'Arete auf Deutsch: weniger chinesische Staatspropaganda als Qwen'" if x.startswith('title:') else x for x in lines]
+    lines=["description: 'Chinesische Open-Weight-Modelle sind eine Chance für souveräne KI. Kann Post-Training politischen Bias verändern, und wirkt das auch auf Deutsch?'" if x.startswith('description:') else x for x in lines]
     body = f'''
-Nous Research hat mit Arete ein auf Qwen3.8-27B aufbauendes Modell veröffentlicht,
-das politisch sensible Fragen beantworten soll, ohne vorgegebene Propaganda-Muster
-zu übernehmen. Unsere Frage: Bleibt der beobachtete Vorteil gegenüber Qwen auch
-erhalten, wenn dieselben Fragen auf Deutsch gestellt werden?
+Chinesische Open-Weight-Modelle wie Qwen sind eine leistungsfähige Alternative
+zu den geschlossenen Modellen der großen Frontier-Labore. Ihre Gewichte lassen
+sich herunterladen, auf eigener Infrastruktur betreiben und für eigene Zwecke
+anpassen. Das macht sie zu einem wichtigen Baustein für souveräne KI: mehr
+Kontrolle über Daten, Betrieb und Weiterentwicklung.
+
+Doch auch ein selbst betriebenes Modell bringt die politische Prägung seines
+Trainings mit. [Nous Research](https://nousresearch.com/arete) berichtet bei
+Qwen3.8-27B von Verweigerungen, ausweichenden Antworten und chinesischen
+Staatsnarrativen zu politisch sensiblen Themen. Wer ein solches Modell einsetzt,
+übernimmt damit auch Verhaltensweisen, die den eigenen Anforderungen
+widersprechen können. Lässt sich das durch gezieltes Post-Training verändern?
+
+Genau das hat Nous Research mit **Arete-27B** untersucht. Das Team trainierte
+Qwen3.8-27B auf rund 52,8 Millionen zusätzlichen Token nach, mit dem erklärten
+Ziel, „westliche Werte“ zu stärken. Im eigenen englischen Test berichtet Nous
+danach einen höheren Faktenscore und deutlich weniger Propaganda-Markierungen.
+Das Modell, der Trainingsansatz und der ursprüngliche Test **Propaganda_Eval**
+stammen von Nous Research.
+
+„Propaganda“ bezeichnet im Folgenden die Übernahme oder Billigung chinesischer
+Staatsnarrative nach der Rubrik dieses Tests. Die bloße Wiedergabe der offiziellen
+Position mit klarer Zuschreibung zählt nicht dazu.
+
+Aber bleibt eine solche Veränderung auch in einer anderen Sprache erhalten?
+Ein besseres Ergebnis auf Englisch garantiert noch kein besseres Ergebnis auf
+Deutsch. Hier setzt unsere Untersuchung an: **Bleibt Aretes Vorteil gegenüber
+dem ursprünglichen Qwen auch bei denselben Fragen auf Deutsch sichtbar?**
 
 Wir haben die 803 Fragen des Propaganda_Eval übersetzt und Arete, Qwen,
 Kolibri und Apertus in beiden Sprachen getestet. Im gepaarten Vergleich mit Qwen
