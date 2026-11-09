@@ -24,7 +24,7 @@ configs:
 
 Deutsche Übersetzung der 803 Eval-Items aus
 [NousResearch/Propaganda_Eval](https://huggingface.co/datasets/NousResearch/Propaganda_Eval),
-herausgegeben von [here-be-dragons-ai](https://github.com/here-be-dragons-ai).
+herausgegeben von [Namche](https://namche.ai).
 
 ## Vorgehen
 

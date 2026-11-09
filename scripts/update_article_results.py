@@ -81,11 +81,10 @@ Propaganda-Markierungen. Der deutsche Faktenscore liegt bei beiden Modellen
 unter dem englischen. Das ist der Befund dieses ersten Laufs unter der
 verwendeten Bewertungsrubrik.
 
-Den [Datensatz](https://huggingface.co/datasets/here-be-dragons-ai/propaganda-eval-de)
-und [Methodik, Prompts und Ergebnisse](https://github.com/here-be-dragons-ai/propaganda-eval-de)
-veröffentlichen wir bei [Here Be Dragons](https://here-be-dragons.ai).
-Here Be Dragons ist eine Non-Profit-Organisation für verantwortungsvolle
-Mensch-Maschine-Zukünfte. Wir haben kein Modell nachtrainiert.
+Den [Datensatz](https://huggingface.co/datasets/namcheai/propaganda-eval-de)
+und [Methodik, Prompts und Ergebnisse](https://github.com/NamcheAI/propaganda-eval-de)
+veröffentlichen wir bei [Namche](https://namche.ai).
+Wir haben kein Modell nachtrainiert.
 
 [[image]]
 
@@ -121,7 +120,7 @@ englisch `1,234.56` zu deutsch `1.234,56`, ohne den Wert zu ändern.
 Das Vorgehen orientiert sich am [MQM-Rahmen](https://themqm.org/) und an
 [Datasheets for Datasets](https://arxiv.org/abs/1803.09010). Es ist eine gemischte
 Prüfung durch Mensch und KI, keine vollständige unabhängige menschliche
-Validierung oder MQM-Zertifizierung. Die [Methodik](https://github.com/here-be-dragons-ai/propaganda-eval-de/blob/main/METHOD.md)
+Validierung oder MQM-Zertifizierung. Die [Methodik](https://github.com/NamcheAI/propaganda-eval-de/blob/main/METHOD.md)
 beschreibt die Schritte und Grenzen.
 
 ## Derselbe Test in zwei Sprachen
@@ -151,7 +150,7 @@ wiederholt. Erfolgreiche Antworten und gültige Urteile blieben bestehen.
 Frühere Versuche und verbleibende Ausfälle bleiben dokumentiert. Faktenscore,
 Faktenzuordnung und Belegzitate müssen die unveränderte Validierung bestehen.
 Bei verbleibenden formalen Fehlern erhielt derselbe Judge sein bisheriges Urteil
-und eine [standardisierte Validierungsrückmeldung](https://github.com/here-be-dragons-ai/propaganda-eval-de/blob/main/prompts/judge-validation-repair.md).
+und eine [standardisierte Validierungsrückmeldung](https://github.com/NamcheAI/propaganda-eval-de/blob/main/prompts/judge-validation-repair.md).
 Rubrik und Modellparameter blieben gleich; Original und Korrektur sind getrennt
 gespeichert. Die Downloads enthalten zusätzlich die Auswertung ohne diesen Schritt.
 Sie umfasst {baseline['n']} gemeinsame Arete-Qwen-Fälle und zeigt ebenfalls einen
@@ -221,10 +220,10 @@ veröffentlicht. Es ist ein eigenständig vortrainiertes Modell für Deutsch und
 Englisch mit rund 78 Milliarden Parametern, von denen pro Token rund 3,5 Milliarden
 aktiv sind. Die [Modellkarte](https://huggingface.co/Aleph-Alpha/Kolibri-1)
 beschreibt unter anderem synthetische Umformulierungen mit Gemma und Mistral.
-Die [Sovereign Models Scorecard von Here Be Dragons](https://huggingface.co/datasets/here-be-dragons-ai/sovereign-models-scorecard)
-dokumentiert für das Post-Training vor allem GLM-5.2, GLM-5.3 und Qwen3.8-27B
-als Datenlieferanten. Aleph Alpha beschreibt außerdem eigene Maßnahmen gegen
-politischen Bias aus synthetischen Trainingsdaten.
+Für das Post-Training nennt Aleph Alpha außerdem synthetische Daten aus
+chinesischen Sprachmodellen und beschreibt in der
+[Modellkarte](https://huggingface.co/Aleph-Alpha/Kolibri-1#political-bias)
+Maßnahmen, um daraus übernommenen politischen Bias zu reduzieren.
 
 **Apertus** entstand im Rahmen der Swiss AI Initiative von ETH Zürich und EPFL
 mit dem Schweizer Supercomputing-Zentrum CSCS. Wir testen die 8B-Instruct-Variante
@@ -234,9 +233,8 @@ Auch hier kommen externe Modelle ins Spiel: Laut
 [technischem Bericht](https://arxiv.org/html/2509.14233v1#S4.SS1.SSS4)
 erzeugten Llama 3.1 8B, Llama 3.3 70B, Qwen 2.5 72B, Qwen 3 14B und Qwen 3 32B
 Antworten für das Alignment. Bei kontroversen Themen orientiert sich dieses
-an der Swiss AI Charter. Die Scorecard führt die spätere Generation Apertus 1.5
-separat; deren Trainingsgeschichte ist nicht mit der hier getesteten Version
-gleichzusetzen.
+an der Swiss AI Charter. Unsere Angaben beziehen sich auf die getestete erste
+Generation, nicht auf das spätere Apertus 1.5.
 
 Die Herkunft der Tutormodelle allein belegt noch keinen übernommenen Bias.
 Deshalb messen wir auch bei diesen europäischen Modellen das tatsächliche
@@ -305,8 +303,8 @@ Die separate Arete-Qwen-Auswertung verwendet
 vier Bedingungen; der Gesamtvergleich verwendet acht. Fehlende und ungültige
 Bewertungen werden nicht als Nullwerte ergänzt.
 
-- [Datensatz auf Hugging Face](https://huggingface.co/datasets/here-be-dragons-ai/propaganda-eval-de)
-- [Code, Prompts und dokumentierte Übersetzungsprüfung](https://github.com/here-be-dragons-ai/propaganda-eval-de)
+- [Datensatz auf Hugging Face](https://huggingface.co/datasets/namcheai/propaganda-eval-de)
+- [Code, Prompts und dokumentierte Übersetzungsprüfung](https://github.com/NamcheAI/propaganda-eval-de)
 - [Nous Research: Arete](https://nousresearch.com/arete)
 - [OpenRouter: Qwen3.8-27B und Anbieter](https://openrouter.ai/qwen/qwen3.8-27b/providers)
 '''
