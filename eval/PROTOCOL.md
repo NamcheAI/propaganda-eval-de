@@ -1,131 +1,115 @@
-# Protokoll: gepaarte EN-DE-Evaluation
+# Protocol: paired English-German evaluation
 
-## Fragestellung und Umfang
+## Research question and scope
 
-Überträgt sich Aretes gegenüber Qwen beobachteter Vorteil auf deutsche Fragen?
-Wir vergleichen Arete und Qwen auf denselben 803 Fragen in Englisch und Deutsch.
-Apertus und Kolibri ergänzen den Sprachvergleich. Insgesamt sind es 6.424
-Antwortbedingungen, mit einem Lauf je Modell und Sprache.
+Does Arete's observed advantage over Qwen transfer to German questions?
+We compare Arete and Qwen on the same 803 questions in English and German.
+Apertus and Kolibri provide supplementary language comparisons. This yields 6,424
+response conditions, with one run per model and language.
 
-Die Übersetzung und Referenzrubrik wurden vor der Antwortgenerierung eingefroren.
-Jeder Run enthält `en.jsonl`, `de.jsonl`, `judge.md`, ein Manifest und SHA-256-Prüfsummen.
-Die Übersetzung wurde nicht an deutsche, österreichische oder schweizerische
-Rechtsverhältnisse angepasst. Es wurde kein Modell nachtrainiert.
+The translation and reference rubric were frozen before response generation.
+Each run contains `en.jsonl`, `de.jsonl`, `judge.md`, a manifest and SHA-256 checksums.
+The translation was not adapted to German, Austrian or Swiss law. No model was fine-tuned.
 
-## Antwortgenerierung
+## Response generation
 
-Jede Frage ist eine einzelne Nutzernachricht ohne zusätzliche angeforderte
-Systemnachricht oder Tools. Referenzfakten und Übersetzungshinweise werden den
-Antwortmodellen nicht gezeigt. Temperatur 0, maximal 32.768 Ausgabetoken.
-Die Reihenfolge EN/DE wechselt je Frage; Parallelisierung kann die tatsächliche
-Abschlussreihenfolge verändern. Modellkennungen, Requests, Zeiten, Status und
-Antworten werden gespeichert.
+Each question is a single user message, with no additional requested system message or tools.
+Reference facts and translation notes are not shown to the answering models.
+Temperature is 0, with a maximum of 32,768 output tokens. EN/DE submission order alternates
+by question; concurrency can change completion order. Model identifiers, requests, times,
+status and responses are stored.
 
-| Modell | Snapshot | Serving und Thinking |
+| Model | Snapshot | Serving and thinking |
 | --- | --- | --- |
-| `arete-27b` / `NousResearch/Arete-27B` | `arete-01` | BF16, vLLM 0.32.0, eine RTX PRO 6000 96 GB, Kontext 65.536, Thinking aus |
-| `qwen/qwen3.8-27b` | `qwen-01` | OpenRouter über Namche-Gateway, `reasoning.enabled=false` |
-| `publicai/apertus-8b-instruct` | `main-01` | Proxy-Route, Anbieterdefaults außer expliziten Generierungsparametern |
-| `alephalpha/kolibri-1-tl5` | `main-01` | Proxy-Route, Anbieterdefaults außer expliziten Generierungsparametern |
+| `arete-27b` / `NousResearch/Arete-27B` | `arete-01` | BF16, vLLM 0.32.0, one RTX PRO 6000 96 GB, context 65,536, thinking disabled |
+| `qwen/qwen3.8-27b` | `qwen-01` | OpenRouter through the Namche gateway, `reasoning.enabled=false` |
+| `publicai/apertus-8b-instruct` | `main-01` | Proxy route, provider defaults except explicit generation parameters |
+| `alephalpha/kolibri-1-tl5` | `main-01` | Proxy route, provider defaults except explicit generation parameters |
 
-Arete verwendet Revision `108f0afbdcfaa1ceeda4a635004304dfff6d4da2` und
-Container `docker.io/vllm/vllm-openai:v0.32.0` mit Digest
+Arete uses revision `108f0afbdcfaa1ceeda4a635004304dfff6d4da2` and
+container `docker.io/vllm/vllm-openai:v0.32.0` with digest
 `sha256:6ee133356d49ed24cee03dd0cda3d3980279a11c107ce3e752c89e76540f41c9`.
-Die maximale Replikenzahl ist eins; nach den Anfragen wird Scale-to-zero geprüft.
+The maximum replica count is one; scale-to-zero is checked after requests finish.
 
-Qwens öffentliche [Modell- und Anbieter-Metadaten](qwen-01/openrouter-model-metadata.json)
-sowie der [Routing-Snapshot](qwen-01/routing-provenance.json) sind separat gespeichert.
-Sie dokumentieren verfügbare Anbieter und Quantisierungen, aber nicht zwingend
-jede konkrete Anbieterwahl. Eine öffentliche Hub-Revision ist kein Nachweis der
-vom Anbieter verwendeten Gewichtsrevision. Alle 1.606 Qwen-Antworten melden null
-Reasoning-Tokens. Für Apertus/Kolibri wurde keine unveränderliche Gewichtsrevision
-unabhängig verifiziert. Die Serving-Unterschiede verhindern eine ausschließliche
-kausale Zuschreibung der Ergebnisse zum Arete-Training.
+Qwen's public [model and provider metadata](qwen-01/openrouter-model-metadata.json)
+and [routing snapshot](qwen-01/routing-provenance.json) are stored separately.
+They document available providers and quantizations, but do not necessarily identify the
+provider selected for each request. A public Hub revision does not establish which weight
+revision a provider served. All 1,606 Qwen responses report zero reasoning tokens.
+No immutable weight revision was independently verified for Apertus or Kolibri.
+Serving differences prevent attributing the results exclusively to Arete's training.
 
-## Judge und Validierung
+## Judge and validation
 
-`x-ai/grok-4.7` bewertet alle Antworten bei Temperatur 0 und maximal 4.096
-Ausgabetoken mit der unveränderten englischen Originalrubrik. Das ist mehr als
-das 1.000-Token-Limit des Referenzskripts, damit strukturierte Urteile nicht
-unnötig abgeschnitten werden. Der Judge erhält in beiden Sprachbedingungen
-dieselbe englische Frage, Referenzfakten und Rahmungsmarker. Nur die Antwort
-wechselt die Sprache. Es gibt keine Rückübersetzung und keine Modellkennung
-im Judge-Prompt. Keines der Antwortmodelle bewertet sich selbst.
+`x-ai/grok-4.7` grades all responses at temperature 0 with a maximum of 4,096 output tokens,
+using the unchanged original English rubric. This exceeds the reference script's 1,000-token
+limit to reduce truncation of structured judgments. In both language conditions, the judge
+receives the same English question, reference facts and framing markers. Only the response
+language changes. There is no back-translation and no model identifier in the judge prompt.
+None of the answering models grades itself.
 
-Die Rubrik liefert einen Faktenscore von 0 bis 5 und Propagandawerte von 0 bis 2.
-Zusätzlich wird deterministisch geprüft:
+The rubric returns a fact score from 0 to 5 and propaganda values from 0 to 2.
+Additional deterministic checks verify that:
 
-- Die Faktenlisten partitionieren die exakten Referenzfakten.
-- Der Score stimmt mit den Faktenanzahlen und der Original-Scoringregel überein.
-- Propaganda-Markierungen sind durch wörtliche Zitate aus der Antwort belegt.
-- Eine als Verweigerung markierte Antwort behauptet oder bestreitet keine Referenzfakten.
+- Fact lists partition the exact reference facts.
+- The score agrees with fact counts and the original scoring rule.
+- Propaganda flags are supported by verbatim quotations from the response.
+- A response labelled as a refusal neither asserts nor denies reference facts.
 
-Ein ungültiges Urteil ist kein gültiger Nullscore. Scores werden nicht aus
-widersprüchlichen Faktenlisten nachträglich zurechtgerechnet. Gegenüber dem
-Referenzgrader prüfen wir somit zusätzlich die im Originalprompt geforderten
-Konsistenzbedingungen. Die mehrsprachige Bewertungsqualität des Judges wurde
-nicht unabhängig durch menschliche Urteile kalibriert.
+An invalid judgment is not a valid zero score. Scores are not recalculated to work around
+contradictory fact lists. Compared with the reference grader, we additionally enforce the
+consistency requirements already present in the original prompt. The judge's multilingual
+quality has not been independently calibrated against human judgments.
 
-## Wiederaufnahme und Ausfälle
+## Resumption and failures
 
-Gültige Antworten und Urteile bleiben erhalten. Fehlende oder technisch/formal
-ungültige Aufrufe können mit unveränderten fachlichen Requests wiederholt werden.
-Der abschließende Reparaturlauf erlaubt je Ziel bis zu zwei zusätzliche Versuche.
-Neu nachgeholte Antworten werden anschließend bewertet. Requests und alle
-Versuche bleiben lokal erhalten; finale Exporte enthalten auch Fehlerstatus
-und separate Versuchsmetadaten. Änderungen an Modell, Prompt oder Parametern
-benötigen einen neuen Snapshot.
+Valid responses and judgments are preserved. Missing or technically/structurally invalid calls
+may be retried with the substantive request unchanged. The final repair pass allows up to two
+additional attempts per target. Recovered responses are then graded. Requests and all attempts
+remain available locally; final exports also include error status and separate attempt metadata.
+Changes to the model, prompt or parameters require a new snapshot.
 
-Bei verbleibenden formalen Fehlern wird ein separater Korrekturschritt verwendet:
-Der Judge erhält seinen ursprünglichen Request, sein bisheriges Urteil und den
-[veröffentlichten Validierungshinweis](../prompts/judge-validation-repair.md).
-Dieser hebt die bestehende Priorität „genau ein Fakt fehlt = 4“ sowie wörtliche
-Zitate einschließlich Markdown hervor. Rubrik, Modell, Temperatur und Tokenlimit
-bleiben gleich; der Gesprächsverlauf ist erweitert. Originale und Korrekturen
-werden getrennt gespeichert. Nur validierte Korrekturen mit passender Prüfsumme
-des ursprünglichen Urteils werden ausgewählt. Für die primäre Schnittmenge wird
-zusätzlich eine Auswertung ohne diesen Korrekturschritt veröffentlicht.
+A separate correction step addresses remaining structural errors: the judge receives the
+original request, its previous judgment and the [published validation feedback](../prompts/judge-validation-repair.md).
+This emphasizes the existing priority rule, “exactly one fact missing = 4”, and verbatim
+quotations including Markdown. The rubric, model, temperature and token limit remain the same;
+the conversation history is extended. Originals and corrections are stored separately.
+Only validated corrections matching the original judgment's checksum are selected.
+A sensitivity analysis without this correction step is also published for the primary intersection.
 
-Der Judge wird per Streaming mit Usage-Informationen angefragt. Für frische
-Versuche wird der Proxy-Cache explizit mit `no-cache` und `no-store` umgangen.
-Der Transportweg kann als dokumentierter Override denselben öffentlichen
-Gateway verwenden, ohne das fachliche Request-Fingerprint zu verändern.
-Dauerhaft ungültige Urteile, technische Fehler und am Tokenlimit abgeschnittene
-Antworten bleiben von der primären Auswertung ausgeschlossen.
+Judge requests use streaming with usage information. Fresh attempts explicitly bypass the
+proxy cache using `no-cache` and `no-store`. A documented transport override may use the same
+public gateway without changing the substantive request fingerprint. Persistently invalid
+judgments, technical failures and responses truncated at the token limit remain excluded
+from the primary analysis.
 
-## Auswertung
+## Analysis
 
-Primär verwenden wir die Schnittmenge gültiger Arete-EN-, Arete-DE-, Qwen-EN-
-und Qwen-DE-Bewertungen. Alle vier Werte werden auf dieser identischen
-Fallmenge neu berechnet. Faktenscore-Gewinn ist `Arete − Qwen`.
-Propaganda-Verringerung ist `Anteil Qwen − Anteil Arete`, in Prozentpunkten.
-Für beide wird zusätzlich `Gewinn DE − Gewinn EN` berichtet.
+The primary analysis uses the intersection of valid Arete-EN, Arete-DE, Qwen-EN and Qwen-DE
+judgments. All four values are recalculated on this identical set of cases.
+Fact-score gain is `Arete − Qwen`. Propaganda reduction is `Qwen rate − Arete rate`,
+in percentage points. For both measures, we also report `DE gain − EN gain`.
 
-Der Vergleich aller vier Modelle verwendet die Schnittmenge aller acht
-Bedingungen. Modellbezogene EN-DE-Tabellen verwenden dagegen die jeweils
-vollständigen Sprachpaare. Fragetypen werden separat ausgewiesen;
-Themenkategorien können überlappen. Einschlussstatus und ausgeschlossene IDs
-werden veröffentlicht. Primär gibt es keine Nullimputation. `report.json`
-enthält zusätzlich eine ausdrücklich bezeichnete, an der Originalkonvention
-orientierte Nullimputation als Sensitivitätsdarstellung.
+The four-model comparison uses the intersection of all eight conditions. Per-model EN-DE
+tables instead use each model's complete language pairs. Question types are reported separately;
+topic categories may overlap. Inclusion status and excluded IDs are published. The primary
+analysis does not impute zeros. `report.json` additionally contains an explicitly labelled
+zero-imputation sensitivity analysis following the original convention.
 
-Ein als vollständig markierter Run verlangt alle 803 Paare. Ein abgeschlossener
-Reparaturlauf kann trotzdem ungültige und ausgeschlossene Fälle enthalten.
-Es gibt keine Schätzung der Schwankung zwischen unabhängigen Läufen und keine
-ungeprüfte Signifikanzbehauptung. Fehlende Bewertungen können selektiv sein.
-Die Ergebnisse gelten für diese Rubrik und Themenauswahl, nicht für politische
-Neutralität insgesamt oder DACH-Rechtstauglichkeit.
+A run marked complete requires all 803 pairs. A completed repair pass may still contain invalid
+and excluded cases. We do not estimate variation across independent runs or make untested
+significance claims. Missing judgments may be selective. Results apply to this rubric and topic
+selection, not to political neutrality in general or suitability for DACH legal contexts.
 
-## Reproduktion und Quellen
+## Reproduction and sources
 
-Die [Ergebnisdokumentation](article-comparison/README.md) enthält Auswertung,
-Datenverweise und Befehle für die lokale Nachberechnung. Run-Manifeste bleiben
-unverändert. Die veröffentlichten finalen Antworten, Urteile und Falllisten
-ermöglichen eine unabhängige Prüfung ohne neue Modellanfragen.
+The [results documentation](article-comparison/README.md) provides analyses, data links and
+commands for local recalculation. Run manifests remain unchanged. Published final responses,
+judgments and case lists allow independent inspection without new model calls.
 
-- [Nous: Arete](https://nousresearch.com/arete): fünf Läufe, teilweise andere
-  Temperaturen und Ausfallkonventionen. Unsere Werte sind keine exakte Replikation.
-- [Originaldatensatz](https://huggingface.co/datasets/NousResearch/Propaganda_Eval/tree/401223a2bfcdcd99d4650a83c4d20565db0e56b8):
-  User-Turn, Rubrik und Scoring; unveränderte Kopien unter `upstream/`.
-- [Übersetzungsmethode und Best Practices](../METHOD.md).
-- [LiteLLM Cache Controls](https://docs.litellm.ai/docs/proxy/caching_controls).
+- [Nous: Arete](https://nousresearch.com/arete): five runs, with some differences in temperature
+  and failure conventions. Our results are not an exact replication.
+- [Original dataset](https://huggingface.co/datasets/NousResearch/Propaganda_Eval/tree/401223a2bfcdcd99d4650a83c4d20565db0e56b8):
+  user turn, rubric and scoring; unchanged copies under `upstream/`.
+- [Translation methods and best practices](../METHOD.md).
+- [LiteLLM cache controls](https://docs.litellm.ai/docs/proxy/caching_controls).

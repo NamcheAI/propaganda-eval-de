@@ -1,59 +1,60 @@
-# Expertenprüfung
+# Expert review interface
 
-Start im Repository:
+Start from the repository root:
 
 ```sh
 python3 scripts/review_ui.py
 ```
 
-Interface: http://127.0.0.1:8765
+Interface: http://127.0.0.1:8765. The interface labels are in German.
 
-1. Name oder stabile Kennung und Rolle beziehungsweise Qualifikation eintragen.
-2. Einen Fall und darin einen Prüfpunkt auswählen. Original, Übersetzung und vollständigen Fallkontext lesen.
-3. Vorschlag übernehmen, Übersetzung beibehalten, eigene Fassung eintragen oder zurückstellen.
-4. Entscheidung begründen und bei Bedarf Belege ergänzen. Erst Speichern schreibt die Entscheidung.
+1. Enter a name or stable identifier and your role or qualifications.
+2. Select a case and a review point. Read the original, translation and full case context.
+3. Accept the proposal, keep the translation, enter your own wording or defer the decision.
+4. Explain your decision and add evidence where needed. Only saving writes the decision.
 
-Suche und Statusfilter helfen bei der Aufteilung; mit „Major / Fachfragen“ lassen sich wichtige Fälle
-vorziehen. Ein Fall kann mehrere Prüfpunkte enthalten. Hinweise sind noch keine bestätigten Fehler.
+Search and status filters help divide the work; “Major / Fachfragen” prioritizes major findings
+and specialist questions. A case can contain several review points. Flags are not confirmed errors.
 
-Die Anwendung speichert atomar in `results/human-decisions.jsonl`, mit Reviewer, Rolle, Zeitpunkt,
-Begründung, finalem Feldtext und Belegen. Zurückgestellte Punkte bleiben offen. Die Pipeline übernimmt
-zusätzlich die ausdrücklich beauftragten KI-Einzelentscheidungen aus `results/agent-decisions.jsonl`.
-Diese erscheinen mit der Kennzeichnung „KI-Einzelprüfung, keine menschliche Freigabe“.
-Widersprüchliche menschliche Feldentscheidungen und veraltete
-Schreibstände werden abgewiesen. Bestehende Entscheidungen können im Filter „Entschieden“ bearbeitet werden.
-Wenn sich zwei Entscheidungen zum selben Feld widersprechen, zunächst eine davon zurückstellen und
-anschließend die gemeinsame Fassung abstimmen.
-Menschliche Entscheidungen überschreiben KI-Entscheidungen zum selben Prüfpunkt. Abweichende
-menschliche Entscheidungen zu anderen Prüfpunkten desselben Feldes stellen die betroffenen
-KI-Befunde zur erneuten Prüfung zurück. Beide ursprünglichen Entscheidungsdateien bleiben getrennt.
+The application writes atomically to `results/human-decisions.jsonl`, recording reviewer, role,
+time, rationale, final field text and evidence. Deferred points remain open. The pipeline also
+incorporates explicitly commissioned AI decisions from `results/agent-decisions.jsonl`.
+These carry the label “KI-Einzelprüfung, keine menschliche Freigabe” (case-by-case AI review,
+not human approval). Conflicting human field decisions and stale writes are rejected.
+Existing decisions can be edited under “Entschieden” (decided). If two decisions conflict on
+the same field, first defer one, then agree on a shared final wording.
+Human decisions override AI decisions on the same review point. Divergent human decisions
+on other review points in the same field reopen the affected AI findings. The two original
+decision files remain separate.
 
-Diese erste Version läuft ausschließlich lokal. Mehrere Browser desselben Servers teilen dieselbe
-Entscheidungsdatei; unabhängige Kopien sind kein gemeinsam synchronisierter Reviewdienst. Für verteilte
-Expertenteams wäre ein gemeinsamer authentifizierter Dienst der nächste Schritt. GitHub Issues eignen
-sich für übergreifende Terminologie- und Methodenfragen; die Einzelfallentscheidungen bleiben im Ledger.
-Reviewernamen oder Kennungen in der Datei werden bei einer späteren Veröffentlichung sichtbar.
+This version runs locally only. Multiple browsers connected to the same server share one
+decision file; independent copies are not a synchronized review service. Distributed expert
+teams would need a shared authenticated service. GitHub Issues suit cross-cutting terminology
+and methodology questions; case decisions remain in the ledger. Reviewer names or identifiers
+in the file become visible when published.
 
-Die freigegebene Zahlenregel (`1,234` → `1.234`, `1.23` → `1,23`) gilt automatisch.
-Das Interface zeigt den aktuellen Feldtext einschließlich gespeicherter Entscheidungen und Zahlenregel.
-Reine Formatbefunde gelten als entschieden und erscheinen nicht mehr im Filter „Offen“.
-Unter „Entschieden“ bleibt die Regelanwendung sichtbar; zusätzliche Bedeutungsfragen bleiben offen.
-Die ursprünglichen Modelltexte und menschlichen Entscheidungseinträge bleiben für die Nachvollziehbarkeit erhalten.
-`python3 scripts/apply_number_policy.py` exportiert die aktuelle Arbeitsfassung mit Änderungsnachweis.
+The approved number policy (`1,234` → `1.234`, `1.23` → `1,23`) applies automatically.
+The interface shows current field text, including stored decisions and number formatting.
+Formatting-only findings count as resolved and no longer appear under “Offen” (open).
+Their policy application remains visible under “Entschieden”; additional questions about
+meaning remain open. Original model text and human decision records are preserved for audit.
+`python3 scripts/apply_number_policy.py` exports the current working translation with a change record.
 
-Nach Abschluss: `python3 scripts/finalize.py results`. Diese Prüfung verlangt zusätzlich den
-vollständigen Modellreview und verweigert eine Finalisierung bei offenen oder widersprüchlichen Fällen.
+When finished, run `python3 scripts/finalize.py results`. This also requires complete model
+review and refuses finalization if cases remain open or conflicting.
 
-## Eigene Beobachtungen
+## Adding observations
 
-„Alle 803 Fälle“ öffnet auch bisher unmarkierte Fälle; „Ohne Hinweis“ zeigt nur diese.
-Unter „Eigenen Hinweis hinzufügen“ kann jedes übersetzte Feld ausgewählt werden. Name, Rolle
-und Begründung sind erforderlich. Ein Vorschlag ist optional und noch keine Freigabe.
+“Alle 803 Fälle” (all 803 cases) also opens previously unflagged cases; “Ohne Hinweis” shows
+only unflagged cases. Under “Eigenen Hinweis hinzufügen” (add your own finding), select any
+translated field. Name, role and rationale are required. A proposed correction is optional
+and does not constitute approval.
 
-Eigene Hinweise werden getrennt in `results/human-findings.jsonl` gespeichert. Sie bleiben bei
-einem erneuten Modellreview erhalten und müssen vor der Finalisierung ebenfalls entschieden sein.
-Für Terminologiefragen können Suchbegriff und Regelvorschlag ergänzt werden. Die Fundstellen werden
-mitgespeichert und können über die Suche einzeln geprüft werden. Es gibt keine globale Ersetzung.
+User findings are stored separately in `results/human-findings.jsonl`. They survive repeated
+model reviews and must also be resolved before finalization. For terminology questions,
+you can add a search term and a proposed rule. Occurrences are saved and can be reviewed
+individually through search. There is no global replacement.
 
-Beispiel CCTV: Bei Überwachungsaufnahmen „Überwachungsvideo“ oder „Aufnahmen einer Überwachungskamera“;
-beim chinesischen Fernsehsender „Videoausschnitt des Senders CCTV“. Maßgeblich bleibt der Kontext.
+CCTV example: for surveillance footage, use “Überwachungsvideo” or “Aufnahmen einer
+Überwachungskamera”; for the Chinese broadcaster, “Videoausschnitt des Senders CCTV”.
+The context determines the meaning.

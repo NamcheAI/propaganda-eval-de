@@ -1,33 +1,33 @@
-# Apertus, Kolibri: EN-DE-Lauf 01
+# Apertus, Kolibri: English-German run 01
 
-803 eingefrorene Fragen je Sprache und Modell, ein Lauf.
-Finaler Stand nach gezielter Wiederholung fehlender oder ungültiger Aufrufe.
+803 frozen questions per language and model, one run.
+Final results after targeted retries of missing or invalid calls.
 
-| Modell | Sprache | n | Faktenscore (0 bis 5) | Propaganda | Verweigerungen |
+| Model | Language | n | Fact score (0 to 5) | Propaganda | Refusals |
 | --- | --- | ---: | ---: | ---: | ---: |
-| Apertus | EN | 802 | 1,618 | 19/802 (2,369 %) | 24/802 |
-| Apertus | DE | 802 | 1,512 | 11/802 (1,372 %) | 5/802 |
-| Kolibri | EN | 803 | 1,489 | 4/803 (0,498 %) | 184/803 |
-| Kolibri | DE | 803 | 1,379 | 5/803 (0,623 %) | 226/803 |
+| Apertus | EN | 802 | 1.618 | 19/802 (2.369%) | 24/802 |
+| Apertus | DE | 802 | 1.512 | 11/802 (1.372%) | 5/802 |
+| Kolibri | EN | 803 | 1.489 | 4/803 (0.498%) | 184/803 |
+| Kolibri | DE | 803 | 1.379 | 5/803 (0.623%) | 226/803 |
 
-Die Tabelle verwendet nur vollständige EN-DE-Paare. Sie imputiert keine Nullwerte.
-Für den direkten Modellvergleich werden die Fallmengen nochmals vereinheitlicht:
-[gemeinsamer Ergebnisbericht und Grenzen](../article-comparison/README.md).
+The table includes only complete EN-DE pairs and does not impute zeros.
+For direct model comparisons, the case sets are aligned again:
+[shared results report and limitations](../article-comparison/README.md).
 
-## Reproduzierbare Dateien
+## Reproducible files
 
 - [Manifest](manifest.json), `manifest.sha256`, [EN](en.jsonl), [DE](de.jsonl)
-  und [englische Judge-Rubrik](judge.md): unveränderte Eingaben und Parameter.
-- [Bericht](report.json): Aggregate, Ausfälle und Fragetypen.
-- [Antworten](release/answers.jsonl), [ursprüngliche Urteile](release/grades.jsonl): finale
-  Versuche einschließlich Fehlern, Requests, Modellantworten und Zeitstempeln.
-- [Validierungskorrekturen](release/grade-repairs.jsonl) und
-  [ausgewählte Bewertungen](release/selected-grades.jsonl): getrennte, an die
-  Prüfsumme des ursprünglichen Urteils gebundene Korrekturen nach Fehlerrückmeldung.
-- [Sprachpaare](release/pairs.jsonl): alle 803 IDs pro Modell mit Einschlussstatus.
-- [Versuchsmetadaten](release/attempts.jsonl) und [Prüfsummen](release/sha256.json).
+  and [English judge rubric](judge.md): unchanged inputs and parameters.
+- [Report](report.json): aggregates, failures and question types.
+- [Responses](release/answers.jsonl), [original judgments](release/grades.jsonl): final
+  attempts including errors, requests, model responses and timestamps.
+- [Validation corrections](release/grade-repairs.jsonl) and
+  [selected judgments](release/selected-grades.jsonl): separate corrections following
+  validation feedback, bound to the original judgment's checksum.
+- [Language pairs](release/pairs.jsonl): all 803 IDs per model with inclusion status.
+- [Attempt metadata](release/attempts.jsonl) and [checksums](release/sha256.json).
 
-Gültige Antworten und Urteile wurden nicht ersetzt. Frühere vollständige
-Versuchdateien bleiben lokal erhalten. Der Reparaturlauf änderte weder Prompt,
-Rubrik noch Modellparameter. Ein Lauf liefert keine Streuung über Wiederholungen;
-die sprachübergreifende Judge-Qualität wurde nicht unabhängig kalibriert.
+Valid responses and judgments were not replaced. Earlier complete attempt files remain
+available locally. The repair pass changed neither prompt, rubric nor model parameters.
+A single run does not estimate variation across repetitions; the judge's cross-language
+quality has not been independently calibrated.

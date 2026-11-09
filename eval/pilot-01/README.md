@@ -1,13 +1,13 @@
-# Technischer Pilot
+# Technical pilot
 
-Sechs vorab ausgewählte Fälle, Englisch und Deutsch, zwei Modelle: 24 Antworten und
-24 gültige Judge-Urteile. Alle zwölf EN-DE-Paare sind vollständig auswertbar.
+Six prespecified cases, English and German, two models: 24 responses and 24 valid judge
+judgments. All twelve EN-DE pairs can be evaluated completely.
 
-Dies prüft die technische Durchführung mit dem Übersetzungsentwurf. Die sechs Fälle
-sind keine Grundlage für allgemeine Aussagen über Sprachunterschiede oder Modellrangfolgen.
-Der menschliche Abgleich der Judge-Urteile steht noch aus.
+This tests the technical implementation using the draft translation. The six cases do not
+support general claims about language differences or model rankings. Human comparison
+against the judge's judgments remains outstanding.
 
-`manifest.json` enthält Auswahl, Einstellungen und Eingabeprüfsummen. `answers.jsonl`
-und `grades.jsonl` enthalten die Ergebnisse; `report.json` die gepaarte Auswertung.
-Die unveränderten Snapshots der Eingaben und des Judge-Prompts liegen bei.
-Transportanfragen und technische Zwischenstände bleiben im lokalen Laufcache.
+`manifest.json` records selection, settings and input checksums. `answers.jsonl` and
+`grades.jsonl` contain results; `report.json` contains the paired analysis.
+Unchanged input and judge-prompt snapshots are included. Transport requests and technical
+intermediate files remain in the local run cache.

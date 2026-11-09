@@ -1,23 +1,20 @@
-# Qwen-Kontrolllauf
+# Qwen control run: completed
 
-Die Generierung in `eval/qwen-01` ist mit allen 1.606 Antworten abgeschlossen.
-Qwen wurde über OpenRouter und den Namche-Gateway ausgeführt. Thinking ist mit
-`reasoning.enabled=false` ausgeschaltet; alle Antworten melden null Reasoning-Tokens.
-Keine eigene Qwen-GPU starten und keine erfolgreichen Antworten ersetzen.
+Generation in `eval/qwen-01` is complete with all 1,606 responses. Qwen ran through OpenRouter
+and the Namche gateway. Thinking is disabled with `reasoning.enabled=false`; all responses
+report zero reasoning tokens. Do not start a Qwen GPU or replace successful responses.
 
-Konfiguration und Prüfsummen bleiben im Run-Manifest unverändert. Öffentliche
-Anbieter-Metadaten stehen in `openrouter-model-metadata.json`; die tatsächliche
-Anbieterwahl ist von den verfügbaren Katalog-Endpunkten zu unterscheiden.
-Die deaktivierte Hetzner-Route ist kein aktiver zweiter Anbieter.
+Configuration and checksums remain unchanged in the run manifest. Public provider metadata
+is in `qwen-01/openrouter-model-metadata.json`; actual provider selection must be distinguished
+from the endpoints listed in the catalog. The disabled Hetzner route is not an active second provider.
 
-Der primäre Arete-Qwen-Vergleich verwendet die gemeinsame Menge aller vier
-Sprachbedingungen. Der ergänzende Vergleich mit Apertus/Kolibri verwendet acht.
-Alle gezielten Reparaturen und Exporte sind abgeschlossen und unabhängig nachgerechnet.
-Der primäre Arete-Qwen-Vergleich enthält alle 803 Fragen, der Vier-Modell-Vergleich
-802. Eine deutsche Apertus-Antwort bleibt am Tokenlimit unvollständig.
-Ungültige oder unvollständige Ergebnisse werden nicht als Nullwerte gewertet.
+The primary Arete-Qwen comparison uses the intersection of all four language conditions.
+The supplementary Apertus/Kolibri comparison uses eight. All targeted repairs and exports
+are complete and have been independently recalculated. The primary comparison contains all
+803 questions; the four-model comparison contains 802. One German Apertus response remains
+incomplete at the token limit. Invalid or incomplete results are not scored as zeros.
 
-[Protokoll](PROTOCOL.md) | [Ergebnisbericht](article-comparison/README.md)
+[Protocol](PROTOCOL.md) | [Results report](article-comparison/README.md)
 
-Der Website-Artikel bleibt während der Wartung im offenen PR198.
-Nicht mergen oder deployen.
+The article is published in [English](https://namche.ai/insights/arete-auf-deutsch?language=en)
+and [German](https://namche.ai/insights/arete-auf-deutsch?language=de).

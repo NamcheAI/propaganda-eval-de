@@ -26,7 +26,7 @@ English-German evaluations of Arete, Qwen, Kolibri and Apertus.
 - [Dataset, review records and results](https://huggingface.co/datasets/namcheai/propaganda-eval-de)
 - [Code, methods and prompts](https://github.com/NamcheAI/propaganda-eval-de)
 - [Read the findings in English](https://namche.ai/insights/arete-auf-deutsch?language=en)
-- [Ergebnisse auf Deutsch lesen](https://namche.ai/insights/arete-auf-deutsch?language=de)
+- [Read the findings in German](https://namche.ai/insights/arete-auf-deutsch?language=de)
 
 The original benchmark and Arete model are by
 [Nous Research](https://nousresearch.com/arete). Namche translated and evaluated
@@ -34,10 +34,4 @@ the benchmark; we did not train a model. Each release documents its sources,
 model settings and limitations. These results describe behaviour under a
 specific rubric, not general political neutrality.
 
-## Über Namche
-
-Namche verbindet KI-Beratung, Umsetzung und eigene Produktentwicklung in
-Dornbirn, Österreich. Auf Hugging Face veröffentlichen wir Datensätze und
-Evaluationsergebnisse mit dokumentierten Methoden, Prompts und Grenzen.
-
-[Website](https://namche.ai) · [GitHub](https://github.com/NamcheAI) · [Kontakt](https://namche.ai/de/contact)
+[Website](https://namche.ai) · [GitHub](https://github.com/NamcheAI) · [Contact](https://namche.ai/contact)

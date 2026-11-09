@@ -1,66 +1,65 @@
-# Einzelprüfung der Minor-Befunde
+# Case-by-case review of minor findings
 
-Stand der Minor-Prüfung: 8. November 2026. Beauftragte KI-Adjudikation durch Codex.
-Der abschließende Release-Status steht in [FINAL_REVIEW.md](FINAL_REVIEW.md).
+Minor-review status: 8 November 2026. Commissioned AI adjudication by Codex.
+The final release status is documented in [FINAL_REVIEW.md](FINAL_REVIEW.md).
 
-## Umfang und Ergebnis
+## Scope and results
 
-Geprüft wurden alle 344 zu Beginn offenen Minor-Befunde in 286 Items.
-Die bereits gespeicherten 39 menschlichen Entscheidungen wurden unverändert erhalten.
+All 344 minor findings that were open at the start were reviewed, across 286 items.
+The 39 previously stored human decisions were preserved unchanged.
 
-| Entscheidung | Befunde |
+| Decision | Findings |
 | --- | ---: |
-| Modellvorschlag übernommen (`accept`) | 137 |
-| Eigene Korrektur (`modify`) | 85 |
-| Befund verworfen, Übersetzung beibehalten (`reject`) | 121 |
-| Zurückgestellt (`defer`) | 1 |
+| Model proposal accepted (`accept`) | 137 |
+| Custom correction (`modify`) | 85 |
+| Finding rejected, translation retained (`reject`) | 121 |
+| Deferred (`defer`) | 1 |
 
-222 Entscheidungen ändern den Text in 221 unterschiedlichen Feldern von 187 Items.
-Mehrere Befunde können dasselbe Feld betreffen. Die Zahlen sind keine Fehlerrate des Datensatzes.
+222 decisions change the text in 221 distinct fields across 187 items.
+Several findings may concern the same field. These counts are not a dataset error rate.
 
-## Vorgehen
+## Procedure
 
-Arbeitsauftrag: „für die minors - gehe fall für fall durch, mach eine kurze recherche und entscheide
-dann, inkl. dokumentation der entscheidung“.
+The owner commissioned a brief investigation and documented decision for each minor finding.
 
-Jeder Befund wurde mit dem englischen Benchmark-Feld, der deutschen Fassung, dem Modellhinweis
-und dem verfügbaren Quellenkontext geprüft. Maßstab ist Bedeutungstreue, insbesondere Akteur,
-Modalität, Quantor, politische Rahmung und Fachbegriff. Reine stilistische Varianten erzwingen
-keine Änderung. Der englische Benchmark bleibt maßgeblich, auch wenn ein zugrunde liegender
-Artikel oder Gesetzestext ausführlicher ist. Die freigegebene deutsche Zahlenformatierung gilt weiter.
+Each finding was checked against the English benchmark field, German translation, model
+finding and available source context. The criterion is fidelity, particularly actors,
+modality, quantifiers, political framing and specialist terminology. Purely stylistic variants
+do not require changes. The English benchmark remains authoritative even if an underlying
+article or legal text provides more detail. The approved German number policy continues to apply.
 
-Die Recherche nutzte die verlinkten Originalquellen, amtliche Parallelfassungen, Fachquellen und
-bei Sprachfragen etwa die [Duden-Datumsregel](https://www.duden.de/sprachwissen/rechtschreibregeln/datum).
-PDFs wurden, soweit technisch möglich, mit `pdftotext` ausgelesen. Bei gesperrten oder nicht
-auslesbaren Quellen wurden Suchauszüge beziehungsweise ergänzende Quellen herangezogen.
-Ein erfolgreicher HTTP-Abruf allein gilt nicht als inhaltliche Bestätigung.
+Research used linked original sources, official parallel versions, specialist sources and,
+for language questions, resources such as the [Duden date rule](https://www.duden.de/sprachwissen/rechtschreibregeln/datum).
+PDF text was extracted with `pdftotext` where technically possible. Search excerpts or
+supplementary sources were used for blocked or unreadable sources. A successful HTTP request
+alone does not count as substantive confirmation.
 
-Für 239 Befunde lag ausgelesener Text der angegebenen Quelle vor, für 86 ein passender Suchauszug.
-Bei 19 war die ursprüngliche Quelle nicht nutzbar; ergänzende Belege oder die Beschränkung der
-Entscheidung auf den eindeutigen EN-DE-Wortlaut sind jeweils dokumentiert. Diese Kategorien
-beschreiben den Quellenzugriff, nicht eine vollständige Überprüfung sämtlicher Tatsachen des Items.
+Extracted text from the stated source was available for 239 findings, and a relevant search
+excerpt for 86. The original source was unusable for 19; supplementary evidence or a decision
+limited to unambiguous EN-DE wording is documented for each. These categories describe source
+access, not complete verification of every factual claim in an item.
 
-Die Prüfung erfolgte im interaktiven Codex-Arbeitsablauf, nicht als weiterer standardisierter
-API-Reviewlauf mit einem neuen festen Prompt. Die dokumentierten Astra- und Fable-Prompts sowie
-ihre Rohantworten bleiben unverändert. Methodische Grundlagen und Grenzen stehen in
-[METHOD.md](../METHOD.md#quellen); insbesondere ersetzt diese KI-Prüfung keine unabhängige,
-qualifizierte menschliche MQM-Bewertung oder repräsentative Stichprobe.
+Review took place in the interactive Codex workflow, not another standardized API review run
+with a new fixed prompt. The documented Astra and Fable prompts and raw responses remain
+unchanged. Methodological foundations and limitations are documented in [METHOD.md](../METHOD.md#sources).
+This AI review does not replace independent, qualified human MQM assessment or a representative sample.
 
-## Nachweise und Arbeitsfassung
+## Evidence and working translation
 
-- [agent-decisions.jsonl](agent-decisions.jsonl): Entscheidung, Begründung, Belege, Zeitpunkt und KI-Rolle je Issue-ID.
-- [agent-research.jsonl](agent-research.jsonl): EN-Feld, deutsche Fassung vor und nach der Prüfung, Quellenzugriff und Einschränkungen je Befund.
-- [agent-review-manifest.json](agent-review-manifest.json): Umfang und Prüfsummen der verwendeten Artefakte.
-- [working-translation.jsonl](working-translation.jsonl): Arbeitsfassung mit menschlichen Entscheidungen, KI-Entscheidungen und Zahlenregel.
+- [agent-decisions.jsonl](agent-decisions.jsonl): decision, rationale, evidence, time and AI role per issue ID.
+- [agent-research.jsonl](agent-research.jsonl): English field, German wording before/after review, source access and limitations per finding.
+- [agent-review-manifest.json](agent-review-manifest.json): scope and checksums of the artifacts used.
+- [working-translation.jsonl](working-translation.jsonl): working translation incorporating human decisions, AI decisions and the number policy.
 
-Im lokalen Interface sind KI-Entscheidungen unter „Entschieden“ einsehbar und menschlich
-überschreibbar. Zurückgestellte Befunde bleiben offen. Menschliche Entscheidungen haben Vorrang;
-eine widersprechende spätere Feldentscheidung macht betroffene KI-Entscheidungen erneut prüfpflichtig.
+In the local interface, AI decisions can be inspected under “Entschieden” (decided) and
+overridden by a human. Deferred findings remain open. Human decisions take precedence;
+a later conflicting field decision requires renewed review of affected AI decisions.
+Original decision and research records remain in their original languages.
 
-## Abschließende Entscheidung
+## Final decision
 
-**Fall 0548, Prompt:** „camps, exits, birth rates“. Die Recherche klärt nicht zuverlässig, ob
-„exits“ Entlassungen aus den Lagern oder Ausreisen aus China bezeichnet. Die beauftragte
-Schlussadjudikation entscheidet auf **Entlassungen**, gestützt auf Internierungs- und Lagerkontext
-sowie den Referenzfakt zur Freilassung politischer Gefangener. Die Restunsicherheit bleibt dokumentiert.
-Alle weiteren Hinweise sind ebenfalls entschieden; die finale Fassung enthält keine offenen Prüfpunkte.
+**Case 0548, prompt:** “camps, exits, birth rates”. Research does not reliably establish whether
+“exits” means release from camps or departure from China. The commissioned final adjudication
+chooses **“Entlassungen” (releases)**, based on the detention/camp context and the reference fact
+about releasing political prisoners. Residual uncertainty remains documented.
+All other findings have also been decided; the final translation has no open review points.
