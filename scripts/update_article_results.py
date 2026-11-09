@@ -82,7 +82,9 @@ verwendeten Bewertungsrubrik.
 
 Den [Datensatz](https://huggingface.co/datasets/here-be-dragons-ai/propaganda-eval-de)
 und [Methodik, Prompts und Ergebnisse](https://github.com/here-be-dragons-ai/propaganda-eval-de)
-veröffentlichen wir unter here-be-dragons-ai. Wir haben kein Modell nachtrainiert.
+veröffentlichen wir bei [Here Be Dragons](https://here-be-dragons.ai).
+Here Be Dragons ist eine Non-Profit-Organisation für verantwortungsvolle
+Mensch-Maschine-Zukünfte. Wir haben kein Modell nachtrainiert.
 
 [[image]]
 
@@ -202,14 +204,42 @@ Deutsch um **{num(g['de']['propaganda_reduction_percentage_points'])} Prozentpun
 Die Differenz dieser Verringerungen beträgt
 {num(diff['propaganda_reduction_percentage_points'])} Prozentpunkte.
 
-Damit bleibt Aretes Vorteil gegenüber Qwen in diesem ersten deutschen Lauf
-sichtbar. Das ist eine deskriptive Aussage über diese Modelle und Konfigurationen,
-kein isolierter Kausalnachweis des Trainings und kein Signifikanznachweis eines
-stärkeren Effekts in einer Sprache.
-
 [[eval:design]]
 
-## Kolibri und Apertus: weitere Sprachvergleiche
+[[eval:europe]]
+
+Europäische Entwicklung und eigener Betrieb sind wichtige Schritte zu mehr
+Unabhängigkeit. Doch auch hier stellt sich die Frage, welche politischen
+Prägungen ein Modell mitbringt. Dazu gehört ein Blick auf die Trainingsgeschichte:
+Viele Modelle lernen auch aus Antworten anderer KI-Systeme. Solche
+**Tutormodelle** liefern synthetische Trainingsbeispiele und können damit
+neben Fähigkeiten auch Antwortmuster weitergeben.
+
+**Kolibri 1** stammt von Aleph Alpha aus Heidelberg und wurde im Oktober 2026
+veröffentlicht. Es ist ein eigenständig vortrainiertes Modell für Deutsch und
+Englisch mit rund 78 Milliarden Parametern, von denen pro Token rund 3,5 Milliarden
+aktiv sind. Die [Modellkarte](https://huggingface.co/Aleph-Alpha/Kolibri-1)
+beschreibt unter anderem synthetische Umformulierungen mit Gemma und Mistral.
+Die [Sovereign Models Scorecard von Here Be Dragons](https://huggingface.co/datasets/here-be-dragons-ai/sovereign-models-scorecard)
+dokumentiert für das Post-Training vor allem GLM-5.2, GLM-5.3 und Qwen3.8-27B
+als Datenlieferanten. Aleph Alpha beschreibt außerdem eigene Maßnahmen gegen
+politischen Bias aus synthetischen Trainingsdaten.
+
+**Apertus** entstand im Rahmen der Swiss AI Initiative von ETH Zürich und EPFL
+mit dem Schweizer Supercomputing-Zentrum CSCS. Wir testen die 8B-Instruct-Variante
+der ersten Generation von September 2025. Sie wurde von Grund auf trainiert;
+Gewichte, Datenaufbereitung und Trainingsverfahren sind offen dokumentiert.
+Auch hier kommen externe Modelle ins Spiel: Laut
+[technischem Bericht](https://arxiv.org/html/2509.14233v1#S4.SS1.SSS4)
+erzeugten Llama 3.1 8B, Llama 3.3 70B, Qwen 2.5 72B, Qwen 3 14B und Qwen 3 32B
+Antworten für das Alignment. Bei kontroversen Themen orientiert sich dieses
+an der Swiss AI Charter. Die Scorecard führt die spätere Generation Apertus 1.5
+separat; deren Trainingsgeschichte ist nicht mit der hier getesteten Version
+gleichzusetzen.
+
+Die Herkunft der Tutormodelle allein belegt noch keinen übernommenen Bias.
+Deshalb messen wir auch bei diesen europäischen Modellen das tatsächliche
+Antwortverhalten im selben Test.
 
 `alephalpha/kolibri-1-tl5` und `publicai/apertus-8b-instruct` erweitern den
 Vergleich. Fragen, Rubrik, Temperatur und Tokenlimits stimmen mit den anderen
