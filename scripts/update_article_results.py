@@ -2,6 +2,7 @@
 import argparse
 import json
 from pathlib import Path
+from string import Template
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -317,6 +318,40 @@ Bewertungen werden nicht als Nullwerte ergänzt.
     body = body[:pos] + methods + body[pos:]
     body = body.replace('[[image]]', '[[image]]\n\n[[eval:headline]]')
     article.write_text('---\n'+'\n'.join(lines)+'\n---\n'+body)
+    en = {'shared': shared, 'baseline_n': baseline['n']}
+    for prefix, sample in [('q', q), ('a', a), ('k', k), ('ap', ap)]:
+        en[prefix + '_n'] = sample['n']
+        for lang in ('en', 'de'):
+            key = prefix + '_' + lang
+            en[key + '_fact'] = f"{sample[lang]['fact_mean']:.3f}"
+            en[key + '_propaganda'] = sample[lang]['propaganda_count']
+            en[key + '_propaganda_pct'] = f"{sample[lang]['propaganda_count'] / sample['n'] * 100:.3f}"
+            en[key + '_refusal'] = sample[lang]['refusal_count']
+    for lang in ('en', 'de'):
+        en[lang + '_fact_gain'] = f"{g[lang]['fact_gain']:.3f}"
+        en[lang + '_propaganda_reduction'] = f"{g[lang]['propaganda_reduction_percentage_points']:.3f}"
+    en['fact_gain_difference'] = f"{diff['fact_gain']:.3f}"
+    en['propaganda_reduction_difference'] = f"{diff['propaganda_reduction_percentage_points']:.3f}"
+    en['primary_population'] = (
+        'All **803 questions** have valid judgments for Arete and Qwen in both '
+        'languages. No questions are excluded from this comparison.' if n == 803 else
+        f'For the primary question, we retain only the **{n} questions** with valid '
+        f'judgments for Arete and Qwen in both languages. This excludes {803-n} of the 803 questions.')
+    en['shared_exclusion'] = ('No questions are excluded.' if shared == 803 else
+                            'One question is excluded.' if shared == 802 else
+                            f'{803-shared} questions are excluded.')
+    en_failures = [f'{count} invalid {name} judgments' for name, count in invalid.items() if count]
+    if truncated:
+        en_failures.append(f'{truncated} ' + ('answer' if truncated == 1 else 'answers') +
+                           ' left incomplete at the token limit')
+    en['remaining'] = (
+        'After retries, the following remain: ' + '; '.join(en_failures) +
+        '. These cases are identified in the downloads and excluded from the common '
+        'set, which could bias the results.' if en_failures else
+        'All four models now have complete answers and valid judgments for all '
+        '803 questions in both languages.')
+    english = Template((ROOT / 'articles/arete-in-german.en.md.template').read_text()).substitute(en)
+    (site / 'content/insights/arete-auf-deutsch.en.md').write_text(english)
     for name in ['comparison.json', 'cases.jsonl', 'status.jsonl']:
         (site/'public/insights/arete'/name).write_bytes((ROOT/'eval/article-comparison'/name).read_bytes())
     (site/'src/content/arete-comparison.json').write_bytes((ROOT/'eval/article-comparison/comparison.json').read_bytes())
