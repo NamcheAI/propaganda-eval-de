@@ -1,7 +1,6 @@
 ---
 title: Namche
 sdk: static
-app_file: index.html
 pinned: false
 ---
 
